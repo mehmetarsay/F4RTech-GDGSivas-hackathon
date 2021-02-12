@@ -34,6 +34,7 @@ dependencies:
   cloud_firestore: ^0.14.1+2
   firebase_auth: ^0.18.1+1
   firebase_core: ^0.5.0+1
+  supercharged: ^1.12.0
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -65,6 +66,42 @@ flutter:
   # "family" key with the font family name, and a "fonts" key with a
   # list giving the asset and other descriptors for the font. For
   # example:
+  fonts:
+    - family: GROBOLD
+      fonts:
+        - asset: assets/fonts/GROBOLD.ttf
+    - family: Gilroy
+      fonts:
+        - asset: assets/fonts/Gilroy-Black.ttf
+        - asset: assets/fonts/Gilroy-BlackItalic.ttf
+          style: italic
+        - asset: assets/fonts/Gilroy-Bold.ttf
+        - asset: assets/fonts/Gilroy-BoldItalic.ttf
+          style: italic
+        - asset: assets/fonts/Gilroy-ExtraBold.ttf
+        - asset: assets/fonts/Gilroy-ExtraBoldItalic.ttf
+          style: italic
+        - asset: assets/fonts/Gilroy-ExtraLight.ttf
+        - asset: assets/fonts/Gilroy-ExtraLightItalic.ttf
+          style: italic
+        - asset: assets/fonts/Gilroy-Heavy.ttf
+        - asset: assets/fonts/Gilroy-HeavyItalic.ttf
+          style: italic
+        - asset: assets/fonts/Gilroy-Italic.ttf
+          style: italic
+        - asset: assets/fonts/Gilroy-Light.ttf
+        - asset: assets/fonts/Gilroy-LightItalic.ttf
+          style: italic
+        - asset: assets/fonts/Gilroy-Medium.ttf
+        - asset: assets/fonts/Gilroy-MediumItalic.ttf
+          style: italic
+        - asset: assets/fonts/Gilroy-Regular.ttf
+        - asset: assets/fonts/Gilroy-SemiBold.ttf
+        - asset: assets/fonts/Gilroy-SemiBoldItalic.ttf
+          style: italic
+        - asset: assets/fonts/Gilroy-ThinItalic.ttf
+          style: italic
+        - asset: assets/fonts/Gilroy-Thin.ttf
   # fonts:
   #   - family: Schyler
   #     fonts:
