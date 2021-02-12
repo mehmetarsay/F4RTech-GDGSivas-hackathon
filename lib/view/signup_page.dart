@@ -4,9 +4,11 @@ import 'package:f4rtech_gdgsivas_hackathon/common_widget/accept_button.dart';
 import 'package:f4rtech_gdgsivas_hackathon/common_widget/my_text_field.dart';
 import 'package:flutter/material.dart';
 class SignUpPage extends StatefulWidget {
-  bool userType=false;//false: gönüllü / true: hayırsever
+  bool userType;//false: gönüllü / true: hayırsever
   @override
   _SignUpPageState createState() => _SignUpPageState();
+
+  SignUpPage(this.userType);
 }
 
 class _SignUpPageState extends State<SignUpPage> {
@@ -14,6 +16,7 @@ class _SignUpPageState extends State<SignUpPage> {
   TextEditingController email = TextEditingController();
   TextEditingController phoneNumber = TextEditingController();
   TextEditingController institution = TextEditingController();
+  TextEditingController password = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -38,6 +41,7 @@ class _SignUpPageState extends State<SignUpPage> {
                       MyTextField(label: 'Email', controller: email,userType: widget.userType,),
                       MyTextField(label: 'Telefon Numarası', controller: phoneNumber,userType: widget.userType,textInputType: TextInputType.number,),
                       MyTextField(label: 'Bağlı Kurum*', controller: institution,userType: widget.userType,),
+                      MyTextField(label: 'Şifre', controller: institution,userType: widget.userType,),
                       widget.userType ==false ? AcceptButton('Kayıt Ol',ColorTable.blue):
                       AcceptButton('Kayıt Ol',ColorTable.green),
                     ],
