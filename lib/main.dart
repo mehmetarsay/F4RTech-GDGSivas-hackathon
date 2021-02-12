@@ -1,4 +1,5 @@
-import 'package:f4rtech_gdgsivas_hackathon/view/landing_page.dart';
+import 'package:f4rtech_gdgsivas_hackathon/view/login_page.dart';
+import 'package:f4rtech_gdgsivas_hackathon/view/signup_page.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -45,7 +46,7 @@ class _MyHomePageState extends State<MyHomePage> {
       theme: ThemeData(
           fontFamily: 'Gilroy',
       ),
-      home:LandingPage() ,
+      home:SignUpPage() ,
     );
   }
 }
