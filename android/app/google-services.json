@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "394133780495",
+    "project_id": "f4rtech-gdgsivas-hackathon",
+    "storage_bucket": "f4rtech-gdgsivas-hackathon.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:394133780495:android:55bd72bd2040b2a61b0b7a",
+        "android_client_info": {
+          "package_name": "com.f4rtech.f4rtech_gdgsivas_hackathon"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "394133780495-jfogv4ea4kqirpningo6pi2boa29u68b.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCcHdJltS7PI-WuxA6et4iCK2W4vTrWjIM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "394133780495-jfogv4ea4kqirpningo6pi2boa29u68b.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
