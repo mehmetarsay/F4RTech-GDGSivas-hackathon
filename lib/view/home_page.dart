@@ -4,6 +4,7 @@ import 'package:f4rtech_gdgsivas_hackathon/view/sharer_product_add_page.dart';
 import 'package:f4rtech_gdgsivas_hackathon/view/deneme_page.dart';
 import 'package:f4rtech_gdgsivas_hackathon/view/sharer_page.dart';
 import 'package:f4rtech_gdgsivas_hackathon/view/sharer_request_page.dart';
+import 'package:f4rtech_gdgsivas_hackathon/view/volunteer_leader_board_page.dart';
 import 'package:f4rtech_gdgsivas_hackathon/view/volunteer_profil_page.dart';
 import 'package:f4rtech_gdgsivas_hackathon/view/volunteer_request_page.dart';
 import 'package:f4rtech_gdgsivas_hackathon/viewmodel/user_model.dart';
@@ -206,6 +207,7 @@ class HomeScreen extends State<HomeScreenPage>
               });
 
             }),
+
         if(widget.userType == UserType.SHARER)
           options(
             text: 'Gelen İstekler',
@@ -214,7 +216,6 @@ class HomeScreen extends State<HomeScreenPage>
                 closeDrawer();
                 bodyPage = SharerRequestPage();
               });
-
             }),
         options(
             text: 'Çıkış Yap',
