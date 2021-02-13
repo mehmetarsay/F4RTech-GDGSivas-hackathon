@@ -38,6 +38,9 @@ dependencies:
   simple_animations: ^2.5.0
   get_it: ^5.0.6
   provider: ^4.3.3
+  google_maps_flutter: ^1.2.0
+  geolocator: ^6.2.0
+  geocoder: ^0.2.1
 
   flutter_custom_clippers: ^1.1.2
 
