@@ -1,7 +1,10 @@
 import 'package:f4rtech_gdgsivas_hackathon/app/colors.dart';
 import 'package:f4rtech_gdgsivas_hackathon/app/constants.dart';
+import 'package:f4rtech_gdgsivas_hackathon/app/enums.dart';
 import 'package:f4rtech_gdgsivas_hackathon/view/login_page.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
+import 'package:simple_animations/simple_animations.dart';
 import 'package:supercharged/supercharged.dart';
 
 class LandingPage extends StatefulWidget {
@@ -11,6 +14,7 @@ class LandingPage extends StatefulWidget {
 
 class _LandingPageState extends State<LandingPage> {
   PageController _pageController = PageController();
+
   @override
   Widget build(BuildContext context) {
     return ScrollConfiguration(
@@ -21,25 +25,35 @@ class _LandingPageState extends State<LandingPage> {
         children: [
           LogInPage(true),
           Scaffold(
-            body: SafeArea(
-              child: Container(
-                height: Constants.getHeight(context),
-                width:Constants.getWidth(context) ,
-                child: Column(
-                  children: [
-                    landingText(
-                        title: 'HAYIRSEVER',
-                        content:
-                        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque nisl eros, pulvinar facilisis justo mollis, auctor consequat urna.',
-                        backgroundColor: ColorTable.blue,
-                    scroolPage: 2),
-                    landingText(
-                        title: 'GÖNÜLLÜ',
-                        content:
-                        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque nisl eros, pulvinar facilisis justo mollis, auctor consequat urna.',
-                        backgroundColor: ColorTable.green,scroolPage: 0)
-                  ],
-                ),
+            backgroundColor: Colors.white,
+            body: Container(
+              height: Constants.getHeight(context),
+              width:Constants.getWidth(context) ,
+              child: Stack(
+                children: [
+                  Positioned(
+                    left: -Constants.getWidthValue(context, 17),
+                    bottom: Constants.getHeightValue(context, 50),
+                    child: Container(
+                      child: Image.asset(
+                        'assets/b2.png',
+                        height: Constants.getHeight(context),
+                        width: Constants.getWidth(context)/2,
+                      ),
+                    ),
+                  ),
+                  Positioned(
+                    right: 0,
+                    bottom: Constants.getHeightValue(context, 60),
+                    child: Container(
+                      child: Image.asset(
+                        'assets/a1.png',
+                        height: Constants.getHeight(context),
+                        width: Constants.getWidth(context)/2,
+                      ),
+                    ),
+                  )
+                ],
               ),
             ),
           ),
@@ -62,8 +76,7 @@ class _LandingPageState extends State<LandingPage> {
         );
       },
       child: Container(
-          padding: EdgeInsets.all(16),
-          color: backgroundColor,
+          padding: EdgeInsets.all(Constants.getHeightValue(context, 20)),
           width: MediaQuery.of(context).size.width,
           child: Column(
             children: [
@@ -74,12 +87,12 @@ class _LandingPageState extends State<LandingPage> {
                       style: TextStyle(
                           fontSize: 38,
                           fontWeight: FontWeight.bold,
-                          color: Colors.white)),
+                          color: backgroundColor)),
                   IconButton(
                       icon: Icon(
                         Icons.arrow_forward,
                         size: 48,
-                        color: Colors.white,
+                        color: backgroundColor,
                       ),
                       onPressed: null),
                 ],

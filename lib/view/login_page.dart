@@ -4,6 +4,7 @@ import 'package:f4rtech_gdgsivas_hackathon/common_widget/accept_button.dart';
 import 'package:f4rtech_gdgsivas_hackathon/common_widget/my_text_field.dart';
 import 'package:f4rtech_gdgsivas_hackathon/view/signup_page.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
 
 class LogInPage extends StatefulWidget {
   bool userType;
@@ -26,8 +27,31 @@ class _LogInPageState extends State<LogInPage> {//false: gönüllü / true: hay�
         child: Container(
           height: Constants.getHeight(context),
           width: Constants.getWidth(context),
+
           child: Stack(
             children: [
+              widget.userType == true ?Positioned(
+                right: 0,
+                bottom: Constants.getHeightValue(context, 47),
+                child: Container(
+                  child: Image.asset(
+                    'assets/b1.png',
+                    height: Constants.getHeight(context),
+                    width: Constants.getWidth(context)/2,
+                  ),
+                ),
+              ):
+              Positioned(
+                left: 0,
+                bottom: Constants.getHeightValue(context, 60),
+                child: Container(
+                  child: Image.asset(
+                    'assets/a2.png',
+                    height: Constants.getHeight(context),
+                    width: Constants.getWidth(context)/2,
+                  ),
+                ),
+              ),
               Positioned(
                 bottom: Constants.getHeightValue(context, 20),
                 left: Constants.getWidthValue(context, 35),
@@ -42,7 +66,7 @@ class _LogInPageState extends State<LogInPage> {//false: gönüllü / true: hay�
                       MyTextField(label: 'Şifre', controller: widget.password,userType: widget.userType,),
                       Container(
                         width: Constants.getWidth(context),
-                        alignment: Alignment.centerRight,
+                        alignment: Alignment.centerLeft,
                         child: Text(
                           'Şifremi Unuttum?',
                           style: TextStyle(

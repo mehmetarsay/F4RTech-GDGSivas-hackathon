@@ -5,3 +5,4 @@ enum UserType { VOLUNTEER, SHARER }
 enum ProductType {FOOD, CLOTHES}
 
 enum RequestStatus {WAITING, COMPLETED, DENIED}
+enum AniProps { width, height, color }
