@@ -10,6 +10,8 @@ class Product {
   final GeoPoint _location;
   final String _imageUrl;
 
+  GeoPoint get location => _location;
+
   Product(this._id, this._name, this._productType, this._explanation,
       this._publisher, this._location, this._imageUrl);
 

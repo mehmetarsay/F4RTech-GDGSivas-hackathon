@@ -1,5 +1,5 @@
 import 'package:f4rtech_gdgsivas_hackathon/app/constants.dart';
-import 'file:///D:/Projects/FlutterProjects/F4RTech-GDGSivas-hackathon/lib/view/sharer_product_add_page.dart';
+import 'package:f4rtech_gdgsivas_hackathon/view/sharer_product_add_page.dart';
 import 'package:f4rtech_gdgsivas_hackathon/view/deneme_page.dart';
 import 'package:f4rtech_gdgsivas_hackathon/view/sharer_page.dart';
 import 'package:f4rtech_gdgsivas_hackathon/view/sharer_request_page.dart';

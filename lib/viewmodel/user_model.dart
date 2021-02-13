@@ -6,6 +6,7 @@ import 'package:f4rtech_gdgsivas_hackathon/services/FirestoreService.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:f4rtech_gdgsivas_hackathon/models/user.dart' as usr;
+import 'package:geolocator/geolocator.dart';
 
 class UserModel with ChangeNotifier implements AuthBase {
   ViewState _state = ViewState.Idle;
@@ -13,6 +14,7 @@ class UserModel with ChangeNotifier implements AuthBase {
   FirestoreService _firestoreService = locator<FirestoreService>();
   var _user;
   var _differentUser;
+  Position currentLocation;
 
   UserModel() {
     currentUser();
@@ -38,6 +40,7 @@ class UserModel with ChangeNotifier implements AuthBase {
     try {
       state = ViewState.Busy;
       User userAuth = await _authService.currentUser();
+      _determinePosition();
       if (userAuth != null) {
         user = await _firestoreService.readUser(userAuth.uid);
         return user;
@@ -123,6 +126,42 @@ class UserModel with ChangeNotifier implements AuthBase {
       print('UserModel-signOut Error: $e');
       return e;
     } finally {
+      state = ViewState.Idle;
+    }
+  }
+  Future<Position> _determinePosition() async {
+    try{
+      state=ViewState.Busy;
+    bool serviceEnabled;
+    LocationPermission permission;
+
+    serviceEnabled = await Geolocator.isLocationServiceEnabled();
+    if (!serviceEnabled) {
+      return Future.error('Location services are disabled.');
+    }
+
+    permission = await Geolocator.checkPermission();
+    if (permission == LocationPermission.deniedForever) {
+      return Future.error(
+          'Location permissions are permantly denied, we cannot request permissions.');
+    }
+
+    if (permission == LocationPermission.denied) {
+      permission = await Geolocator.requestPermission();
+      if (permission != LocationPermission.whileInUse &&
+          permission != LocationPermission.always) {
+        return Future.error(
+            'Location permissions are denied (actual value: $permission).');
+      }
+    }
+    currentLocation = await Geolocator.getCurrentPosition();
+    return currentLocation;
+  }
+  catch(e){
+      print('permission sorun olustu $e');
+      return e;
+  }
+    finally {
       state = ViewState.Idle;
     }
   }

@@ -1,6 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:f4rtech_gdgsivas_hackathon/app/enums.dart';
 import 'package:f4rtech_gdgsivas_hackathon/models/product.dart';
+import 'package:f4rtech_gdgsivas_hackathon/view/SelectLocation.dart';
+import 'package:f4rtech_gdgsivas_hackathon/view/map_view.dart';
 import 'package:f4rtech_gdgsivas_hackathon/viewmodel/product_model.dart';
 import 'package:f4rtech_gdgsivas_hackathon/viewmodel/user_model.dart';
 import 'package:flutter/material.dart';
@@ -45,8 +47,18 @@ class _DenemepageState extends State<Denemepage> {
               ),
             ],
           ),
-          body: Center(
-            child: Text('Bos'),
+          body: Column(
+            children: [
+              Center(
+                child: RaisedButton(child:Text('MapView git'),onPressed: (){
+                  Navigator.push(context, MaterialPageRoute(builder:(context)=>MapView()));
+                },),
+
+              ),
+              RaisedButton(child:Text('SelectMap git'),onPressed: (){
+                Navigator.push(context, MaterialPageRoute(builder:(context)=>SelectLocation()));
+              },),
+            ],
           ),
         );
       } else {
