@@ -1,4 +1,5 @@
 import 'package:f4rtech_gdgsivas_hackathon/app/enums.dart';
+import 'package:f4rtech_gdgsivas_hackathon/view/SelectLocation.dart';
 import 'package:f4rtech_gdgsivas_hackathon/view/deneme_page.dart';
 import 'package:f4rtech_gdgsivas_hackathon/view/home_page.dart';
 import 'package:f4rtech_gdgsivas_hackathon/view/landing_page.dart';
@@ -10,7 +11,6 @@ class LoadingPage extends StatefulWidget {
   @override
   _LoadingPageState createState() => _LoadingPageState();
 }
-
 class _LoadingPageState extends State<LoadingPage> {
   @override
   Widget build(BuildContext context) {

@@ -6,6 +6,7 @@ import 'package:f4rtech_gdgsivas_hackathon/app/enums.dart';
 import 'package:f4rtech_gdgsivas_hackathon/locator.dart';
 import 'package:f4rtech_gdgsivas_hackathon/services/FirestoreService.dart';
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
 
 class ProductModel with ChangeNotifier implements ProductBase {
   ProductViewState _state = ProductViewState.Idle;
@@ -82,7 +83,7 @@ class ProductModel with ChangeNotifier implements ProductBase {
   Future<bool> saveProduct({String name,
     ProductType productType,
     String explanation,
-    String publisher}) async {
+    String publisher,GeoPoint geoPoint}) async {
     try {
       state = ProductViewState.Busy;
       String _id = DateTime
@@ -92,7 +93,7 @@ class ProductModel with ChangeNotifier implements ProductBase {
       Product product;
       if (productType == ProductType.FOOD) {
         product = Product(
-            _id, name, 'FOOD', explanation, publisher, GeoPoint(34, 34));
+            _id, name, 'FOOD', explanation, publisher, geoPoint);
       } else if (productType == ProductType.CLOTHES) {
         product = Product(
             _id, name, 'CLOTHES', explanation, publisher, GeoPoint(34, 34));

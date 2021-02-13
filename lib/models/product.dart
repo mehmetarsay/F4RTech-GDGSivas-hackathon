@@ -9,6 +9,8 @@ class Product {
   final String _publisher;
   final GeoPoint _location;
 
+  GeoPoint get location => _location;
+
   Product(this._id, this._name, this._productType, this._explanation,
       this._publisher, this._location);
 
