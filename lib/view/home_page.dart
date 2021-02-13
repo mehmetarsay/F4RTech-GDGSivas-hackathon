@@ -14,24 +14,24 @@ import 'package:provider/provider.dart';
 import '../app/colors.dart';
 
 class HomeScreenPage extends StatefulWidget {
-  String userType;
+  UserType userType;
   List<Color> backColor;
   @override
   HomeScreen createState() => HomeScreen();
 
   HomeScreenPage(this.userType){
-    if(userType == 'VOLUNTEER'){
-      backColor = ColorTable.blueT;
+    if(userType == UserType.VOLUNTEER){
+      backColor = ColorTable.greenT;
     }
     else{
-      backColor = ColorTable.greenT;
+      backColor = ColorTable.blueT;
     }
   }
 }
 
 class HomeScreen extends State<HomeScreenPage>
     with SingleTickerProviderStateMixin {
-  Widget bodyPage = SharerPage();
+  Widget bodyPage = null;
   bool isCollapsed = true;
   double screenWidth, screenHeight;
 
@@ -69,7 +69,7 @@ class HomeScreen extends State<HomeScreenPage>
     screenWidth = size.width;
 
     return new Scaffold(
-      backgroundColor: ColorTable.blueT[5],
+      backgroundColor: widget.backColor[5],
       body: new SafeArea(
         child: new Stack(
           children: <Widget>[
@@ -91,7 +91,7 @@ class HomeScreen extends State<HomeScreenPage>
           padding: EdgeInsets.symmetric(vertical: 15.0, horizontal: 25.0),
           child: Align(
             alignment: Alignment.centerLeft,
-            child:UserType() ,
+            child:UserTypeFunc() ,
           ),
         ),
       ),
@@ -138,7 +138,7 @@ class HomeScreen extends State<HomeScreenPage>
                 }
               }
 
-            },child: bodyPage,
+            },child: bodyPage != null ? bodyPage : widget.userType == UserType.VOLUNTEER ? VolunteerProfilPage():SharerPage(),
               //child: SharerPage(),
             ),
       ),
@@ -184,11 +184,7 @@ class HomeScreen extends State<HomeScreenPage>
       ),
     );
   }
-  UserType(){
-    bool user = false;
-    if(widget.userType == 'VOLUNTEER'){
-      user = true;
-    }
+  UserTypeFunc(){
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisAlignment: MainAxisAlignment.center,
@@ -198,29 +194,22 @@ class HomeScreen extends State<HomeScreenPage>
             onTap: () {
               setState(() {
                 closeDrawer();
-                bodyPage = user == true ? VolunteerProfilPage():SharerPage();
+                bodyPage = widget.userType == UserType.VOLUNTEER ? VolunteerProfilPage():SharerPage();
               });
 
             }),
         options(
-            text: user == true ? 'Ürün Al':'Ürün Paylaş',
+            text: widget.userType == UserType.VOLUNTEER ? 'Ürün Al':'Ürün Paylaş',
             onTap: (){
               setState(() {
                 closeDrawer();
-                bodyPage = user == true ? VolunteerRequestPage(): ProductAddPage();
+                bodyPage = widget.userType == UserType.VOLUNTEER ? VolunteerRequestPage(): ProductAddPage();
               });
 
             }),
-        if(user == true)options(
-            text:'Liderlik',
-            onTap: (){
-              setState(() {
-                closeDrawer();
-                bodyPage =VolunteerLeaderBoardPage();
-              });
 
-            }),
-        if(user==false)options(
+        if(widget.userType == UserType.SHARER)
+          options(
             text: 'Gelen İstekler',
             onTap: (){
               setState(() {
@@ -231,9 +220,9 @@ class HomeScreen extends State<HomeScreenPage>
         options(
             text: 'Çıkış Yap',
             onTap: () async {
-               final _userModel = Provider.of<UserModel>(context,listen: false);
+              final _userModel = Provider.of<UserModel>(context, listen: false);
               await _userModel.signOut();
-              Navigator.pop(context);
+              //Navigator.pop(context);
             }),
 
       ],

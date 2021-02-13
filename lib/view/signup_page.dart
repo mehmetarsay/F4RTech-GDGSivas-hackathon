@@ -9,7 +9,7 @@ import 'package:flutter_swiper/flutter_swiper.dart';
 import 'package:provider/provider.dart';
 
 class SignUpPage extends StatefulWidget {
-  bool userType; //false: gönüllü / true: hayırsever
+  UserType userType; //false: gönüllü / true: hayırsever
   @override
   _SignUpPageState createState() => _SignUpPageState();
 
@@ -51,8 +51,8 @@ class _SignUpPageState extends State<SignUpPage> {
                   pagination: new SwiperPagination(
                     alignment: Alignment(0, 0.8),
                     builder: new DotSwiperPaginationBuilder(
-                      color: widget.userType == false ? ColorTable.blueT[5]:ColorTable.greenT[5],
-                      activeColor: widget.userType == false ?ColorTable.blueT[0]:ColorTable.greenT[0],
+                      color: widget.userType == UserType.VOLUNTEER ?ColorTable.greenT[2] : ColorTable.blueT[2],
+                      activeColor: widget.userType == UserType.VOLUNTEER ?ColorTable.greenT[2] : ColorTable.blueT[2],
 
                     ),
                   ),
@@ -103,8 +103,30 @@ class _SignUpPageState extends State<SignUpPage> {
                         userType: widget.userType,
                         boxShadow: false,
                       ),
-                      widget.userType == false
+                      widget.userType == UserType.VOLUNTEER
                           ? AcceptButton(
+                        'Kayıt Ol',
+                        ColorTable.green,
+                        onTap: () async {
+                          print('AAA');
+                          final _userModel =
+                          Provider.of<UserModel>(context, listen: false);
+                          try {
+                            var user = await _userModel
+                                .createUserWithEmailAndPassword(
+                                userType: UserType.VOLUNTEER,
+                                email: email.text,
+                                password: password.text,
+                                fullName: fullname.text,
+                                phoneNumber: phoneNumber.text,
+                                companyOrInstitution:
+                                institution.text);
+                            if(user != null){
+                              Navigator.pop(context);
+                            }
+                          } catch (e) {}
+                        },
+                      ):AcceptButton(
                               'Kayıt Ol',
                               ColorTable.blue,
                               onTap: () async {
@@ -113,55 +135,21 @@ class _SignUpPageState extends State<SignUpPage> {
                                     context,
                                     listen: false);
                                 try {
-                                  await _userModel
+                                  var user = await _userModel
                                       .createUserWithEmailAndPassword(
-                                          userType: UserType.VOLUNTEER,
+                                          userType: UserType.SHARER,
                                           email: email.text,
                                           password: password.text,
                                           fullName: fullname.text,
                                           phoneNumber: phoneNumber.text,
                                           companyOrInstitution:
                                               institution.text);
-                                } catch (e) {}
-                              },
-                            )
-                          : AcceptButton(
-                              'Kayıt Ol',
-                              ColorTable.green,
-                              onTap: () async {
-                                print('AAA');
-                                final _userModel =
-                                    Provider.of<UserModel>(context);
-                                try {
-                                  await _userModel
-                                      .createUserWithEmailAndPassword(
-                                          userType: UserType.VOLUNTEER,
-                                          email: email.text,
-                                          password: password.text,
-                                          fullName: fullname.text,
-                                          phoneNumber: phoneNumber.text,
-                                          companyOrInstitution:
-                                              institution.text);
+                                  if(user != null){
+                                    Navigator.pop(context);
+                                  }
                                 } catch (e) {}
                               },
                             ),
-                      /*RaisedButton(
-                        onPressed: () async {
-                          print('AAA');
-                          final _userModel =
-                              Provider.of<UserModel>(context, listen: false);
-                          try {
-                            await _userModel.createUserWithEmailAndPassword(
-                                userType: UserType.VOLUNTEER,
-                                email: email.text,
-                                password: password.text,
-                                fullName: fullname.text,
-                                phoneNumber: phoneNumber.text,
-                                companyOrInstitution: institution.text);
-                          } catch (e) {}
-                        },
-                        child: Text('Save'),
-                      )*/
                     ],
                   ),
                 ),
@@ -177,7 +165,7 @@ class _SignUpPageState extends State<SignUpPage> {
       height: Constants.getHeightValue(context, 63),
       width: Constants.getWidthValue(context, 343),
       child: Text(
-        widget.userType == true ? volunterTips[index]:hyrTips[index],
+        widget.userType == UserType.VOLUNTEER ? volunterTips[index]:hyrTips[index],
         maxLines: 3,
         textAlign: TextAlign.center,
         style: TextStyle(

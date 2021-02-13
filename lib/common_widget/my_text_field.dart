@@ -1,4 +1,5 @@
 import 'package:f4rtech_gdgsivas_hackathon/app/colors.dart';
+import 'package:f4rtech_gdgsivas_hackathon/app/enums.dart';
 import 'package:flutter/material.dart';
 class MyTextField extends StatelessWidget {
   final String label;
@@ -6,10 +7,10 @@ class MyTextField extends StatelessWidget {
   final TextEditingController controller;
   final Function onSubmit;
   TextInputType textInputType;
-  final bool userType;//false: gönüllü / true: hayırsever
+  final UserType userType;//false: gönüllü / true: hayırsever
   bool boxShadow;
 
-   MyTextField({this.label, this.focusNode, this.controller, this.onSubmit,this.userType=false,this.textInputType=TextInputType.text,this.boxShadow =true});
+   MyTextField({this.label, this.focusNode, this.controller, this.onSubmit,this.userType,this.textInputType=TextInputType.text,this.boxShadow =true});
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -28,7 +29,7 @@ class MyTextField extends StatelessWidget {
         onSubmitted: this.onSubmit,
         focusNode: focusNode,
         style: TextStyle(
-          color: userType == false ?ColorTable.blueT[2]:ColorTable.greenT[2],
+          color: userType == UserType.VOLUNTEER ?ColorTable.greenT[2] : ColorTable.blueT[2],
           fontWeight: FontWeight.w400
         ),
         decoration: InputDecoration(
@@ -40,13 +41,13 @@ class MyTextField extends StatelessWidget {
           labelText: this.label,
           labelStyle: TextStyle(
               fontWeight: FontWeight.w500,
-              color: userType == false ?ColorTable.blueT[5]:ColorTable.greenT[4]
+              color: userType == UserType.VOLUNTEER ?ColorTable.greenT[2] : ColorTable.blueT[2],
           ),
           enabledBorder: UnderlineInputBorder(
-            borderSide: BorderSide(color: userType == false ?ColorTable.blueT[5]:ColorTable.greenT[5]),
+            borderSide: BorderSide(color: userType == UserType.VOLUNTEER ?ColorTable.greenT[2] : ColorTable.blueT[2],),
           ),
           focusedBorder: UnderlineInputBorder(
-            borderSide: BorderSide(color: userType == false ?ColorTable.blueT[3]:ColorTable.greenT[1]),
+            borderSide: BorderSide(color: userType == UserType.VOLUNTEER ?ColorTable.greenT[2] : ColorTable.blueT[2],),
           ),
         ),
       ),
