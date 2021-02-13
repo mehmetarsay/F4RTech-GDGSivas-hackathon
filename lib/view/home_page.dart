@@ -1,5 +1,6 @@
 import 'package:f4rtech_gdgsivas_hackathon/app/constants.dart';
-import 'package:f4rtech_gdgsivas_hackathon/models/sharer_product_add_page.dart';
+import 'file:///D:/Projects/FlutterProjects/F4RTech-GDGSivas-hackathon/lib/view/sharer_product_add_page.dart';
+import 'package:f4rtech_gdgsivas_hackathon/view/deneme_page.dart';
 import 'package:f4rtech_gdgsivas_hackathon/view/sharer_page.dart';
 import 'package:f4rtech_gdgsivas_hackathon/view/sharer_request_page.dart';
 import 'package:flutter/material.dart';
@@ -13,7 +14,7 @@ class HomeScreenPage extends StatefulWidget {
 
 class HomeScreen extends State<HomeScreenPage>
     with SingleTickerProviderStateMixin {
-  Widget bodyPage;
+  Widget bodyPage = SharerPage();
   bool isCollapsed = true;
   double screenWidth, screenHeight;
 
@@ -92,6 +93,15 @@ class HomeScreen extends State<HomeScreenPage>
                     onTap: (){
                       setState(() {
                         closeDrawer();
+                        bodyPage = ProductAddPage();
+                      });
+
+                    }),
+                options(
+                    text: 'Gelen İstekler',
+                    onTap: (){
+                      setState(() {
+                        closeDrawer();
                         bodyPage = SharerRequestPage();
                       });
 
@@ -143,9 +153,9 @@ class HomeScreen extends State<HomeScreenPage>
             onPanUpdate: (details) {
               print(details.delta.dy);
               if(details.delta.dy>0){
-                if (details.delta.dx < 5) {
+                if (details.delta.dx < 3) {
                   this.closeDrawer();
-                } else if (details.delta.dx > 5) {
+                } else if (details.delta.dx > 3) {
                   this.openDrawer();
                 }
               }

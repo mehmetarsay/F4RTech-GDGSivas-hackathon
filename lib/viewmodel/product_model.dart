@@ -5,13 +5,15 @@ import 'package:f4rtech_gdgsivas_hackathon/services/ProductBase.dart';
 import 'package:f4rtech_gdgsivas_hackathon/app/enums.dart';
 import 'package:f4rtech_gdgsivas_hackathon/locator.dart';
 import 'package:f4rtech_gdgsivas_hackathon/services/FirestoreService.dart';
+import 'package:f4rtech_gdgsivas_hackathon/services/StorageService.dart';
 import 'package:flutter/material.dart';
+import 'package:multi_image_picker/multi_image_picker.dart';
 import 'package:geolocator/geolocator.dart';
 
 class ProductModel with ChangeNotifier implements ProductBase {
   ProductViewState _state = ProductViewState.Idle;
   FirestoreService _firestoreService = locator<FirestoreService>();
-  AuthService _authService = locator<AuthService>();
+  StorageService _storageService = locator<StorageService>();
   Product _product;
   List<Product> _productList;
 
@@ -21,6 +23,8 @@ class ProductModel with ChangeNotifier implements ProductBase {
   ProductModel() {
     _productList = [];
   }
+
+  ProductViewState get state => _state;
 
   set state(ProductViewState value) {
     _state = value;
@@ -83,20 +87,21 @@ class ProductModel with ChangeNotifier implements ProductBase {
   Future<bool> saveProduct({String name,
     ProductType productType,
     String explanation,
-    String publisher,GeoPoint geoPoint}) async {
+    String publisher,GeoPoint geoPoint,Asset file}) async {
     try {
       state = ProductViewState.Busy;
       String _id = DateTime
           .now()
           .microsecondsSinceEpoch
           .toString();
+      String url = await _storageService.uploadPhoto(publisher, file);
       Product product;
       if (productType == ProductType.FOOD) {
         product = Product(
-            _id, name, 'FOOD', explanation, publisher, geoPoint);
+            _id, name, 'FOOD', explanation, publisher, geoPoint,url);
       } else if (productType == ProductType.CLOTHES) {
         product = Product(
-            _id, name, 'CLOTHES', explanation, publisher, GeoPoint(34, 34));
+            _id, name, 'CLOTHES', explanation, publisher, geoPoint,url);
       } else {
         return null;
       }

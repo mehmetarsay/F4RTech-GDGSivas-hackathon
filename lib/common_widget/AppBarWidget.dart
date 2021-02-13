@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 class AppBarWidget extends StatelessWidget {
   String text;
   Color color;
+  bool mapButton = false;
+  Function mapOnButton;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -13,21 +15,40 @@ class AppBarWidget extends StatelessWidget {
         padding: const EdgeInsets.only(left: 8.0),
         child: Row(
           mainAxisSize: MainAxisSize.max,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Icon(
-              Icons.arrow_back,
-              size: Constants.getHeightValue(context, 40),
-              color: color,
+            Padding(
+              padding: const EdgeInsets.only(left: 30.0),
+              child: Text(
+                text,
+                style: TextStyle(
+                    color: color,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 24),
+              ),
             ),
-            Center(
-              child: Padding(
-                padding: const EdgeInsets.only(left: 30.0),
-                child: Text(
-                  text,
-                  style: TextStyle(
-                      color: color,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 24),
+            if(mapButton)Padding(
+              padding: const EdgeInsets.only(right:18.0,bottom: 20),
+              child: Container(
+                height: Constants.getHeightValue(context, 35),
+                width: Constants.getHeightValue(context, 35),
+                child: Material(
+                  borderRadius: BorderRadius.all(Radius.circular(50)),
+                    color:ColorTable.blueT[1].withOpacity(0.1),
+                  child: InkWell(
+                    borderRadius: BorderRadius.all(Radius.circular(50)),
+                    splashColor: ColorTable.blue,
+                    onTap: (){
+                      mapOnButton();
+                    },
+                    child: Container(
+                      child: Icon(
+                        Icons.edit_location,
+                        size: Constants.getHeightValue(context, 30),
+                        color: ColorTable.green,
+                      ),
+                    ),
+                  ),
                 ),
               ),
             )
@@ -37,5 +58,5 @@ class AppBarWidget extends StatelessWidget {
     );
   }
 
-  AppBarWidget(this.text,this.color);
+  AppBarWidget(this.text,this.color,{this.mapButton=false,this.mapOnButton});
 }

@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
   class ProfilWidget extends StatelessWidget {
     String name;
     String email;
-    int phone;
+    String phone;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -90,5 +90,5 @@ import 'package:flutter/material.dart';
     );
   }
 
-    ProfilWidget({this.name='name', this.email='email', this.phone=0539391552});
+    ProfilWidget({this.name='name', this.email='email', this.phone='0539391552'});
 }

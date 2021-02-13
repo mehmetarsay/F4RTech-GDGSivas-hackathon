@@ -4,6 +4,9 @@ import 'package:flutter/material.dart';
 class SharerApproved extends StatelessWidget {
   String text1;
   String text2;
+  bool voluntter=false;
+  Color color1;
+  Color color2;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -16,7 +19,7 @@ class SharerApproved extends StatelessWidget {
             begin: Alignment.centerLeft,
             end: Alignment.centerRight,
             colors: [
-              ColorTable.blue.withOpacity(0.3),ColorTable.green.withOpacity(0.3)
+              color1.withOpacity(0.3),color2.withOpacity(0.3)
             ]
           ),
           borderRadius: BorderRadius.all(Radius.circular(10))
@@ -59,8 +62,8 @@ class SharerApproved extends StatelessWidget {
                         child: Text(
                           text1,
                           style: TextStyle(
-                            color: ColorTable.blueT[1],
-                            fontWeight: FontWeight.w500,
+                            color: color1,
+                            fontWeight: FontWeight.w700,
                             fontSize: Constants.getHeightValue(context, 15)
                           ),
                         ),
@@ -75,12 +78,13 @@ class SharerApproved extends StatelessWidget {
                       child: Container(
                         height: Constants.getHeightValue(context, 45),
                         width: Constants.getWidthValue(context, 86),
+                        alignment: Alignment.bottomRight,
                         child: Text(
                           text2,
                           textAlign: TextAlign.right,
                           style: TextStyle(
-                              color: ColorTable.blueT[1],
-                              fontWeight: FontWeight.w500,
+                              color: color2,
+                              fontWeight: FontWeight.w700,
                               fontSize: Constants.getHeightValue(context, 15)
                           ),
                         ),
@@ -107,5 +111,14 @@ class SharerApproved extends StatelessWidget {
     );
   }
 
-  SharerApproved({this.text1='text1', this.text2='text2'});
+  SharerApproved({this.text1='text1', this.text2='text2',this.voluntter =false}){
+    if(voluntter == false){
+      color1 =ColorTable.blue;
+      color2 = ColorTable.green;
+    }
+    else{
+      color1 =ColorTable.green;
+      color2 = ColorTable.blue;
+    }
+  }
 }

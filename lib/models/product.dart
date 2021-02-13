@@ -8,11 +8,12 @@ class Product {
   final String _explanation;
   final String _publisher;
   final GeoPoint _location;
+  final String _imageUrl;
 
   GeoPoint get location => _location;
 
   Product(this._id, this._name, this._productType, this._explanation,
-      this._publisher, this._location);
+      this._publisher, this._location, this._imageUrl);
 
   Product.fromMap(Map<String, dynamic> parsedMap, {this.reference})
       : _id = parsedMap['id'],
@@ -20,7 +21,8 @@ class Product {
         _productType = parsedMap['productType'],
         _explanation = parsedMap['explanation'],
         _publisher = parsedMap['publisher'],
-        _location = parsedMap['location'];
+        _location = parsedMap['location'],
+        _imageUrl = parsedMap['url'];
 
   Map<String, dynamic> toMap() {
     return {
@@ -30,11 +32,14 @@ class Product {
       'explanation': _explanation,
       'publisher': _publisher,
       'location': _location,
+      'url': _imageUrl,
     };
   }
 
   Product.fromSnapshot(DocumentSnapshot snapshot)
       : this.fromMap(snapshot.data(), reference: snapshot.reference);
+
+  String get imageUrl => _imageUrl;
 
   String get id => _id;
 
@@ -48,6 +53,6 @@ class Product {
 
   @override
   String toString() {
-    return 'Product{_id: $_id, _name: $_name, _productType: $_productType, _explanation: $_explanation, _publisher: $_publisher, _location: $_location}';
+    return 'Product{_id: $_id, _name: $_name, _productType: $_productType, _explanation: $_explanation, _publisher: $_publisher, _location: $_location, _imageUrl: $_imageUrl}';
   }
 }

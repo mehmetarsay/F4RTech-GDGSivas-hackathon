@@ -6,7 +6,9 @@ import 'package:f4rtech_gdgsivas_hackathon/view/loading_page.dart';
 import 'package:f4rtech_gdgsivas_hackathon/view/login_page.dart';
 import 'package:f4rtech_gdgsivas_hackathon/view/map_view.dart';
 import 'package:f4rtech_gdgsivas_hackathon/view/signup_page.dart';
+import 'package:f4rtech_gdgsivas_hackathon/viewmodel/comment_model.dart';
 import 'package:f4rtech_gdgsivas_hackathon/viewmodel/product_model.dart';
+import 'package:f4rtech_gdgsivas_hackathon/viewmodel/request_model.dart';
 import 'package:f4rtech_gdgsivas_hackathon/viewmodel/user_model.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -25,7 +27,9 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (context) => UserModel()),
-        ChangeNotifierProvider(create: (context) =>ProductModel()),
+        ChangeNotifierProvider(create: (context) => ProductModel()),
+        ChangeNotifierProvider(create: (context) => RequestModel()),
+        ChangeNotifierProvider(create: (context) => CommentModel()),
       ],
       child: MaterialApp(
         title: 'F4RTech',

@@ -1,17 +1,13 @@
 import 'package:f4rtech_gdgsivas_hackathon/app/colors.dart';
-import 'package:f4rtech_gdgsivas_hackathon/app/constants.dart';
 import 'package:f4rtech_gdgsivas_hackathon/common_widget/AppBarWidget.dart';
 import 'package:f4rtech_gdgsivas_hackathon/common_widget/request_widget.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:icon_shadow/icon_shadow.dart';
-
-class SharerRequestPage extends StatefulWidget {
+class VolunteerRequestPage extends StatefulWidget {
   @override
-  _SharerRequestPageState createState() => _SharerRequestPageState();
+  _VolunteerRequestPageState createState() => _VolunteerRequestPageState();
 }
 
-class _SharerRequestPageState extends State<SharerRequestPage> {
+class _VolunteerRequestPageState extends State<VolunteerRequestPage> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -19,16 +15,13 @@ class _SharerRequestPageState extends State<SharerRequestPage> {
       child: SafeArea(
         child: Column(
           children: [
-            AppBarWidget('HAYIRSEVER', ColorTable.blueT[1]),
+            AppBarWidget('GÖNÜLLÜ', ColorTable.greenT[1],mapButton: true,),
             Expanded(
               child: ListView(
                 physics: BouncingScrollPhysics(),
                 children: [
-                  RequestWidget(volunteer: false,degree: 4.7,text: 'Gönüllü Adı',subText: ''
-                      '76 kezz Gönüllülük yaptı',onTap: (){
-
-                  },)
-
+                  RequestWidget(volunteer: true,text: 'Hayırsever Adı',subText: ''
+                      'Ürün Detayı Açıklaması',)
                 ],
               ),
             )
