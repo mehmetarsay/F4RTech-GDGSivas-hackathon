@@ -18,8 +18,9 @@ class _LoadingPageState extends State<LoadingPage> {
     if (_userModel.state == ViewState.Idle) {
       if (_userModel.user == null) {
         return LandingPage();
-      } else {
-        return HomeScreenPage();
+      }
+      else  {
+        return HomeScreenPage(_userModel.user.userType);
       }
     } else {
       return Scaffold(

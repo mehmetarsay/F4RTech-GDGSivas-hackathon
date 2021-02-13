@@ -1,15 +1,31 @@
 import 'package:f4rtech_gdgsivas_hackathon/app/constants.dart';
+import 'package:f4rtech_gdgsivas_hackathon/app/enums.dart';
 import 'package:f4rtech_gdgsivas_hackathon/view/sharer_product_add_page.dart';
 import 'package:f4rtech_gdgsivas_hackathon/view/deneme_page.dart';
 import 'package:f4rtech_gdgsivas_hackathon/view/sharer_page.dart';
 import 'package:f4rtech_gdgsivas_hackathon/view/sharer_request_page.dart';
+import 'package:f4rtech_gdgsivas_hackathon/view/volunteer_profil_page.dart';
+import 'package:f4rtech_gdgsivas_hackathon/view/volunteer_request_page.dart';
+import 'package:f4rtech_gdgsivas_hackathon/viewmodel/user_model.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../app/colors.dart';
 
 class HomeScreenPage extends StatefulWidget {
+  String userType;
+  List<Color> backColor;
   @override
   HomeScreen createState() => HomeScreen();
+
+  HomeScreenPage(this.userType){
+    if(userType == 'VOLUNTEER'){
+      backColor = ColorTable.blueT;
+    }
+    else{
+      backColor = ColorTable.greenT;
+    }
+  }
 }
 
 class HomeScreen extends State<HomeScreenPage>
@@ -74,46 +90,7 @@ class HomeScreen extends State<HomeScreenPage>
           padding: EdgeInsets.symmetric(vertical: 15.0, horizontal: 25.0),
           child: Align(
             alignment: Alignment.centerLeft,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                options(
-                    text: 'Profil',
-                    onTap: () {
-                      setState(() {
-                        closeDrawer();
-                        bodyPage = SharerPage();
-
-                      });
-
-                    }),
-                options(
-                    text: 'Ürün Paylaş',
-                    onTap: (){
-                      setState(() {
-                        closeDrawer();
-                        bodyPage = ProductAddPage();
-                      });
-
-                    }),
-                options(
-                    text: 'Gelen İstekler',
-                    onTap: (){
-                      setState(() {
-                        closeDrawer();
-                        bodyPage = SharerRequestPage();
-                      });
-
-                    }),
-                options(
-                    text: 'Çıkış Yap',
-                    onTap: () {
-                      closeDrawer();
-                    }),
-
-              ],
-            ),
+            child:UserType() ,
           ),
         ),
       ),
@@ -131,7 +108,7 @@ class HomeScreen extends State<HomeScreenPage>
         scale: _scaleBackAnimation,
         child: Material(
           elevation: 8,
-          color: ColorTable.blueT[1],
+          color: widget.backColor[1],
           borderRadius: isCollapsed
               ? BorderRadius.all(Radius.circular(0))
               : BorderRadius.all(Radius.circular(15)),
@@ -192,18 +169,65 @@ class HomeScreen extends State<HomeScreenPage>
           height: Constants.getHeightValue(context, 45),
           alignment: Alignment.center,
           decoration: BoxDecoration(
-            border: Border.all(width: 1,color: ColorTable.blueT[1])
+            border: Border.all(width: 1,color: widget.backColor[1])
           ),
           child: Text(
             text,
             style: TextStyle(
               fontWeight: FontWeight.bold,
-              color: ColorTable.blueT[0],
+              color: widget.backColor[0],
               fontSize: 20.0,
             ),
           ),
         ),
       ),
+    );
+  }
+  UserType(){
+    bool user = false;
+    if(widget.userType == 'VOLUNTEER'){
+      user = true;
+    }
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: <Widget>[
+        options(
+            text: 'Profil',
+            onTap: () {
+              setState(() {
+                closeDrawer();
+                bodyPage = user == true ? VolunteerProfilPage():SharerPage();
+              });
+
+            }),
+        options(
+            text: user == true ? 'Ürün Al':'Ürün Paylaş',
+            onTap: (){
+              setState(() {
+                closeDrawer();
+                bodyPage = user == true ? VolunteerRequestPage(): ProductAddPage();
+              });
+
+            }),
+        if(user==false)options(
+            text: 'Gelen İstekler',
+            onTap: (){
+              setState(() {
+                closeDrawer();
+                bodyPage = SharerRequestPage();
+              });
+
+            }),
+        options(
+            text: 'Çıkış Yap',
+            onTap: () async {
+               final _userModel = Provider.of<UserModel>(context,listen: false);
+              await _userModel.signOut();
+              Navigator.pop(context);
+            }),
+
+      ],
     );
   }
 }
