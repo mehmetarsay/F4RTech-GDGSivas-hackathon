@@ -24,7 +24,7 @@ class _MapViewState extends State<MapView> {
   Position currentPosition;
   CameraPosition _kGooglePlex;
   String address;
-  List<Product> allPositions;
+  List<Product> filteredProducts;
   Set<Marker> markers;
   double radius=500;
   UserModel userModel;
@@ -98,14 +98,11 @@ class _MapViewState extends State<MapView> {
 
   Future<Set<Marker>> getMarkers() async{
     final productModel=Provider.of<ProductModel>(context,listen: false);
-    allPositions=await productModel.readAllProducts();
-    for(int i=0;i<allPositions.length;++i)
+    filteredProducts=await productModel.readFilteredProducts(radius);
+    for(int i=0;i<filteredProducts.length;++i)
       {
-        var latitude=allPositions[i].location.latitude;
-        var longitude=allPositions[i].location.longitude;
-        var currentLat=currentPosition.latitude;
-        var currentLon=currentPosition.longitude;
-        if(Geolocator.distanceBetween(latitude, longitude,currentLat, currentLon)<radius) {
+        var latitude=filteredProducts[i].location.latitude;
+        var longitude=filteredProducts[i].location.longitude;
           markers.add(Marker(markerId: MarkerId('$i'),
               position: LatLng(
                   latitude, longitude),onTap: (){
@@ -120,9 +117,9 @@ class _MapViewState extends State<MapView> {
                     return Center(child: Column(
                       children: [
                         Text(snapshot.data.toString()),
-                        Text(allPositions[i].name),
-                        Text(allPositions[i].productType),
-                        Text(allPositions[i].explanation),
+                        Text(filteredProducts[i].name),
+                        Text(filteredProducts[i].productType),
+                        Text(filteredProducts[i].explanation),
                         RaisedButton(child: Text('Teklif Ver'),onPressed: (){
                         },)
                       ],
@@ -132,7 +129,7 @@ class _MapViewState extends State<MapView> {
                 },);
             },);
               }));
-        }
+
       }
     return markers;
   }

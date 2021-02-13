@@ -64,10 +64,10 @@ class ProductModel with ChangeNotifier implements ProductBase {
   }
 
   @override
-  Future<List<Product>> readFilteredProducts(GeoPoint location) async{
+  Future<List<Product>> readFilteredProducts(double radius) async{
     try {
       state = ProductViewState.Busy;
-      List<Product> _productList = await _firestoreService.readFilteredProducts(location);
+      List<Product> _productList = await _firestoreService.readFilteredProducts(radius);
       if (_productList != null) {
         productList = _productList;
         return productList;

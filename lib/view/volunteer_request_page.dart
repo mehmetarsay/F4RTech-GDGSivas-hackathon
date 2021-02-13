@@ -1,6 +1,7 @@
 import 'package:f4rtech_gdgsivas_hackathon/app/colors.dart';
 import 'package:f4rtech_gdgsivas_hackathon/common_widget/AppBarWidget.dart';
 import 'package:f4rtech_gdgsivas_hackathon/common_widget/request_widget.dart';
+import 'package:f4rtech_gdgsivas_hackathon/view/map_view.dart';
 import 'package:flutter/material.dart';
 class VolunteerRequestPage extends StatefulWidget {
   @override
@@ -15,7 +16,9 @@ class _VolunteerRequestPageState extends State<VolunteerRequestPage> {
       child: SafeArea(
         child: Column(
           children: [
-            AppBarWidget('GÖNÜLLÜ', ColorTable.greenT[1],mapButton: true,),
+            AppBarWidget('GÖNÜLLÜ', ColorTable.greenT[1],mapButton: true,mapOnButton: (){
+                Navigator.push(context, MaterialPageRoute(builder: (context)=>MapView()));
+            },),
             Expanded(
               child: ListView(
                 physics: BouncingScrollPhysics(),
