@@ -38,6 +38,7 @@ dependencies:
   simple_animations: ^2.5.0
   get_it: ^5.0.6
   provider: ^4.3.3
+  flutter_swiper: ^1.1.6
 
   flutter_custom_clippers: ^1.1.2
 
