@@ -37,10 +37,10 @@ class FirestoreService implements FirestoreBase {
       var result =
           await FirebaseFirestore.instance.collection('users').doc(uid).get();
       if (result != null) {
-        if ('VOLUNTEER' == result.data()['userType']) {
+        if (UserType.VOLUNTEER.toString() == result.data()['userType']) {
           VolunteerUser user = VolunteerUser.fromSnapshot(result);
           return user;
-        } else if ('SHARER' == result.data()['userType']) {
+        } else if (UserType.SHARER.toString() == result.data()['userType']) {
           SharerUser user = SharerUser.fromSnapshot(result);
           return user;
         } else {
