@@ -1,4 +1,5 @@
 import 'package:f4rtech_gdgsivas_hackathon/locator.dart';
+import 'package:f4rtech_gdgsivas_hackathon/view/home_page.dart';
 import 'package:f4rtech_gdgsivas_hackathon/view/landing_page.dart';
 import 'package:f4rtech_gdgsivas_hackathon/view/loading_page.dart';
 import 'package:f4rtech_gdgsivas_hackathon/view/login_page.dart';
@@ -29,7 +30,7 @@ class MyApp extends StatelessWidget {
           visualDensity: VisualDensity.adaptivePlatformDensity,
           fontFamily: 'Gilroy',
         ),
-        home: LoadingPage(),
+        home: HomeScreenPage(),
       ),
     );
   }

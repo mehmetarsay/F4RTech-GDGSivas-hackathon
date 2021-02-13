@@ -1,3 +1,7 @@
+import 'package:f4rtech_gdgsivas_hackathon/app/constants.dart';
+import 'package:f4rtech_gdgsivas_hackathon/models/sharer_product_add_page.dart';
+import 'package:f4rtech_gdgsivas_hackathon/view/sharer_page.dart';
+import 'package:f4rtech_gdgsivas_hackathon/view/sharer_request_page.dart';
 import 'package:flutter/material.dart';
 
 import '../app/colors.dart';
@@ -9,10 +13,11 @@ class HomeScreenPage extends StatefulWidget {
 
 class HomeScreen extends State<HomeScreenPage>
     with SingleTickerProviderStateMixin {
+  Widget bodyPage;
   bool isCollapsed = true;
   double screenWidth, screenHeight;
 
-  final Duration duration = const Duration(milliseconds: 300);
+  final Duration duration = const Duration(milliseconds: 400);
 
   AnimationController _controller;
   Animation<double> _scaleAnimation;
@@ -46,13 +51,13 @@ class HomeScreen extends State<HomeScreenPage>
     screenWidth = size.width;
 
     return new Scaffold(
-      backgroundColor: ColorTable.blue,
+      backgroundColor: ColorTable.blueT[5],
       body: new SafeArea(
         child: new Stack(
           children: <Widget>[
             customDrawer(context),
             screenBack(context),
-            homeScreen(context),
+            homeScreen(context,SharerPage()),
           ],
         ),
       ),
@@ -72,45 +77,31 @@ class HomeScreen extends State<HomeScreenPage>
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                Text('Kullanıcı Tipi',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.w900,
-                      fontSize: 24,
-                    )),
-                new Container(
-                  width: MediaQuery.of(context).size.width * 0.40,
-                  child: new Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: <Widget>[
-                      Container(
-                          child: Center(
-                        child: Text('İsim Soy İsim',
-                            style: TextStyle(
-                              color: ColorTable.greenT[2],
-                              fontSize: 18.0,
-                              fontWeight: FontWeight.bold,
-                            )),
-                      )),
-                      Center(
-                          child: CircleAvatar(
-                              backgroundColor: Colors.white,
-                              child: Text('Resim')))
-                    ],
-                  ),
-                ),
-                Column(
-                  mainAxisSize: MainAxisSize.max,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[],
-                ),
                 options(
-                    text: 'Profile',
+                    text: 'Profil',
+                    onTap: () {
+                      setState(() {
+                        closeDrawer();
+                        bodyPage = SharerPage();
+
+                      });
+
+                    }),
+                options(
+                    text: 'Ürün Paylaş',
+                    onTap: (){
+                      setState(() {
+                        closeDrawer();
+                        bodyPage = SharerRequestPage();
+                      });
+
+                    }),
+                options(
+                    text: 'Çıkış Yap',
                     onTap: () {
                       closeDrawer();
                     }),
+
               ],
             ),
           ),
@@ -130,7 +121,7 @@ class HomeScreen extends State<HomeScreenPage>
         scale: _scaleBackAnimation,
         child: Material(
           elevation: 8,
-          color: ColorTable.greenT[2],
+          color: ColorTable.blueT[1],
           borderRadius: isCollapsed
               ? BorderRadius.all(Radius.circular(0))
               : BorderRadius.all(Radius.circular(15)),
@@ -139,7 +130,7 @@ class HomeScreen extends State<HomeScreenPage>
     );
   }
 
-  Widget homeScreen(context) {
+  Widget homeScreen(context,Widget page) {
     return AnimatedPositioned(
       duration: duration,
       top: 0,
@@ -150,16 +141,18 @@ class HomeScreen extends State<HomeScreenPage>
         scale: _scaleAnimation,
         child: GestureDetector(
             onPanUpdate: (details) {
-              if (details.delta.dx < 0) {
-                this.closeDrawer();
-              } else if (details.delta.dx > 0) {
-                this.openDrawer();
+              print(details.delta.dy);
+              if(details.delta.dy>0){
+                if (details.delta.dx < 5) {
+                  this.closeDrawer();
+                } else if (details.delta.dx > 5) {
+                  this.openDrawer();
+                }
               }
-            },
-            child: Container(
-              color: ColorTable.greenT[1],
-              child: Text('Deneme'),
-            )),
+
+            },child: bodyPage,
+              //child: SharerPage(),
+            ),
       ),
     );
   }
@@ -167,7 +160,6 @@ class HomeScreen extends State<HomeScreenPage>
   void closeDrawer() {
     setState(() {
       _controller.reverse();
-
       isCollapsed = true;
     });
   }
@@ -185,11 +177,20 @@ class HomeScreen extends State<HomeScreenPage>
       onTap: onTap,
       child: Padding(
         padding: EdgeInsets.symmetric(vertical: 7.5),
-        child: Text(
-          text,
-          style: TextStyle(
-            color: ColorTable.greenT[2],
-            fontSize: 16.0,
+        child: Container(
+          width: Constants.getWidthValue(context, 150),
+          height: Constants.getHeightValue(context, 45),
+          alignment: Alignment.center,
+          decoration: BoxDecoration(
+            border: Border.all(width: 1,color: ColorTable.blueT[1])
+          ),
+          child: Text(
+            text,
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              color: ColorTable.blueT[0],
+              fontSize: 20.0,
+            ),
           ),
         ),
       ),
