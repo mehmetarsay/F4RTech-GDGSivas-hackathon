@@ -7,6 +7,7 @@ import 'package:f4rtech_gdgsivas_hackathon/locator.dart';
 import 'package:f4rtech_gdgsivas_hackathon/services/FirestoreService.dart';
 import 'package:f4rtech_gdgsivas_hackathon/services/StorageService.dart';
 import 'package:flutter/material.dart';
+import 'package:geocoder/geocoder.dart';
 import 'package:multi_image_picker/multi_image_picker.dart';
 import 'package:geolocator/geolocator.dart';
 
@@ -16,6 +17,7 @@ class ProductModel with ChangeNotifier implements ProductBase {
   StorageService _storageService = locator<StorageService>();
   Product _product;
   List<Product> _productList;
+  String address;
 
   ProductViewState get state => _state;
 
@@ -139,5 +141,15 @@ class ProductModel with ChangeNotifier implements ProductBase {
     } finally {
       state = ProductViewState.Idle;
     }
+  }
+  Future<String> getAdress(latitude,longitude) async {
+    var coordinates =
+    Coordinates(latitude,longitude);
+    var _address =
+    await Geocoder.local.findAddressesFromCoordinates(coordinates);
+    if (_address != null) {
+        address = _address.first.addressLine;
+    }
+    return address;
   }
 }

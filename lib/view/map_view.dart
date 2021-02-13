@@ -15,6 +15,11 @@ import 'dart:math';
 import 'package:provider/provider.dart';
 
 class MapView extends StatefulWidget {
+  List<Product> filteredProducts;
+
+
+  MapView(this.filteredProducts);
+
   @override
   _MapViewState createState() => _MapViewState();
 }
@@ -24,7 +29,6 @@ class _MapViewState extends State<MapView> {
   Position currentPosition;
   CameraPosition _kGooglePlex;
   String address;
-  List<Product> filteredProducts;
   Set<Marker> markers;
   double radius=500;
   UserModel userModel;
@@ -83,26 +87,15 @@ class _MapViewState extends State<MapView> {
    /*Bu fonksiyon userModel'e taşınabilir*/
 
   /* Adresin Latitude ve longitude değerlerini kullanarak adresin String halini döndürür */
-  Future<String> getAdress(latitude,longitude) async {
-    var coordinates =
-        Coordinates(latitude,longitude);
-    var _address =
-        await Geocoder.local.findAddressesFromCoordinates(coordinates);
-    if (_address != null) {
-      setState(() {
-        address = _address.first.addressLine;
-      });
-    }
-    return address;
-  }
+
 
   Future<Set<Marker>> getMarkers() async{
     final productModel=Provider.of<ProductModel>(context,listen: false);
-    filteredProducts=await productModel.readFilteredProducts(radius);
-    for(int i=0;i<filteredProducts.length;++i)
+    //filteredProducts=await productModel.readFilteredProducts(radius);
+    for(int i=0;i<widget.filteredProducts.length;++i)
       {
-        var latitude=filteredProducts[i].location.latitude;
-        var longitude=filteredProducts[i].location.longitude;
+        var latitude=widget.filteredProducts[i].location.latitude;
+        var longitude=widget.filteredProducts[i].location.longitude;
           markers.add(Marker(markerId: MarkerId('$i'),
               position: LatLng(
                   latitude, longitude),onTap: (){
@@ -111,15 +104,23 @@ class _MapViewState extends State<MapView> {
                 {
                   address=null;
                 }
-              return FutureBuilder(future:getAdress(latitude, longitude),builder: (context,snapshot)
+              for(int j=0;j<i;++i)
+                {
+                  if(latitude==widget.filteredProducts[j].location.latitude &&  longitude==widget.filteredProducts[j].location.longitude )
+                    {
+                      print('Bu iki adres aynı he ');
+                    }
+                }
+              final productModel=Provider.of<ProductModel>(context);
+              return FutureBuilder(future:productModel.getAdress(latitude, longitude),builder: (context,snapshot)
                 {
                   if(snapshot.hasData)
                     return Center(child: Column(
                       children: [
                         Text(snapshot.data.toString()),
-                        Text(filteredProducts[i].name),
-                        Text(filteredProducts[i].productType),
-                        Text(filteredProducts[i].explanation),
+                        Text(widget.filteredProducts[i].name),
+                        Text(widget.filteredProducts[i].productType),
+                        Text(widget.filteredProducts[i].explanation),
                         RaisedButton(child: Text('Teklif Ver'),onPressed: (){
                         },)
                       ],

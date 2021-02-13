@@ -138,7 +138,7 @@ class _SignUpPageState extends State<SignUpPage> {
                                 try {
                                   var user = await _userModel
                                       .createUserWithEmailAndPassword(
-                                          userType: UserType.VOLUNTEER,
+                                          userType: UserType.SHARER,
                                           email: email.text,
                                           password: password.text,
                                           fullName: fullname.text,

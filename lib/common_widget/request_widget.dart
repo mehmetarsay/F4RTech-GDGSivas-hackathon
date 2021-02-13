@@ -86,7 +86,7 @@ class RequestWidget extends StatelessWidget {
                             subText,
                             style: TextStyle(
                                 color: Colors.white,
-                                fontSize: Constants.getHeightValue(context, 12),
+                                fontSize: Constants.getHeightValue(context, 7),
                                 fontWeight: FontWeight.w600),
                           ),
                         ],

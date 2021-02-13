@@ -20,7 +20,7 @@ class _LoadingPageState extends State<LoadingPage> {
         return LandingPage();
       }
       else  {
-        return HomeScreenPage(_userModel.user.userType);
+        return Denemepage();
       }
     } else {
       return Scaffold(

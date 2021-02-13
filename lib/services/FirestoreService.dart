@@ -116,15 +116,19 @@ class FirestoreService implements FirestoreBase {
     try {
       List<Product> allProducts = await readAllProducts();
       if (allProducts != null) {
-        var currentLocation=await Geolocator.getCurrentPosition();
-        List<Product> filteredProducts;
+        print('denemeee'+allProducts.length.toString());
+        Position currentLocation=await Geolocator.getCurrentPosition();
+        List<Product> filteredProducts=[];
         for(int i=0;i<allProducts.length;++i)
-          {
-            if(Geolocator.distanceBetween(currentLocation.latitude, currentLocation.longitude, allProducts[i].location.latitude, allProducts[i].location.longitude)<=radius){
-              filteredProducts.add(allProducts[i]);
+            {
+              if(Geolocator.distanceBetween(currentLocation.latitude, currentLocation.longitude, allProducts[i].location.latitude, allProducts[i].location.longitude)<=radius) {
+                print((Geolocator.distanceBetween(currentLocation.latitude, currentLocation.longitude, allProducts[i].location.latitude, allProducts[i].location.longitude).toString()));
+                filteredProducts.add(allProducts[i]);
+              }
             }
+        return filteredProducts;
           }
-      } else {
+      else {
         return null;
       }
     } catch (e) {

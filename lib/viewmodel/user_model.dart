@@ -42,7 +42,7 @@ class UserModel with ChangeNotifier implements AuthBase {
       User userAuth = await _authService.currentUser();
       if (userAuth != null) {
         user = await _firestoreService.readUser(userAuth.uid);
-        _determinePosition();
+        await _determinePosition();
         return user;
       } else {
         return null;
