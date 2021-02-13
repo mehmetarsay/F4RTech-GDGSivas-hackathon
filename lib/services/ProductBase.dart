@@ -5,6 +5,6 @@ import 'package:f4rtech_gdgsivas_hackathon/models/product.dart';
 abstract class ProductBase{
   Future<bool> saveProduct({String name, ProductType productType, String explanation});
   Future<Product> readProduct(String id);
-  Future<List<Product>> readFilteredProducts(GeoPoint location);
   Future<List<Product>> readAllProducts();
+  Future<List<Product>> readFilteredProducts(GeoPoint location);
 }

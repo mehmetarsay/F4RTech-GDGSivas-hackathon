@@ -14,12 +14,11 @@ class ProductModel with ChangeNotifier implements ProductBase {
   Product _product;
   List<Product> _productList;
 
-  ProductViewState get state => _state;
-
-
   ProductModel() {
     _productList = [];
   }
+
+  ProductViewState get state => _state;
 
   set state(ProductViewState value) {
     _state = value;
@@ -38,44 +37,6 @@ class ProductModel with ChangeNotifier implements ProductBase {
   set productList(List<Product> value) {
     _productList = value;
     //notifyListeners();
-  }
-
-  @override
-  Future<Product> readProduct(String id) async {
-    try {
-      state = ProductViewState.Busy;
-      Product _product = await _firestoreService.readProduct(id);
-      if (_product != null) {
-        product = _product;
-        return product;
-      } else {
-        return null;
-      }
-    } catch (e) {
-      print('ProductModel-readProduct Error: $e');
-      return e;
-    } finally {
-      state = ProductViewState.Idle;
-    }
-  }
-
-  @override
-  Future<List<Product>> readFilteredProducts(GeoPoint location) async{
-    try {
-      state = ProductViewState.Busy;
-      List<Product> _productList = await _firestoreService.readFilteredProducts(location);
-      if (_productList != null) {
-        productList = _productList;
-        return productList;
-      } else {
-        return null;
-      }
-    } catch (e) {
-      print('ProductModel-readAllProducts Error: $e');
-      return e;
-    } finally {
-      state = ProductViewState.Idle;
-    }
   }
 
   @override
@@ -118,6 +79,25 @@ class ProductModel with ChangeNotifier implements ProductBase {
   }
 
   @override
+  Future<Product> readProduct(String id) async {
+    try {
+      state = ProductViewState.Busy;
+      Product _product = await _firestoreService.readProduct(id);
+      if (_product != null) {
+        product = _product;
+        return product;
+      } else {
+        return null;
+      }
+    } catch (e) {
+      print('ProductModel-readProduct Error: $e');
+      return e;
+    } finally {
+      state = ProductViewState.Idle;
+    }
+  }
+
+  @override
   Future<List<Product>> readAllProducts() async {
     try {
       state = ProductViewState.Busy;
@@ -135,4 +115,26 @@ class ProductModel with ChangeNotifier implements ProductBase {
       state = ProductViewState.Idle;
     }
   }
+
+  @override
+  Future<List<Product>> readFilteredProducts(GeoPoint location) async{
+    try {
+      state = ProductViewState.Busy;
+      List<Product> _productList = await _firestoreService.readFilteredProducts(location);
+      if (_productList != null) {
+        productList = _productList;
+        return productList;
+      } else {
+        return null;
+      }
+    } catch (e) {
+      print('ProductModel-readAllProducts Error: $e');
+      return e;
+    } finally {
+      state = ProductViewState.Idle;
+    }
+  }
+
+
+
 }

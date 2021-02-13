@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:f4rtech_gdgsivas_hackathon/app/enums.dart';
+import 'package:f4rtech_gdgsivas_hackathon/models/comment.dart';
 import 'package:f4rtech_gdgsivas_hackathon/models/product.dart';
 import 'package:f4rtech_gdgsivas_hackathon/models/request.dart';
 import 'package:f4rtech_gdgsivas_hackathon/models/sharer_user.dart';
@@ -206,4 +207,47 @@ class FirestoreService implements FirestoreBase {
       return e;
     }
   }
+
+  @override
+  Future<bool> saveComment(Comment comment) async {
+    try {
+      var result = await FirebaseFirestore.instance
+          .collection('comments')
+          .doc(comment.id)
+          .get();
+      if (result != null) {
+        await result.reference.set(comment.toMap());
+        return true;
+      } else {
+        return false;
+      }
+    } catch (e) {
+      print('FirestoreService-saveComment Error: $e');
+      return false;
+    }
+  }
+
+  @override
+  Future<List<Comment>> readCommentForUser(String id) async{
+    try {
+      var result = await FirebaseFirestore.instance
+          .collection('comments')
+          .where('receiver', isEqualTo: id)
+          .get();
+      if (result != null) {
+        List<Comment> comments = [];
+        result.docs.forEach((element) {
+          comments.add(Comment.fromSnapshot(element));
+        });
+        return comments;
+      } else {
+        return null;
+      }
+    } catch (e) {
+      print('FirestoreService-readCommentForUser Error: $e');
+      return e;
+    }
+  }
+
+
 }

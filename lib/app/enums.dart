@@ -11,3 +11,5 @@ enum ViewState { Idle, Busy }
 enum ProductViewState { Idle, Loaded, Busy }
 
 enum RequestViewState { Idle, Loaded, Busy }
+
+enum CommentViewState { Idle, Loaded, Busy }
