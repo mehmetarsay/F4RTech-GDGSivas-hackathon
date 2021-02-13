@@ -1,4 +1,6 @@
 import 'package:f4rtech_gdgsivas_hackathon/app/enums.dart';
+import 'package:f4rtech_gdgsivas_hackathon/view/deneme_page.dart';
+import 'package:f4rtech_gdgsivas_hackathon/view/home_page.dart';
 import 'package:f4rtech_gdgsivas_hackathon/view/landing_page.dart';
 import 'package:f4rtech_gdgsivas_hackathon/viewmodel/user_model.dart';
 import 'package:flutter/material.dart';
@@ -17,7 +19,7 @@ class _LoadingPageState extends State<LoadingPage> {
       if (_userModel.user == null) {
         return LandingPage();
       } else {
-        return null;
+        return Denemepage();
       }
     } else {
       return Scaffold(
