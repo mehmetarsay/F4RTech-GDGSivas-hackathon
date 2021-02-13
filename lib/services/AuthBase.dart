@@ -1,14 +1,15 @@
+import 'package:f4rtech_gdgsivas_hackathon/app/enums.dart';
 import 'package:f4rtech_gdgsivas_hackathon/models/user.dart' as usr;
 
 abstract class AuthBase{
-  Future<usr.User> currentUser();
-  Future<usr.User> signInWithEmailAndPassword({String email, String password});
-  Future<usr.User> createUserWithEmailAndPassword(
-      {String email,
+  Future<dynamic> currentUser();
+  Future<dynamic> signInWithEmailAndPassword({UserType userType,String email, String password});
+  Future<dynamic> createUserWithEmailAndPassword(
+      {UserType userType, String email,
       String password,
-      String name,
-      String surname,
-      String username});
+      String fullName,
+      String phoneNumber,
+      String companyOrInstitution});
   Future<bool> signOut();
 
 
