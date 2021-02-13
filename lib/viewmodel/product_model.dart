@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:cloud_firestore_platform_interface/src/geo_point.dart';
 import 'package:f4rtech_gdgsivas_hackathon/models/product.dart';
 import 'package:f4rtech_gdgsivas_hackathon/services/AuthService.dart';
@@ -5,21 +7,22 @@ import 'package:f4rtech_gdgsivas_hackathon/services/ProductBase.dart';
 import 'package:f4rtech_gdgsivas_hackathon/app/enums.dart';
 import 'package:f4rtech_gdgsivas_hackathon/locator.dart';
 import 'package:f4rtech_gdgsivas_hackathon/services/FirestoreService.dart';
+import 'package:f4rtech_gdgsivas_hackathon/services/StorageService.dart';
 import 'package:flutter/material.dart';
+import 'package:multi_image_picker/multi_image_picker.dart';
 
 class ProductModel with ChangeNotifier implements ProductBase {
   ProductViewState _state = ProductViewState.Idle;
   FirestoreService _firestoreService = locator<FirestoreService>();
-  AuthService _authService = locator<AuthService>();
+  StorageService _storageService = locator<StorageService>();
   Product _product;
   List<Product> _productList;
-
-  ProductViewState get state => _state;
-
 
   ProductModel() {
     _productList = [];
   }
+
+  ProductViewState get state => _state;
 
   set state(ProductViewState value) {
     _state = value;
@@ -41,6 +44,46 @@ class ProductModel with ChangeNotifier implements ProductBase {
   }
 
   @override
+  Future<bool> saveProduct({String name,
+    ProductType productType,
+    String explanation,
+    String publisher, Asset file}) async {
+    try {
+      state = ProductViewState.Busy;
+      String _id = DateTime
+          .now()
+          .microsecondsSinceEpoch
+          .toString();
+      String url = await _storageService.uploadPhoto(publisher, file);
+      Product product;
+      if (productType == ProductType.FOOD) {
+        product = Product(
+            _id, name, 'FOOD', explanation, publisher, GeoPoint(34, 34), url);
+      } else if (productType == ProductType.CLOTHES) {
+        product = Product(
+            _id, name, 'CLOTHES', explanation, publisher, GeoPoint(34, 34), url);
+      } else {
+        return null;
+      }
+      if (product != null) {
+        var result = await _firestoreService.saveProduct(product);
+        if (result) {
+          return true;
+        } else {
+          return false;
+        }
+      } else {
+        return null;
+      }
+    } catch (e) {
+      print('ProductModel-saveProduct Error: $e');
+      return e;
+    } finally {
+      state = ProductViewState.Idle;
+    }
+  }
+
+  @override
   Future<Product> readProduct(String id) async {
     try {
       state = ProductViewState.Busy;
@@ -53,6 +96,25 @@ class ProductModel with ChangeNotifier implements ProductBase {
       }
     } catch (e) {
       print('ProductModel-readProduct Error: $e');
+      return e;
+    } finally {
+      state = ProductViewState.Idle;
+    }
+  }
+
+  @override
+  Future<List<Product>> readAllProducts() async {
+    try {
+      state = ProductViewState.Busy;
+      List<Product> _productList = await _firestoreService.readAllProducts();
+      if (_productList != null) {
+        productList = _productList;
+        return productList;
+      } else {
+        return null;
+      }
+    } catch (e) {
+      print('ProductModel-readAllProducts Error: $e');
       return e;
     } finally {
       state = ProductViewState.Idle;
@@ -78,61 +140,6 @@ class ProductModel with ChangeNotifier implements ProductBase {
     }
   }
 
-  @override
-  Future<bool> saveProduct({String name,
-    ProductType productType,
-    String explanation,
-    String publisher}) async {
-    try {
-      state = ProductViewState.Busy;
-      String _id = DateTime
-          .now()
-          .microsecondsSinceEpoch
-          .toString();
-      Product product;
-      if (productType == ProductType.FOOD) {
-        product = Product(
-            _id, name, 'FOOD', explanation, publisher, GeoPoint(34, 34));
-      } else if (productType == ProductType.CLOTHES) {
-        product = Product(
-            _id, name, 'CLOTHES', explanation, publisher, GeoPoint(34, 34));
-      } else {
-        return null;
-      }
-      if (product != null) {
-        var result = await _firestoreService.saveProduct(product);
-        if (result) {
-          return true;
-        } else {
-          return false;
-        }
-      } else {
-        return null;
-      }
-    } catch (e) {
-      print('ProductModel-saveProduct Error: $e');
-      return e;
-    } finally {
-      state = ProductViewState.Idle;
-    }
-  }
 
-  @override
-  Future<List<Product>> readAllProducts() async {
-    try {
-      state = ProductViewState.Busy;
-      List<Product> _productList = await _firestoreService.readAllProducts();
-      if (_productList != null) {
-        productList = _productList;
-        return productList;
-      } else {
-        return null;
-      }
-    } catch (e) {
-      print('ProductModel-readAllProducts Error: $e');
-      return e;
-    } finally {
-      state = ProductViewState.Idle;
-    }
-  }
+
 }
