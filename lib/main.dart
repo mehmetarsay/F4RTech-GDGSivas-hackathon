@@ -1,29 +1,42 @@
+import 'package:f4rtech_gdgsivas_hackathon/locator.dart';
 import 'package:f4rtech_gdgsivas_hackathon/view/landing_page.dart';
+import 'package:f4rtech_gdgsivas_hackathon/view/loading_page.dart';
 import 'package:f4rtech_gdgsivas_hackathon/view/login_page.dart';
 import 'package:f4rtech_gdgsivas_hackathon/view/signup_page.dart';
+import 'package:f4rtech_gdgsivas_hackathon/viewmodel/user_model.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+  setupLocator();
   runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-        visualDensity: VisualDensity.adaptivePlatformDensity,
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (context) => UserModel()),
+      ],
+      child: MaterialApp(
+        title: 'F4RTech',
+        theme: ThemeData(
+          primarySwatch: Colors.blue,
+          visualDensity: VisualDensity.adaptivePlatformDensity,
+          fontFamily: 'Gilroy',
+        ),
+        home: LoadingPage(),
       ),
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
     );
   }
 }
-
+/*
 class MyHomePage extends StatefulWidget {
   MyHomePage({Key key, this.title}) : super(key: key);
-
 
   final String title;
 
@@ -42,12 +55,11 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-
     return MaterialApp(
       theme: ThemeData(
-          fontFamily: 'Gilroy',
+        fontFamily: 'Gilroy',
       ),
-      home:LandingPage() ,
+      home: LogInPage(false),
     );
   }
-}
+}*/

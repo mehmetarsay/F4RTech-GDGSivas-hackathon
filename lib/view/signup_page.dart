@@ -1,8 +1,11 @@
 import 'package:f4rtech_gdgsivas_hackathon/app/colors.dart';
 import 'package:f4rtech_gdgsivas_hackathon/app/constants.dart';
+import 'package:f4rtech_gdgsivas_hackathon/app/enums.dart';
 import 'package:f4rtech_gdgsivas_hackathon/common_widget/accept_button.dart';
 import 'package:f4rtech_gdgsivas_hackathon/common_widget/my_text_field.dart';
+import 'package:f4rtech_gdgsivas_hackathon/viewmodel/user_model.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 class SignUpPage extends StatefulWidget {
   bool userType;//false: gönüllü / true: hayırsever
   @override
@@ -41,9 +44,35 @@ class _SignUpPageState extends State<SignUpPage> {
                       MyTextField(label: 'Email', controller: email,userType: widget.userType,),
                       MyTextField(label: 'Telefon Numarası', controller: phoneNumber,userType: widget.userType,textInputType: TextInputType.number,),
                       MyTextField(label: 'Bağlı Kurum*', controller: institution,userType: widget.userType,),
-                      MyTextField(label: 'Şifre', controller: institution,userType: widget.userType,),
+                      MyTextField(label: 'Şifre', controller: password,userType: widget.userType,),
                       widget.userType ==false ? AcceptButton('Kayıt Ol',ColorTable.blue):
-                      AcceptButton('Kayıt Ol',ColorTable.green),
+                      AcceptButton('Kayıt Ol',ColorTable.green, onTap: ()async{
+                        print('AAA');
+                        final _userModel = Provider.of<UserModel>(context);
+                        try{
+                          await _userModel.createUserWithEmailAndPassword(userType: UserType.VOLUNTEER,
+                              email: email.text,
+                              password: password.text,
+                          fullName: fullname.text,
+                            phoneNumber: phoneNumber.text, companyOrInstitution: institution.text);
+                        }catch(e){
+
+                        }
+                      },
+                      ),
+                      RaisedButton(onPressed: ()async{
+                        print('AAA');
+                        final _userModel = Provider.of<UserModel>(context, listen: false);
+                        try{
+                          await _userModel.createUserWithEmailAndPassword(userType: UserType.VOLUNTEER,
+                              email: email.text,
+                              password: password.text,
+                              fullName: fullname.text,
+                              phoneNumber: phoneNumber.text, companyOrInstitution: institution.text);
+                        }catch(e){
+
+                        }
+                      }, child: Text('Save'),)
                     ],
                   ),
                 ),

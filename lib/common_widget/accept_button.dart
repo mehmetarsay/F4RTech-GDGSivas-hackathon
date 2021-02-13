@@ -8,9 +8,7 @@ class AcceptButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: (){
-        onTap();
-      },
+      onTap: onTap,
       child: Container(
         width: Constants.getWidthValue(context, 304),
         height: Constants.getHeightValue(context, 41),
