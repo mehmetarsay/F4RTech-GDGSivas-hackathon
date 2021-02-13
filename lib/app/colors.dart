@@ -22,4 +22,6 @@ class ColorTable {
     '#A9EAA9'.toColor(),
     '#CEF3CE'.toColor()
   ];
+  static Color yellow = '#F2D200'.toColor();
+
 }
