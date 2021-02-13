@@ -24,7 +24,6 @@ class ProductModel with ChangeNotifier implements ProductBase {
     _productList = [];
   }
 
-  ProductViewState get state => _state;
 
   set state(ProductViewState value) {
     _state = value;
