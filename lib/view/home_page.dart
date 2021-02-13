@@ -2,6 +2,8 @@ import 'package:f4rtech_gdgsivas_hackathon/app/constants.dart';
 import 'package:f4rtech_gdgsivas_hackathon/models/sharer_product_add_page.dart';
 import 'package:f4rtech_gdgsivas_hackathon/view/sharer_page.dart';
 import 'package:f4rtech_gdgsivas_hackathon/view/sharer_request_page.dart';
+import 'package:f4rtech_gdgsivas_hackathon/view/volunteer_profil_page.dart';
+import 'package:f4rtech_gdgsivas_hackathon/view/volunteer_request_page.dart';
 import 'package:flutter/material.dart';
 
 import '../app/colors.dart';
@@ -92,7 +94,7 @@ class HomeScreen extends State<HomeScreenPage>
                     onTap: (){
                       setState(() {
                         closeDrawer();
-                        bodyPage = SharerRequestPage();
+                        bodyPage = VolunteerProfilPage();
                       });
 
                     }),
