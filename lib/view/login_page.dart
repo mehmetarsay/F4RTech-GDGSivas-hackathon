@@ -16,13 +16,12 @@ class LogInPage extends StatefulWidget {
 
   @override
   _LogInPageState createState() => _LogInPageState();
-  TextEditingController email = TextEditingController();
-  TextEditingController password = TextEditingController();
-
   LogInPage(this.userType);
 }
 
 class _LogInPageState extends State<LogInPage> {
+  TextEditingController email = TextEditingController();
+  TextEditingController password = TextEditingController();
   //false: gönüllü / true: hayırsever
 
   @override
@@ -71,16 +70,13 @@ class _LogInPageState extends State<LogInPage> {
                     children: [
                       MyTextField(
                         label: 'Email',
-                        controller: widget.email,
+                        controller: email,
                         userType: widget.userType,
                       ),
                       MyTextField(
                         label: 'Şifre',
-                        controller: widget.password,
+                        controller: password,
                         userType: widget.userType,
-                      ),
-                      TextFormField(
-                        controller: widget.email,
                       ),
                       Container(
                         width: Constants.getWidth(context),
@@ -95,28 +91,34 @@ class _LogInPageState extends State<LogInPage> {
                         ),
                       ),
                       widget.userType == false
-                          ? AcceptButton('Giriş Yap', ColorTable.blue, onTap: (){
-                            print('AAAAAAAAAAAAAAAAAAAmmar');
-                      },)
+                          ? AcceptButton('Giriş Yap', ColorTable.blue, onTap: () async {
+                        print(UserType.VOLUNTEER);
+                        final _userModel =
+                        Provider.of<UserModel>(context, listen: false);
+                        try {
+                          await _userModel.signInWithEmailAndPassword(
+                              email: email.text,
+                              password: password.text);
+                        } catch (e) {
+                          print(e);
+                        }
+                      },
+                      )
                           : AcceptButton(
                               'Giriş Yap',
                               ColorTable.green,
-                            ),
-                      RaisedButton(
-                        onPressed: () async {
-                          print(UserType.VOLUNTEER);
-                          final _userModel =
+                            onTap: () async {
+                              print(UserType.VOLUNTEER);
+                              final _userModel =
                               Provider.of<UserModel>(context, listen: false);
-                          try {
-                            await _userModel.signInWithEmailAndPassword(
-                                email: widget.email.text,
-                                password: widget.password.text);
-                          } catch (e) {
-                            print(e);
-                          }
-                        },
-                        child: Text('Giriş'),
-                      ),
+                              try {
+                                await _userModel.signInWithEmailAndPassword(
+                                    email: email.text,
+                                    password: password.text);
+                              } catch (e) {
+                                print(e);
+                              }
+                            },),
                       //Hesabın mı yok? Kayıt ol
                       Container(
                         width: Constants.getWidth(context),

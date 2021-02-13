@@ -1,8 +1,8 @@
 import 'package:f4rtech_gdgsivas_hackathon/app/colors.dart';
 import 'package:f4rtech_gdgsivas_hackathon/app/constants.dart';
 import 'package:f4rtech_gdgsivas_hackathon/view/login_page.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:supercharged/supercharged.dart';
 
 class LandingPage extends StatefulWidget {
   @override
@@ -21,23 +21,47 @@ class _LandingPageState extends State<LandingPage> {
         children: [
           LogInPage(true),
           Scaffold(
+            backgroundColor: Colors.white,
             body: SafeArea(
               child: Container(
                 height: Constants.getHeight(context),
                 width:Constants.getWidth(context) ,
-                child: Column(
+                child: Stack(
                   children: [
-                    landingText(
-                        title: 'HAYIRSEVER',
-                        content:
-                        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque nisl eros, pulvinar facilisis justo mollis, auctor consequat urna.',
-                        backgroundColor: ColorTable.blue,
-                    scroolPage: 2),
-                    landingText(
-                        title: 'GÖNÜLLÜ',
-                        content:
-                        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque nisl eros, pulvinar facilisis justo mollis, auctor consequat urna.',
-                        backgroundColor: ColorTable.green,scroolPage: 0)
+                    Positioned(
+                      right: 0,
+                      bottom: Constants.getHeightValue(context, 60),
+                      child: Container(
+                        child: Image.asset(
+                          'assets/a1.png',
+                          height: Constants.getHeight(context),
+                          width: Constants.getWidth(context)/2,
+                        ),
+                      ),
+                    ),
+                    Positioned(
+                      left: -Constants.getWidthValue(context, 17),
+                      bottom: Constants.getHeightValue(context, 53),
+                      child: Container(
+                        child: Image.asset(
+                          'assets/b2.png',
+                          height: Constants.getHeight(context),
+                          width: Constants.getWidth(context)/2,
+                        ),
+                      ),
+                    ),
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        landingText(
+                            title: 'HAYIRSEVER',
+                            backgroundColor: ColorTable.blue,
+                        scroolPage: 2),
+                        landingText(
+                            title: 'GÖNÜLLÜ',
+                            backgroundColor: ColorTable.green,scroolPage: 0)
+                      ],
+                    ),
                   ],
                 ),
               ),
@@ -51,7 +75,6 @@ class _LandingPageState extends State<LandingPage> {
 
   Widget landingText(
       {@required String title,
-        @required String content,
         @required Color backgroundColor,int scroolPage}) {
     return InkWell(
       onTap: (){
@@ -63,34 +86,82 @@ class _LandingPageState extends State<LandingPage> {
       },
       child: Container(
           padding: EdgeInsets.all(16),
-          color: backgroundColor,
+          decoration: BoxDecoration(
+            gradient: scroolPage == 2 ?LinearGradient(
+              begin: Alignment.centerLeft,
+              end: Alignment.centerRight,
+              colors: [
+                backgroundColor,backgroundColor.withOpacity(0.1)
+              ]
+            ):
+            LinearGradient(
+                begin: Alignment.centerRight,
+                end: Alignment.centerLeft,
+                colors: [
+                  backgroundColor,backgroundColor.withOpacity(0.1)
+                ]
+            ),
+          ),
           width: MediaQuery.of(context).size.width,
-          child: Column(
+          child:scroolPage == 2 ? Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(title,
                       style: TextStyle(
                           fontSize: 38,
                           fontWeight: FontWeight.bold,
                           color: Colors.white)),
-                  IconButton(
-                      icon: Icon(
-                        Icons.arrow_forward,
-                        size: 48,
-                        color: Colors.white,
-                      ),
-                      onPressed: null),
+                  Text('Paylaştığın senindir, biriktirdiğin değil.',
+                  style: TextStyle(
+                    fontStyle: FontStyle.italic,
+                    fontWeight: FontWeight.bold
+                  ),)
                 ],
               ),
-              SizedBox(height: 16),
-              Text(
-                content,
-                style: TextStyle(fontSize: 24, color: Colors.white),
-              )
+
+              Icon(
+                Icons.arrow_forward,
+                size: 48,
+                color: backgroundColor,
+              ),
             ],
-          )),
+          ):
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Icon(
+                Icons.arrow_back,
+                size: 48,
+                color: backgroundColor,
+              ),
+              //Başkasına yararı dokunan insan en
+              // kusursuz insandır.
+              // Sophokles
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  Text(title,
+                      style: TextStyle(
+                          fontSize: 38,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white)),
+                  Text('Başkasına Yardımı Dokunan İnsan\n Kusursuz İnsandır.',
+                  style: TextStyle(
+                    fontStyle: FontStyle.italic,
+                      fontWeight: FontWeight.bold,
+                  ),
+                  maxLines: 2,
+
+                  )
+
+                ],
+              ),
+            ],
+          )
+      ),
     );
   }
 }
