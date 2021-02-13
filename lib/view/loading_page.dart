@@ -11,6 +11,7 @@ class LoadingPage extends StatefulWidget {
   @override
   _LoadingPageState createState() => _LoadingPageState();
 }
+
 class _LoadingPageState extends State<LoadingPage> {
   @override
   Widget build(BuildContext context) {
@@ -18,9 +19,11 @@ class _LoadingPageState extends State<LoadingPage> {
     if (_userModel.state == ViewState.Idle) {
       if (_userModel.user == null) {
         return LandingPage();
-      }
-      else  {
-        return Denemepage();
+      } else {
+        return HomeScreenPage(
+            _userModel.user.userType == UserType.VOLUNTEER.toString()
+                ? UserType.VOLUNTEER
+                : UserType.SHARER);
       }
     } else {
       return Scaffold(

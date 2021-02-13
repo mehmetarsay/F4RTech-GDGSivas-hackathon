@@ -1,23 +1,28 @@
 import 'package:f4rtech_gdgsivas_hackathon/app/colors.dart';
 import 'package:f4rtech_gdgsivas_hackathon/app/constants.dart';
+import 'package:f4rtech_gdgsivas_hackathon/app/enums.dart';
 import 'package:flutter/material.dart';
-  class ProfilWidget extends StatelessWidget {
-    String name;
-    String email;
-    String phone;
+
+class ProfilWidget extends StatelessWidget {
+  String name;
+  String email;
+  String phone;
+  UserType userType;
+  List<Color> colors;
+
   @override
   Widget build(BuildContext context) {
+    print('AAA' + userType.toString());
     return Container(
       height: Constants.getHeightValue(context, 270),
       decoration: BoxDecoration(
-        color: ColorTable.blue,
+        color: colors[0],
         gradient: LinearGradient(
             begin: Alignment.bottomRight,
             end: Alignment.topLeft,
-            colors: [ColorTable.blue, Colors.white]),
+            colors: [colors[0], Colors.white]),
         borderRadius: BorderRadius.only(
-            bottomLeft: Radius.circular(30),
-            bottomRight: Radius.circular(30)),
+            bottomLeft: Radius.circular(30), bottomRight: Radius.circular(30)),
       ),
       child: Stack(
         overflow: Overflow.visible,
@@ -39,6 +44,7 @@ import 'package:flutter/material.dart';
       ),
     );
   }
+
   Container topInfo(BuildContext context) {
     return Container(
       width: Constants.getWidth(context) * 0.80,
@@ -84,11 +90,19 @@ import 'package:flutter/material.dart';
     return Text(
       '$text ${detail}',
       style: TextStyle(
-          color: ColorTable.blue.withOpacity(1),
-          fontSize: size,
-          fontWeight: weight),
+          color: colors[0].withOpacity(1), fontSize: size, fontWeight: weight),
     );
   }
 
-    ProfilWidget({this.name='name', this.email='email', this.phone='0539391552'});
+  ProfilWidget(
+      {this.userType,
+      this.name = 'name',
+      this.email = 'email',
+      this.phone = '0539391552'}) {
+    if (userType == UserType.VOLUNTEER) {
+      colors = ColorTable.greenT;
+    } else {
+      colors = ColorTable.blueT;
+    }
+  }
 }
