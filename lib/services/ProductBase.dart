@@ -8,5 +8,5 @@ abstract class ProductBase{
   Future<bool> saveProduct({String name, ProductType productType, String explanation, Asset file});
   Future<Product> readProduct(String id);
   Future<List<Product>> readAllProducts();
-  Future<List<Product>> readFilteredProducts(GeoPoint location);
+  Future<List<Product>> readFilteredProducts(double radius);
 }

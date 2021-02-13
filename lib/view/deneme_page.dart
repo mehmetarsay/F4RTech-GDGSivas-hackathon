@@ -3,6 +3,7 @@ import 'package:f4rtech_gdgsivas_hackathon/app/enums.dart';
 import 'package:f4rtech_gdgsivas_hackathon/models/product.dart';
 import 'package:f4rtech_gdgsivas_hackathon/view/SelectLocation.dart';
 import 'package:f4rtech_gdgsivas_hackathon/view/map_view.dart';
+import 'package:f4rtech_gdgsivas_hackathon/view/volunteer_request_page.dart';
 import 'package:f4rtech_gdgsivas_hackathon/viewmodel/product_model.dart';
 import 'package:f4rtech_gdgsivas_hackathon/viewmodel/user_model.dart';
 import 'package:flutter/material.dart';
@@ -50,8 +51,8 @@ class _DenemepageState extends State<Denemepage> {
           body: Column(
             children: [
               Center(
-                child: RaisedButton(child:Text('MapView git'),onPressed: (){
-                  Navigator.push(context, MaterialPageRoute(builder:(context)=>MapView()));
+                child: RaisedButton(child:Text('Volunteer Request'),onPressed: (){
+                  Navigator.push(context, MaterialPageRoute(builder:(context)=>VolunteerRequestPage()));
                 },),
 
               ),
@@ -66,12 +67,12 @@ class _DenemepageState extends State<Denemepage> {
           appBar: AppBar(
             title: Text('Deneme'),
             actions: [
-              RaisedButton(
+              /*RaisedButton(
                 child: Text('Kaydet'),
                 onPressed: () async {
                   final _userModel = Provider.of<UserModel>(context, listen: false);
                   try {
-                    var result = await _productModel.readFilteredProducts(GeoPoint(34, 34));
+                    //var result = await _productModel.readFilteredProducts(GeoPoint(34, 34));
                     if (result != null) {
                       _productModel.productList.forEach((element) {
                         print(element);
@@ -87,7 +88,7 @@ class _DenemepageState extends State<Denemepage> {
                     print('ERROR: $e');
                   }
                 },
-              ),
+              ), */
             ],
           ),
           body: ListView.builder(

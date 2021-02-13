@@ -7,6 +7,9 @@ import 'package:f4rtech_gdgsivas_hackathon/models/sharer_user.dart';
 import 'package:f4rtech_gdgsivas_hackathon/models/volunteer_user.dart';
 import 'package:f4rtech_gdgsivas_hackathon/services/FirestoreBase.dart';
 import 'package:f4rtech_gdgsivas_hackathon/models/user.dart' as usr;
+import 'package:f4rtech_gdgsivas_hackathon/viewmodel/user_model.dart';
+import 'package:geolocator/geolocator.dart';
+import 'package:provider/provider.dart';
 
 class FirestoreService implements FirestoreBase {
   @override
@@ -109,19 +112,23 @@ class FirestoreService implements FirestoreBase {
   }
 
   @override
-  Future<List<Product>> readFilteredProducts(GeoPoint location) async {
+  Future<List<Product>> readFilteredProducts(double radius) async {
     try {
-      var result = await FirebaseFirestore.instance
-          .collection('products')
-          .where('location', isEqualTo: location)
-          .get();
-      if (result != null) {
-        List<Product> products = [];
-        result.docs.forEach((element) {
-          products.add(Product.fromSnapshot(element));
-        });
-        return products;
-      } else {
+      List<Product> allProducts = await readAllProducts();
+      if (allProducts != null) {
+        print('denemeee'+allProducts.length.toString());
+        Position currentLocation=await Geolocator.getCurrentPosition();
+        List<Product> filteredProducts=[];
+        for(int i=0;i<allProducts.length;++i)
+            {
+              if(Geolocator.distanceBetween(currentLocation.latitude, currentLocation.longitude, allProducts[i].location.latitude, allProducts[i].location.longitude)<=radius) {
+                print((Geolocator.distanceBetween(currentLocation.latitude, currentLocation.longitude, allProducts[i].location.latitude, allProducts[i].location.longitude).toString()));
+                filteredProducts.add(allProducts[i]);
+              }
+            }
+        return filteredProducts;
+          }
+      else {
         return null;
       }
     } catch (e) {

@@ -40,9 +40,9 @@ class UserModel with ChangeNotifier implements AuthBase {
     try {
       state = ViewState.Busy;
       User userAuth = await _authService.currentUser();
-      _determinePosition();
       if (userAuth != null) {
         user = await _firestoreService.readUser(userAuth.uid);
+        await _determinePosition();
         return user;
       } else {
         return null;
