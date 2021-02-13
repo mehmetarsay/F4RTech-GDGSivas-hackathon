@@ -113,7 +113,7 @@ class _SignUpPageState extends State<SignUpPage> {
                                     context,
                                     listen: false);
                                 try {
-                                  await _userModel
+                                  var user = await _userModel
                                       .createUserWithEmailAndPassword(
                                           userType: UserType.VOLUNTEER,
                                           email: email.text,
@@ -122,6 +122,9 @@ class _SignUpPageState extends State<SignUpPage> {
                                           phoneNumber: phoneNumber.text,
                                           companyOrInstitution:
                                               institution.text);
+                                  if(user != null){
+                                    Navigator.pop(context);
+                                  }
                                 } catch (e) {}
                               },
                             )
@@ -131,9 +134,9 @@ class _SignUpPageState extends State<SignUpPage> {
                               onTap: () async {
                                 print('AAA');
                                 final _userModel =
-                                    Provider.of<UserModel>(context);
+                                    Provider.of<UserModel>(context, listen: false);
                                 try {
-                                  await _userModel
+                                  var user = await _userModel
                                       .createUserWithEmailAndPassword(
                                           userType: UserType.VOLUNTEER,
                                           email: email.text,
@@ -142,6 +145,9 @@ class _SignUpPageState extends State<SignUpPage> {
                                           phoneNumber: phoneNumber.text,
                                           companyOrInstitution:
                                               institution.text);
+                                  if(user != null){
+                                    Navigator.pop(context);
+                                  }
                                 } catch (e) {}
                               },
                             ),
