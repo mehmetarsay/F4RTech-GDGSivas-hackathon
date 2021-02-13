@@ -19,7 +19,7 @@ abstract class User {
         email = parsedMap['email'],
         userType = parsedMap['userType'],
         phoneNumber = parsedMap['phoneNumber'],
-        dateOfRegistration = parsedMap['dateOfRegistration'];
+        dateOfRegistration = (parsedMap['dateOfRegistration'] as Timestamp).toDate();
 
   Map<String, dynamic> toMap() {
     return {

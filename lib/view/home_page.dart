@@ -19,7 +19,7 @@ class HomeScreenPage extends StatefulWidget {
   HomeScreen createState() => HomeScreen();
 
   HomeScreenPage(this.userType){
-    if(userType == 'VOLUNTEER'){
+    if(userType == UserType.VOLUNTEER.toString()){
       backColor = ColorTable.blueT;
     }
     else{
@@ -222,9 +222,9 @@ class HomeScreen extends State<HomeScreenPage>
         options(
             text: 'Çıkış Yap',
             onTap: () async {
-               final _userModel = Provider.of<UserModel>(context,listen: false);
+              final _userModel = Provider.of<UserModel>(context, listen: false);
               await _userModel.signOut();
-              Navigator.pop(context);
+              //Navigator.pop(context);
             }),
 
       ],

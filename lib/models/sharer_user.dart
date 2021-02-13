@@ -40,6 +40,7 @@ class SharerUser extends usr.User {
       'sharedProductList': _sharedProductList,
       'shareProductCount': _shareProductCount,
       'incomingRequestProductList': _incomingRequestProductList,
+      'dateOfRegistration' : dateOfRegistration,
     };
   }
 

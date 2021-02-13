@@ -65,18 +65,18 @@ class UserModel with ChangeNotifier implements AuthBase {
       String companyOrInstitution}) async {
     try {
       state = ViewState.Busy;
-      var user = await _authService.createUserWithEmailAndPassword(
+      var _user = await _authService.createUserWithEmailAndPassword(
           userType: userType,
           email: email,
           password: password,
           fullName: fullName,
           phoneNumber: phoneNumber,
           companyOrInstitution: companyOrInstitution);
-      if (user != null) {
-        var result = await _firestoreService.saveUser(user);
+      if (_user != null) {
+        var result = await _firestoreService.saveUser(_user);
         if (result) {
-          _user = await _firestoreService.readUser(user.uid);
-          return _user;
+          user = _user;
+          return user;
         } else {
           return null;
         }
@@ -121,7 +121,13 @@ class UserModel with ChangeNotifier implements AuthBase {
   Future<bool> signOut() async {
     try {
       state = ViewState.Busy;
-      return await _authService.signOut();
+      bool result =  await _authService.signOut();
+      if(result){
+        user = null;
+        return true;
+      }else {
+        return false;
+      }
     } catch (e) {
       print('UserModel-signOut Error: $e');
       return e;

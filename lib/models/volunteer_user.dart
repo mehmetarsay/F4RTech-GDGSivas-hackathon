@@ -44,6 +44,7 @@ class VolunteerUser extends usr.User {
       'completedProductList': _completedProductList,
       'commentList': _commentList,
       'requestProductList': _requestProductList,
+      'dateOfRegistration' : dateOfRegistration,
     };
   }
   VolunteerUser.fromSnapshot(DocumentSnapshot snapshot)
