@@ -12,7 +12,7 @@ import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
 
 
 class LogInPage extends StatefulWidget {
-  bool userType;
+  UserType userType;
 
   @override
   _LogInPageState createState() => _LogInPageState();
@@ -36,7 +36,7 @@ class _LogInPageState extends State<LogInPage> {
 
           child: Stack(
             children: [
-              widget.userType == true ?Positioned(
+              widget.userType == UserType.VOLUNTEER ?Positioned(
                 right: 0,
                 bottom: Constants.getHeightValue(context, 47),
                 child: Container(
@@ -84,15 +84,28 @@ class _LogInPageState extends State<LogInPage> {
                         child: Text(
                           'Şifremi Unuttum?',
                           style: TextStyle(
-                              color: widget.userType == false
-                                  ? ColorTable.blueT[3]
-                                  : ColorTable.greenT[3],
+                              color: widget.userType == UserType.VOLUNTEER
+                                  ? ColorTable.greenT[3]
+                                  : ColorTable.blueT[3],
                               fontWeight: FontWeight.w400),
                         ),
                       ),
-                      widget.userType == false
-                          ? AcceptButton('Giriş Yap', ColorTable.blue, onTap: () async {
-                        print(UserType.VOLUNTEER);
+                      widget.userType == UserType.VOLUNTEER
+                          ? AcceptButton(
+                        'Giriş Yap',
+                        ColorTable.green,
+                        onTap: () async {
+                          final _userModel =
+                          Provider.of<UserModel>(context, listen: false);
+                          try {
+                            await _userModel.signInWithEmailAndPassword(
+                                email: email.text,
+                                password: password.text);
+                          } catch (e) {
+                            print(e);
+                          }
+                        },
+                      ):AcceptButton('Giriş Yap', ColorTable.blue, onTap: () async {
                         final _userModel =
                         Provider.of<UserModel>(context, listen: false);
                         try {
@@ -104,21 +117,7 @@ class _LogInPageState extends State<LogInPage> {
                         }
                       },
                       )
-                          : AcceptButton(
-                              'Giriş Yap',
-                              ColorTable.green,
-                            onTap: () async {
-                              print(UserType.VOLUNTEER);
-                              final _userModel =
-                              Provider.of<UserModel>(context, listen: false);
-                              try {
-                                await _userModel.signInWithEmailAndPassword(
-                                    email: email.text,
-                                    password: password.text);
-                              } catch (e) {
-                                print(e);
-                              }
-                            },),
+                      ,
                       //Hesabın mı yok? Kayıt ol
                       Container(
                         width: Constants.getWidth(context),
@@ -128,9 +127,7 @@ class _LogInPageState extends State<LogInPage> {
                             Text(
                               'Hesabın mı yok?',
                               style: TextStyle(
-                                  color: widget.userType == false
-                                      ? ColorTable.blueT[3]
-                                      : ColorTable.greenT[3],
+                                  color: widget.userType == UserType.VOLUNTEER ?ColorTable.greenT[2] : ColorTable.blueT[2],
                                   fontWeight: FontWeight.w400),
                             ),
                             GestureDetector(
@@ -144,9 +141,7 @@ class _LogInPageState extends State<LogInPage> {
                               child: Text(
                                 ' Kayıt Ol',
                                 style: TextStyle(
-                                    color: widget.userType == false
-                                        ? ColorTable.blueT[0]
-                                        : ColorTable.greenT[0],
+                                    color: widget.userType == UserType.VOLUNTEER ?ColorTable.greenT[2] : ColorTable.blueT[2],
                                     fontWeight: FontWeight.w400),
                               ),
                             ),
@@ -156,9 +151,7 @@ class _LogInPageState extends State<LogInPage> {
                       Text(
                         'Terms & Conditions',
                         style: TextStyle(
-                            color: widget.userType == false
-                                ? ColorTable.blueT[3]
-                                : ColorTable.greenT[3],
+                            color: widget.userType == UserType.VOLUNTEER ?ColorTable.greenT[2] : ColorTable.blueT[2],
                             fontWeight: FontWeight.w400),
                       ),
                     ],
