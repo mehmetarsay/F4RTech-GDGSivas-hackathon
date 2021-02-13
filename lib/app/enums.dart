@@ -8,3 +8,5 @@ enum RequestStatus {WAITING, COMPLETED, DENIED}
 
 enum ViewState {Idle, Busy}
 
+enum ProductViewState {Idle, Loaded,Busy}
+
