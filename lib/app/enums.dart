@@ -7,3 +7,4 @@ enum ProductType {FOOD, CLOTHES}
 enum RequestStatus {WAITING, COMPLETED, DENIED}
 
 enum ViewState {Idle, Busy}
+

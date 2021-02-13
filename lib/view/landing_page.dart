@@ -2,9 +2,7 @@ import 'package:f4rtech_gdgsivas_hackathon/app/colors.dart';
 import 'package:f4rtech_gdgsivas_hackathon/app/constants.dart';
 import 'package:f4rtech_gdgsivas_hackathon/view/login_page.dart';
 import 'package:flutter/material.dart';
-
 import 'package:supercharged/supercharged.dart';
-
 
 class LandingPage extends StatefulWidget {
   @override
@@ -15,7 +13,6 @@ class _LandingPageState extends State<LandingPage> {
   PageController _pageController = PageController();
   @override
   Widget build(BuildContext context) {
-
     return ScrollConfiguration(
       behavior: MyBehavior(),
       child: PageView(
@@ -48,14 +45,12 @@ class _LandingPageState extends State<LandingPage> {
           ),
           LogInPage(false)
         ],
-
       ),
     );
   }
 
   Widget landingText(
       {@required String title,
-
         @required String content,
         @required Color backgroundColor,int scroolPage}) {
     return InkWell(
