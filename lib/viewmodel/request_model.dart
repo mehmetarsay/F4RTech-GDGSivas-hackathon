@@ -45,12 +45,7 @@ class RequestModel with ChangeNotifier implements RequestBase {
       String _id = DateTime.now().microsecondsSinceEpoch.toString();
       Request request = Request(_id, requestedProduct, requesting, requested, [RequestStatus.WAITING.toString()]);
       if (request != null) {
-        return await _firestoreService.saveRequest(request);
-        /*if (result) {
-          return true;
-        } else {
-          return false;
-        }*/
+         return await _firestoreService.saveRequest(request);
       }
     } catch (e) {
       print('RequestModel-saveRequest Error: $e');

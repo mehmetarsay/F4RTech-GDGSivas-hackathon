@@ -73,6 +73,14 @@ class HomeScreen extends State<HomeScreenPage>
       body: new SafeArea(
         child: new Stack(
           children: <Widget>[
+            Positioned(
+              bottom: 0,
+              child: Container(
+                child: Image.asset(
+                   'assets/back.png',
+                ),
+              ),
+            ),
             customDrawer(context),
             screenBack(context),
             homeScreen(context,SharerPage()),
@@ -167,9 +175,11 @@ class HomeScreen extends State<HomeScreenPage>
         child: Container(
           width: Constants.getWidthValue(context, 150),
           height: Constants.getHeightValue(context, 45),
+
           alignment: Alignment.center,
           decoration: BoxDecoration(
-            border: Border.all(width: 1,color: widget.backColor[1])
+            border: Border.all(width: 1,color: widget.backColor[1]),
+            color: widget.backColor[5],
           ),
           child: Text(
             text,
