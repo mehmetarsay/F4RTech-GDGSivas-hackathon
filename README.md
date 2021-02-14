@@ -23,4 +23,4 @@ UYGULAMA İÇERİĞİ
      -Hayırsever ürün ekleme ile kolay bir şekilde ürünün fotoğrafını, ismini, açıklamasını, türünü ve konumunu paylaşarak gönüllülerin daha kolay ürünü bulmasına yardmcı olur.
      -Kendisine gelen istekleri görebilir, kabul edebilir ve durumunu değiştirebilir.
      
-  
+  [url=https://hizliresim.com/idZ32K][img]https://i.hizliresim.com/idZ32K.png[/img][/url]
