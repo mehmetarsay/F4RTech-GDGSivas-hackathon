@@ -1,16 +1,21 @@
 import 'package:f4rtech_gdgsivas_hackathon/app/enums.dart';
+import 'package:f4rtech_gdgsivas_hackathon/locator.dart';
+import 'package:f4rtech_gdgsivas_hackathon/models/product.dart';
 import 'package:f4rtech_gdgsivas_hackathon/models/request.dart';
+import 'package:f4rtech_gdgsivas_hackathon/models/sharer_user.dart';
+import 'package:f4rtech_gdgsivas_hackathon/models/volunteer_user.dart';
 import 'package:f4rtech_gdgsivas_hackathon/services/FirestoreService.dart';
 import 'package:f4rtech_gdgsivas_hackathon/services/RequestBase.dart';
 import 'package:flutter/material.dart';
 
 class RequestModel with ChangeNotifier implements RequestBase {
   RequestViewState _state = RequestViewState.Idle;
-  FirestoreService _firestoreService;
-  List<Request> _requestList;
+  FirestoreService _firestoreService = locator<FirestoreService>();
+  List<Request> _requestList = [];
   Request _request;
   RequestModel() {
     _requestList = [];
+    readAllRequest();
   }
 
   RequestViewState get state => _state;
@@ -33,11 +38,11 @@ class RequestModel with ChangeNotifier implements RequestBase {
   }
 
   @override
-  Future<bool> saveRequest({String requestedProduct, String requesting}) async {
+  Future<bool> saveRequest({Product requestedProduct, SharerUser requested, VolunteerUser requesting}) async {
     try {
       state = RequestViewState.Busy;
       String _id = DateTime.now().microsecondsSinceEpoch.toString();
-      Request request = Request(_id, requestedProduct, requesting, 'WAITING');
+      Request request = Request(_id, requestedProduct, requesting, requested, [RequestStatus.WAITING.toString()]);
       if (request != null) {
         return await _firestoreService.saveRequest(request);
         /*if (result) {
@@ -77,7 +82,7 @@ class RequestModel with ChangeNotifier implements RequestBase {
   Future<List<Request>> readAllRequest() async {
     try {
       state = RequestViewState.Busy;
-      List<Request> _requestList = await _firestoreService.readAllRequest();
+      var _requestList = await _firestoreService.readAllRequest();
       if (_requestList != null) {
         requestList = _requestList;
         return requestList;
@@ -96,7 +101,7 @@ class RequestModel with ChangeNotifier implements RequestBase {
   Future<List<Request>> readFilteredRequest(String requesting) async{
     try {
       state = RequestViewState.Busy;
-      List<Request> _requestList = await _firestoreService.readFilteredRequest(requesting);
+      var _requestList = await _firestoreService.readFilteredRequest(requesting);
       if (_requestList != null) {
         requestList = _requestList;
         return requestList;

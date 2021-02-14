@@ -35,6 +35,26 @@ class UserModel with ChangeNotifier implements AuthBase {
 
   get differentUser => _differentUser;
 
+
+  set differentUser(value) {
+    _differentUser = value;
+  }
+
+  @override
+  Future<dynamic> differentUserFunc(String uid) async {
+    try {
+      state = ViewState.Busy;
+      differentUser = await _firestoreService.readUser(uid);
+      return differentUser;
+
+    } catch (e) {
+      print('UserModel-currentUser Error: $e');
+      return e;
+    } finally {
+      state = ViewState.Idle;
+    }
+  }
+
   @override
   Future<dynamic> currentUser() async {
     try {
