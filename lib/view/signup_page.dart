@@ -123,7 +123,7 @@ class _SignUpPageState extends State<SignUpPage> {
                         widget.userType == UserType.VOLUNTEER
                             ? AcceptButton('Kayıt Ol', ColorTable.green,
                                 onTap: (){
-                                  signUpOnTap(UserType.SHARER);
+                                  signUpOnTap(UserType.VOLUNTEER);
                                 })
                             : AcceptButton(
                                 'Kayıt Ol',
