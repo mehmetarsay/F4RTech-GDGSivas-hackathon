@@ -15,12 +15,6 @@ class SharerRequestPage extends StatefulWidget {
 }
 
 class _SharerRequestPageState extends State<SharerRequestPage> {
-  UserModel _userModel;
-  @override
-  void initState() {
-    super.initState();
-    _userModel = context.read<UserModel>();
-  }
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -32,7 +26,7 @@ class _SharerRequestPageState extends State<SharerRequestPage> {
             Expanded(
               child: context.watch<RequestModel>().requestList.isNotEmpty ? Column(
                 children: context.watch<RequestModel>().requestList.map((e) {
-                  if (e.requested.uid == _userModel.user.uid) {
+                  if (e.requested.uid == context.watch<UserModel>().user.uid) {
                     return RequestWidget(
                       volunteer: false,
                       photo: e.requestedProduct.imageUrl,

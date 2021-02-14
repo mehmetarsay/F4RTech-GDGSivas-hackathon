@@ -17,6 +17,7 @@ class UserModel with ChangeNotifier implements AuthBase {
 
   UserModel() {
     currentUser();
+    determinePosition();
   }
 
   ViewState get state => _state;
@@ -26,20 +27,23 @@ class UserModel with ChangeNotifier implements AuthBase {
     notifyListeners();
   }
 
+  // ignore: unnecessary_getters_setters
   get user => _user;
 
+  // ignore: unnecessary_getters_setters
   set user(value) {
     _user = value;
   }
 
+  // ignore: unnecessary_getters_setters
   get differentUser => _differentUser;
 
 
+  // ignore: unnecessary_getters_setters
   set differentUser(value) {
     _differentUser = value;
   }
 
-  @override
   Future<dynamic> differentUserFunc(String uid) async {
     try {
       state = ViewState.Busy;
@@ -59,7 +63,6 @@ class UserModel with ChangeNotifier implements AuthBase {
     try {
       state = ViewState.Busy;
       User userAuth = await _authService.currentUser();
-      await determinePosition();
       if (userAuth != null) {
         user = await _firestoreService.readUser(userAuth.uid);
         return user;

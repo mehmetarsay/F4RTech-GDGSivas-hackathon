@@ -11,7 +11,18 @@ class LandingPage extends StatefulWidget {
 }
 
 class _LandingPageState extends State<LandingPage> {
-  PageController pageController = PageController(initialPage: 1);
+  PageController pageController;
+
+  @override
+  void initState() {
+    super.initState();
+    pageController = PageController(initialPage: 1);
+  }
+  @override
+  void dispose() {
+    pageController.dispose();
+    super.dispose();
+  }
   @override
   Widget build(BuildContext context) {
 
@@ -43,8 +54,8 @@ class _LandingPageState extends State<LandingPage> {
                       ),
                     ),
                     Positioned(
-                      left: -Constants.getWidthValue(context, 17),
-                      bottom: Constants.getHeightValue(context, 53),
+                      left: -Constants.getWidthValue(context, 18),
+                      bottom: Constants.getHeightValue(context, 52),
                       child: Container(
                         child: Image.asset(
                           'assets/b2.png',

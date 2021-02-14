@@ -1,10 +1,10 @@
 import 'package:f4rtech_gdgsivas_hackathon/app/constants.dart';
 import 'package:f4rtech_gdgsivas_hackathon/app/enums.dart';
 import 'package:f4rtech_gdgsivas_hackathon/view/sharer_product_add_page.dart';
-import 'package:f4rtech_gdgsivas_hackathon/view/sharer_page.dart';
+import 'package:f4rtech_gdgsivas_hackathon/view/sharer_profile_page.dart';
 import 'package:f4rtech_gdgsivas_hackathon/view/sharer_request_page.dart';
 import 'package:f4rtech_gdgsivas_hackathon/view/volunteer_leader_board_page.dart';
-import 'package:f4rtech_gdgsivas_hackathon/view/volunteer_profil_page.dart';
+import 'package:f4rtech_gdgsivas_hackathon/view/volunteer_profile_page.dart';
 import 'package:f4rtech_gdgsivas_hackathon/view/volunteer_request_page.dart';
 import 'package:f4rtech_gdgsivas_hackathon/viewmodel/user_model.dart';
 import 'package:flutter/material.dart';
@@ -12,13 +12,14 @@ import 'package:provider/provider.dart';
 
 import '../app/colors.dart';
 
-class HomeScreenPage extends StatefulWidget {
-  UserType userType;
+// ignore: must_be_immutable
+class HomePage extends StatefulWidget {
+  final UserType userType;
   List<Color> backColor;
   @override
-  HomeScreen createState() => HomeScreen();
+  _HomePageState createState() => _HomePageState();
 
-  HomeScreenPage(this.userType){
+  HomePage(this.userType){
     if(userType == UserType.VOLUNTEER){
       backColor = ColorTable.greenT;
     }
@@ -28,7 +29,7 @@ class HomeScreenPage extends StatefulWidget {
   }
 }
 
-class HomeScreen extends State<HomeScreenPage>
+class _HomePageState extends State<HomePage>
     with SingleTickerProviderStateMixin, ChangeNotifier {
   Widget _bodyPage ;
   bool isCollapsed = true;
@@ -241,8 +242,8 @@ class HomeScreen extends State<HomeScreenPage>
         options(
             text: 'Çıkış Yap',
             onTap: () async {
-              final _userModel = Provider.of<UserModel>(context, listen: false);
-              await _userModel.signOut();
+              //final _userModel = Provider.of<UserModel>(context, listen: false);
+              await context.read<UserModel>().signOut();
               //Navigator.pop(context);
             }),
 

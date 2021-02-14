@@ -11,7 +11,7 @@ import 'package:provider/provider.dart';
 
 
 class LogInPage extends StatefulWidget {
-  UserType userType;
+  final UserType userType;
 
   @override
   _LogInPageState createState() => _LogInPageState();
@@ -19,9 +19,21 @@ class LogInPage extends StatefulWidget {
 }
 
 class _LogInPageState extends State<LogInPage> {
-  TextEditingController email = TextEditingController();
-  TextEditingController password = TextEditingController();
-  //false: gönüllü / true: hayırsever
+  TextEditingController email;
+  TextEditingController password;
+
+  @override
+  void initState() {
+    super.initState();
+    email = TextEditingController();
+    password = TextEditingController();
+  }
+  @override
+  void dispose() {
+    email.dispose();
+    password.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {

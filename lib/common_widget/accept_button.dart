@@ -1,6 +1,7 @@
 
 import 'package:f4rtech_gdgsivas_hackathon/app/constants.dart';
 import 'package:flutter/material.dart';
+// ignore: must_be_immutable
 class AcceptButton extends StatelessWidget {
   String text;
   Color color;

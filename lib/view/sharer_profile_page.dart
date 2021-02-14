@@ -15,13 +15,11 @@ class SharerPage extends StatefulWidget {
 }
 
 class _SharerPageState extends State<SharerPage> {
-  UserModel _userModel;
-
   @override
   void initState() {
     super.initState();
-    _userModel = context.read<UserModel>();
   }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -43,23 +41,28 @@ class _SharerPageState extends State<SharerPage> {
                   height: Constants.getHeightValue(context, 310),
                   child: SingleChildScrollView(
                     physics: BouncingScrollPhysics(),
-                    child: context.watch<RequestModel>().requestList.length != 0 ?  Column(
-                      children:
-                      context.watch<RequestModel>().requestList.map((e) {
-                        if(e.requested.uid == _userModel.user.uid){
-                          return SharerApproved(
-                            text1: e.requested.fullName,
-                            text2: e.requesting.fullName,
-                            voluntter: e.statusList.last.toString() ==
-                                RequestStatus.WAITING.toString()
-                                ? false
-                                : true,
-                          );
-                        }else {
-                          return SizedBox();
-                        }
-                      }).toList() ,
-                    ) : ProgressBar(),
+                    child: context.watch<RequestModel>().requestList.length != 0
+                        ? Column(
+                            children: context
+                                .watch<RequestModel>()
+                                .requestList
+                                .map((e) {
+                              if (e.requested.uid ==
+                                  context.read<UserModel>().user.uid) {
+                                return SharerApproved(
+                                  text1: e.requested.fullName,
+                                  text2: e.requesting.fullName,
+                                  voluntter: e.statusList.last.toString() ==
+                                          RequestStatus.WAITING.toString()
+                                      ? false
+                                      : true,
+                                );
+                              } else {
+                                return SizedBox();
+                              }
+                            }).toList(),
+                          )
+                        : ProgressBar(),
                   ),
                 ),
               ],
@@ -68,18 +71,5 @@ class _SharerPageState extends State<SharerPage> {
         ),
       ),
     );
-    /*if (_userModel.state == ViewState.Idle) {
-      if (_userModel.user != null) {
-        return
-      } else {
-        return Container();
-      }
-    } else {
-      return Scaffold(
-        body: Center(
-          child: CircularProgressIndicator(),
-        ),
-      );
-    }*/
   }
 }

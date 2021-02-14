@@ -1,9 +1,9 @@
 import 'package:f4rtech_gdgsivas_hackathon/app/constants.dart';
 import 'package:flutter/material.dart';
 class CircularWidget extends StatelessWidget {
-  double height;
-  double width;
-  String photo;
+  final double height;
+  final double width;
+  final String photo;
   @override
   Widget build(BuildContext context) {
     return Container(

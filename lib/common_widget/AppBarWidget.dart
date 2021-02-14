@@ -2,10 +2,11 @@ import 'package:f4rtech_gdgsivas_hackathon/app/colors.dart';
 import 'package:f4rtech_gdgsivas_hackathon/app/constants.dart';
 import 'package:flutter/material.dart';
 class AppBarWidget extends StatelessWidget {
-  String text;
-  Color color;
-  bool mapButton = false;
-  Function mapOnButton;
+  final String text;
+  final Color color;
+  final bool mapButton;
+  final Function mapOnButton;
+
   @override
   Widget build(BuildContext context) {
     return Container(
