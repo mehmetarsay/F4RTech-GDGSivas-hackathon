@@ -2,7 +2,6 @@ import 'package:f4rtech_gdgsivas_hackathon/app/colors.dart';
 import 'package:f4rtech_gdgsivas_hackathon/common_widget/AppBarWidget.dart';
 import 'package:f4rtech_gdgsivas_hackathon/common_widget/progressbarWidget.dart';
 import 'package:f4rtech_gdgsivas_hackathon/common_widget/request_widget.dart';
-import 'package:f4rtech_gdgsivas_hackathon/services/FirestoreService.dart';
 import 'package:f4rtech_gdgsivas_hackathon/view/map_view.dart';
 import 'package:f4rtech_gdgsivas_hackathon/viewmodel/product_model.dart';
 import 'package:f4rtech_gdgsivas_hackathon/viewmodel/request_model.dart';
@@ -58,7 +57,7 @@ class _VolunteerRequestPageState extends State<VolunteerRequestPage> {
                                         '${sp.data}',),
                                   );
                                 }
-                              else {return CircularProgressIndicator();}
+                              else {return ProgressBar();}
                             }
                           );},)),]
                          );

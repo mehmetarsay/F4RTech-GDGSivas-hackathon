@@ -1,5 +1,4 @@
 import 'package:f4rtech_gdgsivas_hackathon/app/colors.dart';
-import 'package:f4rtech_gdgsivas_hackathon/app/constants.dart';
 import 'package:f4rtech_gdgsivas_hackathon/app/enums.dart';
 import 'package:f4rtech_gdgsivas_hackathon/common_widget/AppBarWidget.dart';
 import 'package:f4rtech_gdgsivas_hackathon/common_widget/progressbarWidget.dart';
@@ -8,7 +7,6 @@ import 'package:f4rtech_gdgsivas_hackathon/viewmodel/request_model.dart';
 import 'package:f4rtech_gdgsivas_hackathon/viewmodel/user_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:icon_shadow/icon_shadow.dart';
 import 'package:provider/provider.dart';
 
 class SharerRequestPage extends StatefulWidget {
@@ -17,13 +15,11 @@ class SharerRequestPage extends StatefulWidget {
 }
 
 class _SharerRequestPageState extends State<SharerRequestPage> {
-  RequestModel _requestModel;
   UserModel _userModel;
   @override
   void initState() {
     super.initState();
     _userModel = context.read<UserModel>();
-    _requestModel = context.read<RequestModel>();
   }
   @override
   Widget build(BuildContext context) {

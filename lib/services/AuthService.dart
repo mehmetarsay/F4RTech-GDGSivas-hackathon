@@ -1,6 +1,5 @@
 import 'package:f4rtech_gdgsivas_hackathon/app/enums.dart';
 import 'package:f4rtech_gdgsivas_hackathon/models/sharer_user.dart';
-import 'package:f4rtech_gdgsivas_hackathon/models/user.dart' as usr;
 import 'package:f4rtech_gdgsivas_hackathon/models/volunteer_user.dart';
 import 'package:f4rtech_gdgsivas_hackathon/services/AuthBase.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -55,7 +54,7 @@ class AuthService implements AuthBase {
   @override
   Future<User> currentUser() async {
     try {
-      User user = await FirebaseAuth.instance.currentUser;
+      User user =  FirebaseAuth.instance.currentUser;
       if (user != null) {
         return user;
       } else {

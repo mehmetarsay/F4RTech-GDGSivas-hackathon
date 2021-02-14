@@ -1,6 +1,5 @@
 import 'package:cloud_firestore_platform_interface/src/geo_point.dart';
 import 'package:f4rtech_gdgsivas_hackathon/models/product.dart';
-import 'package:f4rtech_gdgsivas_hackathon/services/AuthService.dart';
 import 'package:f4rtech_gdgsivas_hackathon/services/ProductBase.dart';
 import 'package:f4rtech_gdgsivas_hackathon/app/enums.dart';
 import 'package:f4rtech_gdgsivas_hackathon/locator.dart';
@@ -9,7 +8,6 @@ import 'package:f4rtech_gdgsivas_hackathon/services/StorageService.dart';
 import 'package:flutter/material.dart';
 import 'package:geocoder/geocoder.dart';
 import 'package:multi_image_picker/multi_image_picker.dart';
-import 'package:geolocator/geolocator.dart';
 
 class ProductModel with ChangeNotifier implements ProductBase {
   ProductViewState _state = ProductViewState.Idle;

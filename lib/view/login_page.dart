@@ -1,14 +1,13 @@
 import 'package:f4rtech_gdgsivas_hackathon/app/colors.dart';
 import 'package:f4rtech_gdgsivas_hackathon/app/constants.dart';
 import 'package:f4rtech_gdgsivas_hackathon/app/enums.dart';
+import 'package:f4rtech_gdgsivas_hackathon/app/validators.dart';
 import 'package:f4rtech_gdgsivas_hackathon/common_widget/accept_button.dart';
 import 'package:f4rtech_gdgsivas_hackathon/common_widget/my_text_field.dart';
-import 'package:f4rtech_gdgsivas_hackathon/models/user.dart';
 import 'package:f4rtech_gdgsivas_hackathon/view/signup_page.dart';
 import 'package:f4rtech_gdgsivas_hackathon/viewmodel/user_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
 
 
 class LogInPage extends StatefulWidget {
@@ -72,6 +71,7 @@ class _LogInPageState extends State<LogInPage> {
                         label: 'Email',
                         controller: email,
                         userType: widget.userType,
+                        validator: emailValidator,
                       ),
                       MyTextField(
                         label: 'Şifre',

@@ -1,9 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:f4rtech_gdgsivas_hackathon/app/enums.dart';
 import 'package:f4rtech_gdgsivas_hackathon/models/product.dart';
 import 'package:f4rtech_gdgsivas_hackathon/models/sharer_user.dart';
 import 'package:f4rtech_gdgsivas_hackathon/models/volunteer_user.dart';
-import 'package:f4rtech_gdgsivas_hackathon/services/FirestoreService.dart';
 
 class Request {
   DocumentReference reference;

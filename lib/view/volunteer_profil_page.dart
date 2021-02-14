@@ -5,7 +5,6 @@ import 'package:f4rtech_gdgsivas_hackathon/common_widget/SharerApprovedWidget.da
 import 'package:f4rtech_gdgsivas_hackathon/common_widget/TextWidget1.dart';
 import 'package:f4rtech_gdgsivas_hackathon/common_widget/profil_widget.dart';
 import 'package:f4rtech_gdgsivas_hackathon/common_widget/progressbarWidget.dart';
-import 'package:f4rtech_gdgsivas_hackathon/viewmodel/product_model.dart';
 import 'package:f4rtech_gdgsivas_hackathon/viewmodel/request_model.dart';
 import 'package:f4rtech_gdgsivas_hackathon/viewmodel/user_model.dart';
 import 'package:flutter/cupertino.dart';
@@ -18,13 +17,11 @@ class VolunteerProfilPage extends StatefulWidget {
 }
 
 class _VolunteerProfilPageState extends State<VolunteerProfilPage> {
-  RequestModel _requestModel;
   UserModel _userModel;
   @override
   void initState() {
     super.initState();
     _userModel = context.read<UserModel>();
-    _requestModel = context.read<RequestModel>();
   }
   @override
   Widget build(BuildContext context) {
