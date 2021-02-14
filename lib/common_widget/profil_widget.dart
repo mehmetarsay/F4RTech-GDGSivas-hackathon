@@ -12,7 +12,6 @@ class ProfilWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print('AAA' + userType.toString());
     return Container(
       height: Constants.getHeightValue(context, 270),
       decoration: BoxDecoration(

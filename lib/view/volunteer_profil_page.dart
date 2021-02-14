@@ -86,8 +86,6 @@ class _VolunteerProfilPageState extends State<VolunteerProfilPage> {
                     child: Column(
                       children: _requestModel.requestList.map((e) {
                         if(e.requesting.uid == _userModel.user.uid){
-                          print(e.statusList.last.toString());
-                          print(RequestStatus.COMPLETED.toString());
                           return SharerApproved(
                             text1: e.requested.fullName,
                             text2: e.requesting.fullName,

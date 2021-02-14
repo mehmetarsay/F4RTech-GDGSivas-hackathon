@@ -4,6 +4,7 @@ import 'package:f4rtech_gdgsivas_hackathon/app/enums.dart';
 import 'package:f4rtech_gdgsivas_hackathon/common_widget/SharerApprovedWidget.dart';
 import 'package:f4rtech_gdgsivas_hackathon/common_widget/TextWidget1.dart';
 import 'package:f4rtech_gdgsivas_hackathon/common_widget/profil_widget.dart';
+import 'package:f4rtech_gdgsivas_hackathon/viewmodel/request_model.dart';
 import 'package:f4rtech_gdgsivas_hackathon/viewmodel/user_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -14,62 +15,66 @@ class SharerPage extends StatefulWidget {
 }
 
 class _SharerPageState extends State<SharerPage> {
+  RequestModel _requestModel;
+  UserModel _userModel;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    //_userModel = context.read<UserModel>();
+    //_requestModel = context.read<RequestModel>();
+  }
   @override
   Widget build(BuildContext context) {
     final _userModel = Provider.of<UserModel>(context);
-    if (_userModel.state == ViewState.Idle) {
-      if (_userModel.user != null) {
-        return Container(
-          color: Colors.white,
-          height: Constants.getHeight(context),
-          child: SafeArea(
-            child: Column(
+    return Container(
+      color: Colors.white,
+      height: Constants.getHeight(context),
+      child: SafeArea(
+        child: Column(
+          children: [
+            ProfilWidget(
+              name: context.read<UserModel>().user.fullName,
+              email: context.read<UserModel>().user.email,
+              phone: context.read<UserModel>().user.phoneNumber,
+            ),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                ProfilWidget(
-                  name: _userModel.user.fullName,
-                  email: _userModel.user.email,
-                  phone: _userModel.user.phoneNumber,
-                ),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    TextWidget('SON İŞLEMLER'),
-                    Container(
-                      height: Constants.getHeightValue(context, 310),
-                      child: SingleChildScrollView(
-                        physics: BouncingScrollPhysics(),
-                        child: Column(
-                          children: [
-                            SharerApproved(
-                              text1: 'mehmet',
-                              text2: 'bilal',
-                            ),
-                            SharerApproved(
-                              text1: 'mehmet',
-                              text2: 'bilal',
-                            ),
-                            SharerApproved(
-                              text1: 'mehmet',
-                              text2: 'bilal',
-                            ),
-                            SharerApproved(
-                              text1: 'mehmet',
-                              text2: 'bilal',
-                            ),
-                            SharerApproved(),
-                            SharerApproved(),
-                            SharerApproved(),
-                            SharerApproved(),
-                          ],
-                        ),
-                      ),
+                TextWidget('SON İŞLEMLER'),
+                Container(
+                  height: Constants.getHeightValue(context, 310),
+                  child: SingleChildScrollView(
+                    physics: BouncingScrollPhysics(),
+                    child: Column(
+                      children:
+                      context.read<RequestModel>().requestList.map((e) {
+                        if(e.requested.uid == _userModel.user.uid){
+                          return SharerApproved(
+                            text1: e.requested.fullName,
+                            text2: e.requesting.fullName,
+                            voluntter: e.statusList.last.toString() ==
+                                RequestStatus.WAITING.toString()
+                                ? false
+                                : true,
+                          );
+                        }else {
+                          return SizedBox();
+                        }
+                      }).toList(),
                     ),
-                  ],
+                  ),
                 ),
               ],
             ),
-          ),
-        );
+          ],
+        ),
+      ),
+    );
+    /*if (_userModel.state == ViewState.Idle) {
+      if (_userModel.user != null) {
+        return
       } else {
         return Container();
       }
@@ -79,6 +84,6 @@ class _SharerPageState extends State<SharerPage> {
           child: CircularProgressIndicator(),
         ),
       );
-    }
+    }*/
   }
 }

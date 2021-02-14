@@ -183,6 +183,52 @@ class FirestoreService implements FirestoreBase {
     }
   }
 
+  Future<List<Request>> readRequestFromQDSList2(List<QueryDocumentSnapshot> docs)async{
+    List<Request> list = [];
+    await Future.forEach(docs, (element) async{
+      Request res = await readRequstFromQDS(element);
+      if(res != null){
+        list.add(res);
+      }
+    });
+    return list;
+
+  }
+
+  Future<List<Request>> readRequestsFromQDSList(List<QueryDocumentSnapshot> docs) async {
+    try{
+      List<Request> list = [];
+      list = await readRequestFromQDSList2(docs);
+      if(list != null){
+        return list;
+      }else {
+        return null;
+      }
+    }catch(e){
+      print(e);
+      return e;
+    }
+  }
+
+  Future<Request> readRequstFromQDS(QueryDocumentSnapshot element) async{
+    try{
+      var requestedProduct = await readProduct(element.data()['requestedProduct']);
+      var requesting = await readUser(element.data()['requesting']);
+      var requested = await readUser(element.data()['requested']);
+      Request request = Request.reference(
+          element.reference,
+          element.id,
+          requestedProduct,
+          requesting,
+          requested,
+          element.data()['statusList']);
+      return request;
+    }catch(e){
+      print(e);
+      return e;
+    }
+  }
+
   @override
   Future<List<Request>> readAllRequest() async {
     try {
@@ -190,21 +236,14 @@ class FirestoreService implements FirestoreBase {
           await FirebaseFirestore.instance.collection('requests').get();
       if (result != null) {
         List<Request> requests = [];
-        result.docs.forEach((element) async{
-          var requestedProduct =
-              await readProduct(element.data()['requestedProduct']);
-          var requesting = await readUser(element.data()['requesting']);
-          var requested = await readUser(element.data()['requested']);
-          Request request = Request.reference(
-              element.reference,
-              element.id,
-              requestedProduct,
-              requesting,
-              requested,
-              element.data()['statusList']);
-          requests.add(request);
-        });
-        return requests;
+        requests = await readRequestsFromQDSList(result.docs);
+        print('A');
+        if(requests.isEmpty){
+          return requests;
+        }else{
+          return requests;
+        }
+
       } else {
         return null;
       }
@@ -223,21 +262,12 @@ class FirestoreService implements FirestoreBase {
           .get();
       if (result != null) {
         List<Request> requests = [];
-        result.docs.forEach((element)async {
-          var requestedProduct =
-              await readProduct(element.data()['requestedProduct']);
-          var requesting = await readUser(element.data()['requesting']);
-          var requested = await readUser(element.data()['requested']);
-          Request request = Request.reference(
-              element.reference,
-              element.id,
-              requestedProduct,
-              requesting,
-              requested,
-              element.data()['statusList']);
-          requests.add(request);
-        });
-        return requests;
+        requests = await readRequestsFromQDSList(result.docs);
+        if(requests.isEmpty){
+          return requests;
+        }else{
+          return requests;
+        }
       } else {
         return null;
       }
