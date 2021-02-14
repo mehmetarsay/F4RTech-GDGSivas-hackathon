@@ -9,6 +9,7 @@ import 'package:f4rtech_gdgsivas_hackathon/viewmodel/request_model.dart';
 import 'package:f4rtech_gdgsivas_hackathon/viewmodel/user_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:geolocator/geolocator.dart';
 
@@ -181,6 +182,9 @@ class _MapViewState extends State<MapView> {
                                       requestedProduct: product,
                                       requested: differentUser,
                                       requesting: userModel.user);
+                                  Fluttertoast.showToast(msg: 'İstek Başarıyla Gönderildi');
+                                  print('AAAAAA');
+                                  Navigator.pop(context);
                                 },
                               )
                             ],

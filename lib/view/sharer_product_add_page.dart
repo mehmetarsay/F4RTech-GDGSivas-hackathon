@@ -27,7 +27,6 @@ class _ProductAddPageState extends State<ProductAddPage> {
   List<Asset> images;
   File imageFile;
   String select;
-  //HomeScreen homeScreen;
 
   @override
   void initState() {
@@ -39,7 +38,6 @@ class _ProductAddPageState extends State<ProductAddPage> {
 
   @override
   Widget build(BuildContext context) {
-    //homeScreen = Provider.of<HomeScreen>(context);
     return Container(
       color: Colors.white,
       child: SafeArea(
@@ -167,7 +165,7 @@ class _ProductAddPageState extends State<ProductAddPage> {
                                 name: controller.text,
                                 productType: select == 'Yemek-Yiyecek' ? ProductType.FOOD : ProductType.CLOTHES,
                                 explanation: text.text,
-                                publisher: _userModel.user.uid,
+                                publisher: context.read<UserModel>().user.uid,
                                 file: images.first,
                                 geoPoint: GeoPoint(
                                     context

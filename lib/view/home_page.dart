@@ -1,10 +1,10 @@
 import 'package:f4rtech_gdgsivas_hackathon/app/constants.dart';
 import 'package:f4rtech_gdgsivas_hackathon/app/enums.dart';
 import 'package:f4rtech_gdgsivas_hackathon/view/sharer_product_add_page.dart';
-import 'package:f4rtech_gdgsivas_hackathon/view/sharer_page.dart';
+import 'package:f4rtech_gdgsivas_hackathon/view/sharer_profile_page.dart';
 import 'package:f4rtech_gdgsivas_hackathon/view/sharer_request_page.dart';
 import 'package:f4rtech_gdgsivas_hackathon/view/volunteer_leader_board_page.dart';
-import 'package:f4rtech_gdgsivas_hackathon/view/volunteer_profil_page.dart';
+import 'package:f4rtech_gdgsivas_hackathon/view/volunteer_profile_page.dart';
 import 'package:f4rtech_gdgsivas_hackathon/view/volunteer_request_page.dart';
 import 'package:f4rtech_gdgsivas_hackathon/viewmodel/user_model.dart';
 import 'package:flutter/material.dart';
@@ -30,7 +30,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage>
-    with SingleTickerProviderStateMixin, ChangeNotifier {
+    with SingleTickerProviderStateMixin {
   Widget _bodyPage ;
   bool isCollapsed = true;
   double screenWidth, screenHeight;
@@ -39,7 +39,6 @@ class _HomePageState extends State<HomePage>
 
   set bodyPage(Widget value) {
     _bodyPage = value;
-    notifyListeners();
   }
 
   AnimationController _controller;
@@ -150,7 +149,7 @@ class _HomePageState extends State<HomePage>
                 }
               }
 
-            },child: _bodyPage != null ? _bodyPage : widget.userType == UserType.VOLUNTEER ? VolunteerProfilPage():SharerPage(),
+            },child: _bodyPage != null ? _bodyPage : widget.userType == UserType.VOLUNTEER ? VolunteerProfilPage():SharerProfilePage(),
               //child: SharerPage(),
             ),
       ),
@@ -208,7 +207,7 @@ class _HomePageState extends State<HomePage>
             onTap: () {
               setState(() {
                 closeDrawer();
-                _bodyPage = widget.userType == UserType.VOLUNTEER ? VolunteerProfilPage():SharerPage();
+                _bodyPage = widget.userType == UserType.VOLUNTEER ? VolunteerProfilPage():SharerProfilePage();
               });
 
             }),
