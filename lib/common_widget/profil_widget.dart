@@ -79,7 +79,7 @@ class ProfilWidget extends StatelessWidget {
             indent: 50,
             color: Colors.black,
           ),
-          userInfo('Telefon: ', '0$phone', 12.0, FontWeight.w500),
+          userInfo('Telefon: ', '$phone', 12.0, FontWeight.w500),
         ],
       ),
     );

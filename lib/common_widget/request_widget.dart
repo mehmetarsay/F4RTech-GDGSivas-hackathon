@@ -119,10 +119,7 @@ class RequestWidget extends StatelessWidget {
                     borderRadius: BorderRadius.only(topRight: Radius.circular(10),bottomRight: Radius.circular(10)) ,
                     splashColor: backcolor,
                     onTap: (){
-                      if(volunteer==true)
-                        {
-
-                        }
+                      onTap();
                     },
                     child: Container(
                       decoration: BoxDecoration(

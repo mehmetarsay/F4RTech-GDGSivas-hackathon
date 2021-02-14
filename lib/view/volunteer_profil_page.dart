@@ -4,6 +4,7 @@ import 'package:f4rtech_gdgsivas_hackathon/app/enums.dart';
 import 'package:f4rtech_gdgsivas_hackathon/common_widget/SharerApprovedWidget.dart';
 import 'package:f4rtech_gdgsivas_hackathon/common_widget/TextWidget1.dart';
 import 'package:f4rtech_gdgsivas_hackathon/common_widget/profil_widget.dart';
+import 'package:f4rtech_gdgsivas_hackathon/common_widget/progressbarWidget.dart';
 import 'package:f4rtech_gdgsivas_hackathon/viewmodel/product_model.dart';
 import 'package:f4rtech_gdgsivas_hackathon/viewmodel/request_model.dart';
 import 'package:f4rtech_gdgsivas_hackathon/viewmodel/user_model.dart';
@@ -17,22 +18,21 @@ class VolunteerProfilPage extends StatefulWidget {
 }
 
 class _VolunteerProfilPageState extends State<VolunteerProfilPage> {
+  RequestModel _requestModel;
+  UserModel _userModel;
+  @override
+  void initState() {
+    super.initState();
+    _userModel = context.read<UserModel>();
+    _requestModel = context.read<RequestModel>();
+  }
   @override
   Widget build(BuildContext context) {
-    final _userModel = Provider.of<UserModel>(context, listen: false);
-    final _requestModel = Provider.of<RequestModel>(context, listen: false);
-    final _productModel = Provider.of<ProductModel>(context, listen: false);
-    //_requestModel.readFilteredRequest('G3aXQ5XzUGgzuhH4LSjcpH0wyUZ2');
     return Container(
       color: Colors.white,
       child: SafeArea(
         child: Column(
           children: [
-            /*RaisedButton(onPressed: () async{
-              Product pro = await _productModel.readProduct('1613263605679385');
-              SharerUser sharerUser = await _userModel.differentUserFunc(pro.publisher);
-              await _requestModel.saveRequest(requestedProduct: pro, requested: sharerUser, requesting: _userModel.user);
-            }, child: Text('New Request'),),*/
             ProfilWidget(
               userType: UserType.VOLUNTEER,
               name: _userModel.user.fullName,
@@ -83,8 +83,8 @@ class _VolunteerProfilPageState extends State<VolunteerProfilPage> {
                   height: Constants.getHeightValue(context, 315),
                   child: SingleChildScrollView(
                     physics: BouncingScrollPhysics(),
-                    child: Column(
-                      children: _requestModel.requestList.map((e) {
+                    child: context.watch<RequestModel>().requestList.isNotEmpty ? Column(
+                      children:  context.watch<RequestModel>().requestList.map((e) {
                         if(e.requesting.uid == _userModel.user.uid){
                           return SharerApproved(
                             text1: e.requested.fullName,
@@ -98,24 +98,8 @@ class _VolunteerProfilPageState extends State<VolunteerProfilPage> {
                         }else {
                           return SizedBox();
                         }
-                        /*FutureBuilder(
-                                    future: getDifUser(e.requested), builder: (context, sp) {
-                                  if (sp.hasData) {
-                                    return SharerApproved(
-                                      text1: _userModel.user.fullName,
-                                      text2: sp.data.fullName,
-                                      voluntter: e.statusList.last.toString() ==
-                                          RequestStatus.COMPLETED.toString()
-                                          ? true
-                                          : false,
-                                    );
-                                  } else {
-                                    return Center(
-                                      child: CircularProgressIndicator(),);
-                                  }
-                                });*/
                       }).toList(),
-                    ),
+                    ) : ProgressBar(),
                   ),
                 ),
               ],

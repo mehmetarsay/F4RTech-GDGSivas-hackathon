@@ -4,6 +4,7 @@ import 'package:f4rtech_gdgsivas_hackathon/app/enums.dart';
 import 'package:f4rtech_gdgsivas_hackathon/common_widget/SharerApprovedWidget.dart';
 import 'package:f4rtech_gdgsivas_hackathon/common_widget/TextWidget1.dart';
 import 'package:f4rtech_gdgsivas_hackathon/common_widget/profil_widget.dart';
+import 'package:f4rtech_gdgsivas_hackathon/common_widget/progressbarWidget.dart';
 import 'package:f4rtech_gdgsivas_hackathon/viewmodel/request_model.dart';
 import 'package:f4rtech_gdgsivas_hackathon/viewmodel/user_model.dart';
 import 'package:flutter/material.dart';
@@ -20,14 +21,12 @@ class _SharerPageState extends State<SharerPage> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
-    //_userModel = context.read<UserModel>();
-    //_requestModel = context.read<RequestModel>();
+    _userModel = context.read<UserModel>();
+    _requestModel = context.read<RequestModel>();
   }
   @override
   Widget build(BuildContext context) {
-    final _userModel = Provider.of<UserModel>(context);
     return Container(
       color: Colors.white,
       height: Constants.getHeight(context),
@@ -47,9 +46,9 @@ class _SharerPageState extends State<SharerPage> {
                   height: Constants.getHeightValue(context, 310),
                   child: SingleChildScrollView(
                     physics: BouncingScrollPhysics(),
-                    child: Column(
+                    child: context.watch<RequestModel>().requestList.length != 0 ?  Column(
                       children:
-                      context.read<RequestModel>().requestList.map((e) {
+                      context.watch<RequestModel>().requestList.map((e) {
                         if(e.requested.uid == _userModel.user.uid){
                           return SharerApproved(
                             text1: e.requested.fullName,
@@ -62,8 +61,8 @@ class _SharerPageState extends State<SharerPage> {
                         }else {
                           return SizedBox();
                         }
-                      }).toList(),
-                    ),
+                      }).toList() ,
+                    ) : ProgressBar(),
                   ),
                 ),
               ],

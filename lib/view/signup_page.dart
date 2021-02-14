@@ -129,11 +129,8 @@ class _SignUpPageState extends State<SignUpPage> {
                               'Kayıt Ol',
                               ColorTable.blue,
                               onTap: () async {
-                                final _userModel = Provider.of<UserModel>(
-                                    context,
-                                    listen: false);
                                 try {
-                                  var user = await _userModel
+                                  var user = await context.read<UserModel>()
                                       .createUserWithEmailAndPassword(
                                           userType: UserType.SHARER,
                                           email: email.text,
@@ -142,9 +139,8 @@ class _SignUpPageState extends State<SignUpPage> {
                                           phoneNumber: phoneNumber.text,
                                           companyOrInstitution:
                                               institution.text);
-                                  if(user != null){
-                                    Navigator.pop(context);
-                                  }
+                                  Navigator.pop(context);
+
                                 } catch (e) {}
                               },
                             ),
