@@ -105,7 +105,7 @@ class _VolunteerLeaderBoardPageState extends State<VolunteerLeaderBoardPage> {
     return Container(
       height: Constants.getHeightValue(context, 74),
       width: Constants.getWidthValue(context, 327),
-      color: ColorTable,
+      color: ColorTable.green,
     );
   }
 }

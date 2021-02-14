@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:f4rtech_gdgsivas_hackathon/app/constants.dart';
 import 'package:f4rtech_gdgsivas_hackathon/app/enums.dart';
 import 'package:f4rtech_gdgsivas_hackathon/viewmodel/product_model.dart';
 import 'package:f4rtech_gdgsivas_hackathon/viewmodel/user_model.dart';
@@ -32,11 +33,10 @@ class _SelectLocationState extends State<SelectLocation> {
   }
   @override
   Widget build(BuildContext context) {
-        return Scaffold(
-          body: Column(
+        return Column(
             children: [
               Container(
-                height:250,
+                height:Constants.getHeight(context)/2,
               child:GoogleMap(myLocationButtonEnabled: true,
                 mapToolbarEnabled: false,mapType: MapType.normal,
                 initialCameraPosition: _kGooglePlex,
@@ -46,20 +46,19 @@ class _SelectLocationState extends State<SelectLocation> {
                   setState(() {
                     currentPosition=Position(latitude: latLng.latitude,longitude:latLng.longitude);
                     final userModel=Provider.of<UserModel>(context,listen:false);
+                    userModel.currentLocation=currentPosition;
                     markers.add(Marker(markerId: MarkerId('1'),position: LatLng(currentPosition.latitude,currentPosition.longitude)));
                     print(markers.toString());
                   });
                 },markers:markers,
               ),
               ),
-              Text(currentPosition.toString()),
-              RaisedButton(child: Text('Ürünü yolla'),onPressed: (){
-                final productModel=Provider.of<ProductModel>(context,listen:false);
-                final userModel=Provider.of<UserModel>(context,listen:false);
-                productModel.saveProduct(name:'Yemek',productType: ProductType.FOOD,explanation: 'Deneme',publisher:userModel.user.uid ,geoPoint: GeoPoint(currentPosition.latitude,currentPosition.longitude));
-              })
+              Center(
+                child: RaisedButton(child:Text('Tamamlandı'),onPressed: (){
+                  Navigator.pop(context);
+                },),
+              )
             ],
-          ),
-        );
+          );
       }
   }

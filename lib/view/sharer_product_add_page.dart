@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:f4rtech_gdgsivas_hackathon/app/colors.dart';
 import 'package:f4rtech_gdgsivas_hackathon/app/constants.dart';
 import 'package:f4rtech_gdgsivas_hackathon/app/enums.dart';
@@ -6,6 +7,7 @@ import 'package:f4rtech_gdgsivas_hackathon/common_widget/AppBarWidget.dart';
 import 'package:f4rtech_gdgsivas_hackathon/common_widget/TextWidget1.dart';
 import 'package:f4rtech_gdgsivas_hackathon/common_widget/accept_button.dart';
 import 'package:f4rtech_gdgsivas_hackathon/common_widget/my_text_field.dart';
+import 'package:f4rtech_gdgsivas_hackathon/view/SelectLocation.dart';
 import 'package:f4rtech_gdgsivas_hackathon/viewmodel/product_model.dart';
 import 'package:f4rtech_gdgsivas_hackathon/viewmodel/user_model.dart';
 import 'package:flutter/material.dart';
@@ -163,17 +165,22 @@ class _ProductAddPageState extends State<ProductAddPage> {
                           ),
                         ),
                       ),
+                      InkWell(child: Text('Konumu seç'),onTap: ()
+                        {
+                          showDialog(context: context,child: SelectLocation());
+                        },),
                       AcceptButton(
                         'Gönder',
                         ColorTable.blue,
                         onTap: () async {
                           try {
+                            debugPrint('degerrr'+_userModel.currentLocation.toString());
                             await _productModel.saveProduct(
                                 name: 'Corba',
                                 productType: ProductType.FOOD,
                                 explanation: controller.text,
                                 publisher: _userModel.user.uid,
-                                file: images.first);
+                                file: images.first,geoPoint:GeoPoint(_userModel.currentLocation.latitude,_userModel.currentLocation.longitude));
                           } catch (e) {
                             print('ERROR: $e');
                           }
