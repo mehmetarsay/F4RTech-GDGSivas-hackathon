@@ -24,4 +24,3 @@ UYGULAMA İÇERİĞİ
      -Kendisine gelen istekleri görebilir, kabul edebilir ve durumunu değiştirebilir.
      
 
-![alt text](https://hizliresim.com/idZ32K.png)
