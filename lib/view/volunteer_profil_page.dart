@@ -80,7 +80,7 @@ class _VolunteerProfilPageState extends State<VolunteerProfilPage> {
                   ),
                 ),
                 Container(
-                  height: Constants.getHeightValue(context, 320),
+                  height: Constants.getHeightValue(context, 315),
                   child: SingleChildScrollView(
                     physics: BouncingScrollPhysics(),
                     child: Column(
