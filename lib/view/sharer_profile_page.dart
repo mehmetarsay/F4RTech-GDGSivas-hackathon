@@ -62,7 +62,7 @@ class _SharerProfilePageState extends State<SharerProfilePage> {
                                           : true,
                                     ),
                                     onTap: () {
-                                      productInfo(e.requestedProduct.imageUrl,
+                                      productInfo(e.requestedProduct.name,e.requestedProduct.imageUrl,
                                       e.requested.fullName,
                                         e.requesting.fullName,
                                         e.requestedProduct.explanation,
