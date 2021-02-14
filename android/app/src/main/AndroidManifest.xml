@@ -10,8 +10,8 @@
          FlutterApplication and put your custom class here. -->
     <application
         android:name="io.flutter.app.FlutterApplication"
-        android:label="f4rtech_gdgsivas_hackathon"
-        android:icon="@mipmap/ic_launcher">
+        android:label="F4RTech"
+        android:icon="@mipmap/launcher_icon">
         <meta-data android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyANDxgC1hOQ1o1NSd4L0B9T-nXynvmO92w"/>
         <activity
