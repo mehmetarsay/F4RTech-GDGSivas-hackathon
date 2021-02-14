@@ -1,7 +1,6 @@
 import 'package:f4rtech_gdgsivas_hackathon/app/constants.dart';
 import 'package:f4rtech_gdgsivas_hackathon/app/enums.dart';
 import 'package:f4rtech_gdgsivas_hackathon/view/sharer_product_add_page.dart';
-import 'package:f4rtech_gdgsivas_hackathon/view/deneme_page.dart';
 import 'package:f4rtech_gdgsivas_hackathon/view/sharer_page.dart';
 import 'package:f4rtech_gdgsivas_hackathon/view/sharer_request_page.dart';
 import 'package:f4rtech_gdgsivas_hackathon/view/volunteer_leader_board_page.dart';
@@ -99,7 +98,7 @@ class HomeScreen extends State<HomeScreenPage>
           padding: EdgeInsets.symmetric(vertical: 15.0, horizontal: 25.0),
           child: Align(
             alignment: Alignment.centerLeft,
-            child:UserTypeFunc() ,
+            child:userTypeFunc() ,
           ),
         ),
       ),
@@ -192,7 +191,7 @@ class HomeScreen extends State<HomeScreenPage>
       ),
     );
   }
-  Widget UserTypeFunc(){
+  Widget userTypeFunc(){
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisAlignment: MainAxisAlignment.center,
@@ -226,7 +225,7 @@ class HomeScreen extends State<HomeScreenPage>
               }),
         if(widget.userType == UserType.SHARER)
           options(
-            text: 'Gelen İstekler',
+            text: 'Gelen Talepler',
             onTap: (){
               setState(() {
                 closeDrawer();

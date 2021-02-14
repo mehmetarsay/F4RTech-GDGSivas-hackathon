@@ -5,7 +5,6 @@ import 'package:f4rtech_gdgsivas_hackathon/services/AuthService.dart';
 import 'package:f4rtech_gdgsivas_hackathon/services/FirestoreService.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:f4rtech_gdgsivas_hackathon/models/user.dart' as usr;
 import 'package:geolocator/geolocator.dart';
 
 class UserModel with ChangeNotifier implements AuthBase {

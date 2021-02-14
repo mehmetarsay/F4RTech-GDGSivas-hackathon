@@ -1,6 +1,7 @@
-import 'dart:math';
 
+import 'dart:math';
 import 'package:f4rtech_gdgsivas_hackathon/app/colors.dart';
+
 import 'package:f4rtech_gdgsivas_hackathon/app/constants.dart';
 import 'package:f4rtech_gdgsivas_hackathon/app/enums.dart';
 import 'package:f4rtech_gdgsivas_hackathon/common_widget/CircularWidget.dart';
@@ -22,14 +23,12 @@ class SharerPage extends StatefulWidget {
 }
 
 class _SharerPageState extends State<SharerPage> {
-  RequestModel _requestModel;
   UserModel _userModel;
 
   @override
   void initState() {
     super.initState();
     _userModel = context.read<UserModel>();
-    _requestModel = context.read<RequestModel>();
   }
 
   @override

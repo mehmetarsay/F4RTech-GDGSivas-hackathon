@@ -2,8 +2,10 @@ import 'dart:async';
 import 'package:f4rtech_gdgsivas_hackathon/app/colors.dart';
 import 'package:f4rtech_gdgsivas_hackathon/app/constants.dart';
 import 'package:f4rtech_gdgsivas_hackathon/common_widget/CircularWidget.dart';
+import 'package:f4rtech_gdgsivas_hackathon/common_widget/progressbarWidget.dart';
 import 'package:f4rtech_gdgsivas_hackathon/models/product.dart';
 import 'package:f4rtech_gdgsivas_hackathon/viewmodel/product_model.dart';
+import 'package:f4rtech_gdgsivas_hackathon/viewmodel/request_model.dart';
 import 'package:f4rtech_gdgsivas_hackathon/viewmodel/user_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -30,6 +32,7 @@ class _MapViewState extends State<MapView> {
   Set<Marker> markers;
   double radius=500;
   UserModel userModel;
+  Product filterProduct;
 
   @override
   void initState() {
@@ -80,7 +83,7 @@ class _MapViewState extends State<MapView> {
                   );
                 }
                 else {
-                  return Center(child:CircularProgressIndicator());
+                  return ProgressBar();
                 }
               }));
   }
@@ -100,6 +103,9 @@ class _MapViewState extends State<MapView> {
           markers.add(Marker(markerId: MarkerId('$i'),
               position: LatLng(
                   latitude, longitude),onTap: (){
+            setState(() {
+              filterProduct=widget.filteredProducts[i];
+            });
             return showModalBottomSheet(context: context,
               backgroundColor: Colors.blue.withOpacity(0),
               builder: (context){
@@ -154,12 +160,17 @@ class _MapViewState extends State<MapView> {
                               ),),
                           ),
                         ),
-                        RaisedButton(child: Text('Teklif Ver'),onPressed: (){
+                        RaisedButton(child: Text('Teklif Ver'),onPressed: () async {
+                          final requestModel=Provider.of<RequestModel>(context,listen:false);
+                          var product=await productModel.readProduct(filterProduct.id);
+                          var userModel=Provider.of<UserModel>(context,listen: false);
+                          var differentUser=await userModel.differentUserFunc(product.publisher);
+                          await requestModel.saveRequest(requestedProduct:product,requested:differentUser,requesting:userModel.user );
                         },)
                       ],
                     ));
                   else
-                    return Center(child:CircularProgressIndicator());
+                    return Center(child:ProgressBar());
                 },);
             },);
               }));

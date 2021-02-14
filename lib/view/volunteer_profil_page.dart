@@ -18,13 +18,11 @@ class VolunteerProfilPage extends StatefulWidget {
 }
 
 class _VolunteerProfilPageState extends State<VolunteerProfilPage> {
-  RequestModel _requestModel;
   UserModel _userModel;
   @override
   void initState() {
     super.initState();
     _userModel = context.read<UserModel>();
-    _requestModel = context.read<RequestModel>();
   }
   @override
   Widget build(BuildContext context) {
