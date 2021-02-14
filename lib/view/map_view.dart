@@ -34,20 +34,19 @@ class _MapViewState extends State<MapView> {
   void initState() {
     super.initState();
     markers=Set<Marker>();
-    userModel=Provider.of<UserModel>(context,listen:false);
+    userModel=context.read<UserModel>();
     currentPosition=userModel.currentLocation;
-    _kGooglePlex = CameraPosition(
-      target: LatLng(currentPosition.latitude, currentPosition.longitude),
-      zoom: 15.4746,
-    );
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
               body: FutureBuilder(future: getMarkers(),builder:(context,snapshot) {
                 if (snapshot.hasData) {
+                  _kGooglePlex = CameraPosition(
+                    target: LatLng(currentPosition.latitude, currentPosition.longitude),
+                    zoom: 15.4746,
+                  );
                   return Container(
                     height: Constants.getHeight(context),
                     child: GoogleMap(
