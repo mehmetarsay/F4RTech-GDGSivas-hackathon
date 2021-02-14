@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:f4rtech_gdgsivas_hackathon/app/colors.dart';
 import 'package:f4rtech_gdgsivas_hackathon/app/constants.dart';
+import 'package:f4rtech_gdgsivas_hackathon/common_widget/CircularWidget.dart';
 import 'package:f4rtech_gdgsivas_hackathon/models/product.dart';
 import 'package:f4rtech_gdgsivas_hackathon/viewmodel/product_model.dart';
 import 'package:f4rtech_gdgsivas_hackathon/viewmodel/user_model.dart';
@@ -45,7 +46,10 @@ class _MapViewState extends State<MapView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
+      appBar: AppBar(
+        automaticallyImplyLeading: true,
+        backgroundColor: ColorTable.blue,
+      ),
               body: FutureBuilder(future: getMarkers(),builder:(context,snapshot) {
                 if (snapshot.hasData) {
                   return Container(
@@ -109,11 +113,47 @@ class _MapViewState extends State<MapView> {
                           color: ColorTable.blue,
                         ),
                         child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
-                        Text(snapshot.data.toString()),
-                        Text(widget.filteredProducts[i].name),
-                        Text(widget.filteredProducts[i].productType),
-                        Text(widget.filteredProducts[i].explanation),
+                        CircularWidget(),
+                        Text('Kategori: '+widget.filteredProducts[i].productType,
+                          style: TextStyle(
+                              fontSize: Constants.getHeightValue(context, 20),
+                              fontWeight: FontWeight.w700,
+                              color: Colors.white
+                          ),
+                        ),
+                        Text(widget.filteredProducts[i].name,
+                        style: TextStyle(
+                          fontSize: Constants.getHeightValue(context, 16),
+                          fontWeight: FontWeight.w700,
+                          color: Colors.white
+                        ),),
+
+                        Text(snapshot.data.toString(),
+                          style: TextStyle(
+                              fontSize: Constants.getHeightValue(context, 12),
+                              fontWeight: FontWeight.w700,
+                              color: Colors.white
+                          ),),
+                        Container(
+                          width: Constants.getWidthValue(context, 250),
+                          height: Constants.getHeightValue(context, 55),
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.all(Radius.circular(10))
+                          ),
+                          alignment: Alignment.topLeft,
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Text(widget.filteredProducts[i].explanation,
+                              style: TextStyle(
+                                  fontSize: Constants.getHeightValue(context, 12),
+                                  fontWeight: FontWeight.w700,
+                                  color: Colors.black
+                              ),),
+                          ),
+                        ),
                         RaisedButton(child: Text('Teklif Ver'),onPressed: (){
                         },)
                       ],
