@@ -30,10 +30,9 @@ class _SharerRequestPageState extends State<SharerRequestPage> {
                     return RequestWidget(
                       volunteer: false,
                       photo: e.requestedProduct.imageUrl,
-                      degree: e.requesting.degree.toDouble(),
+                      degree: e.requesting.degree,
                       text: e.requesting.fullName,
-                      subText: e.requesting.completedProductList.length
-                          .toString(),
+                      subText: e.requestedProduct.name,
                       onTap: () async{
                         e.statusList.add(RequestStatus.COMPLETED.toString());
                         await e.reference.update({'statusList' : e.statusList});
@@ -44,33 +43,12 @@ class _SharerRequestPageState extends State<SharerRequestPage> {
                     return SizedBox();
                   }
                 }).toList(),
-              ) : ProgressBar(), /*ListView(
-                physics: BouncingScrollPhysics(),
-                children:
-                /*[
-                  RequestWidget(volunteer: false,degree: 4.7,text: 'Gönüllü Adı',subText: ''
-                      '76 kezz Gönüllülük yaptı',onTap: (){
-                  },)
-
-                ],*/
-              ),*/
+              ) : ProgressBar(),
             )
           ],
         ),
       ),
     );
-    /*if (_requestModel.state == RequestViewState.Idle) {
-      if (_requestModel.requestList.length != null) {
-        return
-      } else {
-        return Center(
-          child: Text('İstek Yok'),
-        );
-      }
-    } else {
-      return Center(
-        child: CircularProgressIndicator(),
-      );
-    }*/
+
   }
 }

@@ -6,7 +6,7 @@ import 'package:icon_shadow/icon_shadow.dart';
 class RequestWidget extends StatelessWidget {
   bool volunteer;// true data is volunteer / false data is sharer
   String photo;
-  double degree;
+  int degree;
   String text;
   String subText;
   Function onTap;
@@ -14,7 +14,6 @@ class RequestWidget extends StatelessWidget {
   IconData rightIcon;
   Color backcolor;
   Color textColor;
-
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -44,6 +43,11 @@ class RequestWidget extends StatelessWidget {
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.all(Radius.circular(50)),
                           color: Colors.white),
+                      child: CircleAvatar(
+                        backgroundImage:photo != null ?NetworkImage(
+                          photo
+                        ): AssetImage('assets/volunteer.png')
+                      ),
                     ),
                     Padding(
                       padding:  EdgeInsets.only(left: Constants.getWidthValue(context, 8)),
@@ -53,18 +57,10 @@ class RequestWidget extends StatelessWidget {
                         children: [
                           if(volunteer==false)Row(
                             children: [
-                              IconShadowWidget(
-                                Icon(
-                                  Icons.star,
-                                  color: ColorTable.yellow,
-                                  size: Constants.getHeightValue(context, 18),
-                                ),
-                                shadowColor: Colors.black.withOpacity(0.5),
-                              ),
                               Padding(
                                 padding: const EdgeInsets.only(left: 2.0),
                                 child: Text(
-                                  "4.7",
+                                  '${degree} Yardım yaptı',
                                   style: TextStyle(
                                       color: ColorTable.yellow,
                                       fontWeight: FontWeight.w900,
@@ -89,7 +85,7 @@ class RequestWidget extends StatelessWidget {
                               subText,
                               style: TextStyle(
                                   color: Colors.white,
-                                  fontSize: Constants.getHeightValue(context, 9),
+                                  fontSize: Constants.getHeightValue(context, 11),
                                   fontWeight: FontWeight.w600),
                             ),
                           ),

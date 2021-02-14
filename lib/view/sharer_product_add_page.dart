@@ -165,11 +165,9 @@ class _ProductAddPageState extends State<ProductAddPage> {
                                     .toString());
                             await context.read<ProductModel>().saveProduct(
                                 name: controller.text,
-                                productType: select == 'Yemek-Yiyecek'
-                                    ? ProductType.FOOD
-                                    : ProductType.CLOTHES,
+                                productType: select == 'Yemek-Yiyecek' ? ProductType.FOOD : ProductType.CLOTHES,
                                 explanation: text.text,
-                                publisher: context.read<UserModel>().user.uid,
+                                publisher: _userModel.user.uid,
                                 file: images.first,
                                 geoPoint: GeoPoint(
                                     context
@@ -195,6 +193,13 @@ class _ProductAddPageState extends State<ProductAddPage> {
         ),
       ),
     );
+    /*} else {
+      return Scaffold(
+        body: Center(
+          child: CircularProgressIndicator(),
+        ),
+      );
+    }*/
   }
 
   textFieldCont() {
@@ -245,7 +250,7 @@ class _ProductAddPageState extends State<ProductAddPage> {
     );
   }
 
-  Widget textButton(String text, IconData iconData, Color color) {
+  Widget textButton(String text, IconData iconData,Color color) {
     return Container(
       height: Constants.getHeightValue(context, 48),
       width: Constants.getWidthValue(context, 96),
@@ -274,6 +279,7 @@ class _ProductAddPageState extends State<ProductAddPage> {
 
   Future<void> loadAssets() async {
     List<Asset> resultList = <Asset>[];
+    String error = 'No Error Dectected';
     try {
       resultList = await MultiImagePicker.pickImages(
         maxImages: 1,
@@ -289,7 +295,7 @@ class _ProductAddPageState extends State<ProductAddPage> {
         ),
       );
     } on Exception catch (e) {
-      print(e);
+      error = 'loadAsset Error $e';
     }
 
     if (!mounted) return;

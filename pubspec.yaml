@@ -49,6 +49,7 @@ dependencies:
   loading_animations: "^2.1.0"
   flutter_launcher_icons: ^0.8.1
   fluttertoast: ^7.1.6
+  shimmer: ^1.1.2
 
 flutter_icons:
   android: "launcher_icon"
@@ -77,6 +78,10 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - assets/
+    - assets/vprofile.png
+    - assets/sprofile.png
+
+
   # assets:
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg

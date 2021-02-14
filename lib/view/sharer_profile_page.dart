@@ -22,52 +22,68 @@ class _SharerPageState extends State<SharerPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: Colors.white,
-      height: Constants.getHeight(context),
-      child: SafeArea(
-        child: Column(
-          children: [
-            ProfilWidget(
-              name: context.read<UserModel>().user.fullName,
-              email: context.read<UserModel>().user.email,
-              phone: context.read<UserModel>().user.phoneNumber,
-            ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                TextWidget('SON İŞLEMLER'),
-                Container(
-                  height: Constants.getHeightValue(context, 310),
-                  child: SingleChildScrollView(
-                    physics: BouncingScrollPhysics(),
-                    child: context.watch<RequestModel>().requestList.length != 0
-                        ? Column(
-                            children: context
-                                .watch<RequestModel>()
-                                .requestList
-                                .map((e) {
-                              if (e.requested.uid ==
-                                  context.read<UserModel>().user.uid) {
-                                return SharerApproved(
-                                  text1: e.requested.fullName,
-                                  text2: e.requesting.fullName,
-                                  voluntter: e.statusList.last.toString() ==
-                                          RequestStatus.WAITING.toString()
-                                      ? false
-                                      : true,
-                                );
-                              } else {
-                                return SizedBox();
-                              }
-                            }).toList(),
-                          )
-                        : ProgressBar(),
+    return Scaffold(
+      body: Container(
+        color: Colors.white,
+        height: Constants.getHeight(context),
+        child: SafeArea(
+          child: Column(
+            children: [
+              ProfilWidget(
+                name: context.read<UserModel>().user.fullName,
+                email: context.read<UserModel>().user.email,
+                phone: context.read<UserModel>().user.phoneNumber,
+              ),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  TextWidget('SON İŞLEMLER'),
+                  Container(
+                    height: Constants.getHeightValue(context, 310),
+                    child: SingleChildScrollView(
+                      physics: BouncingScrollPhysics(),
+                      child: context.watch<RequestModel>().requestList.length !=
+                              0
+                          ? Column(
+                              children: context
+                                  .watch<RequestModel>()
+                                  .requestList
+                                  .map((e) {
+                                if (e.requested.uid == _userModel.user.uid) {
+                                  return InkWell(
+                                    child: SharerApproved(
+                                      text1: e.requested.fullName,
+                                      text2: e.requesting.fullName,
+                                      requestStatus:
+                                          e.statusList.last.toString(),
+                                      voluntter: e.statusList.last.toString() ==
+                                              RequestStatus.WAITING.toString()
+                                          ? false
+                                          : true,
+                                    ),
+                                    onTap: () {
+                                      productInfo(e.requestedProduct.imageUrl,
+                                      e.requested.fullName,
+                                        e.requesting.fullName,
+                                        e.requestedProduct.explanation,
+                                          e.statusList.last.toString(),
+                                        context,
+                                        ColorTable.blueT[4]
+                                      );
+                                    },
+                                  );
+                                } else {
+                                  return SizedBox();
+                                }
+                              }).toList(),
+                            )
+                          : ProgressBar(),
+                    ),
                   ),
-                ),
-              ],
-            ),
-          ],
+                ],
+              ),
+            ],
+          ),
         ),
       ),
     );

@@ -1,10 +1,10 @@
 import 'package:f4rtech_gdgsivas_hackathon/app/constants.dart';
 import 'package:f4rtech_gdgsivas_hackathon/app/enums.dart';
 import 'package:f4rtech_gdgsivas_hackathon/view/sharer_product_add_page.dart';
-import 'package:f4rtech_gdgsivas_hackathon/view/sharer_profile_page.dart';
+import 'package:f4rtech_gdgsivas_hackathon/view/sharer_page.dart';
 import 'package:f4rtech_gdgsivas_hackathon/view/sharer_request_page.dart';
 import 'package:f4rtech_gdgsivas_hackathon/view/volunteer_leader_board_page.dart';
-import 'package:f4rtech_gdgsivas_hackathon/view/volunteer_profile_page.dart';
+import 'package:f4rtech_gdgsivas_hackathon/view/volunteer_profil_page.dart';
 import 'package:f4rtech_gdgsivas_hackathon/view/volunteer_request_page.dart';
 import 'package:f4rtech_gdgsivas_hackathon/viewmodel/user_model.dart';
 import 'package:flutter/material.dart';
@@ -88,7 +88,7 @@ class _HomePageState extends State<HomePage>
             ),
             customDrawer(context),
             screenBack(context),
-            homeScreen(context,SharerPage()),
+            homeScreen(context),
           ],
         ),
       ),
@@ -131,7 +131,7 @@ class _HomePageState extends State<HomePage>
     );
   }
 
-  Widget homeScreen(context,Widget page) {
+  Widget homeScreen(context) {
     return AnimatedPositioned(
       duration: duration,
       top: 0,
