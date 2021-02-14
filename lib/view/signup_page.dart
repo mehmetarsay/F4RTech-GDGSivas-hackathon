@@ -108,7 +108,6 @@ class _SignUpPageState extends State<SignUpPage> {
                         'Kayıt Ol',
                         ColorTable.green,
                         onTap: () async {
-                          print('AAA');
                           final _userModel =
                           Provider.of<UserModel>(context, listen: false);
                           try {
@@ -130,7 +129,6 @@ class _SignUpPageState extends State<SignUpPage> {
                               'Kayıt Ol',
                               ColorTable.blue,
                               onTap: () async {
-                                print('AAA');
                                 final _userModel = Provider.of<UserModel>(
                                     context,
                                     listen: false);

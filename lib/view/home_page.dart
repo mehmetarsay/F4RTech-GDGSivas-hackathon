@@ -129,7 +129,6 @@ class HomeScreen extends State<HomeScreenPage>
         scale: _scaleAnimation,
         child: GestureDetector(
             onPanUpdate: (details) {
-              print(details.delta.dy);
               if(details.delta.dy>0){
                 if (details.delta.dx < 3) {
                   this.closeDrawer();
