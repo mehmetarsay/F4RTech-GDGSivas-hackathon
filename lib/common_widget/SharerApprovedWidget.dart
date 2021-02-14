@@ -113,11 +113,11 @@ class SharerApproved extends StatelessWidget {
 
   SharerApproved({this.text1='text1', this.text2='text2',this.voluntter =false}){
     if(voluntter == false){
-      color1 =ColorTable.blue;
+      color1 = ColorTable.blue;
       color2 = ColorTable.green;
     }
     else{
-      color1 =ColorTable.green;
+      color1 = ColorTable.green;
       color2 = ColorTable.blue;
     }
   }

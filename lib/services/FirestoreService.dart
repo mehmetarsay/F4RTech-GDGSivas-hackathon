@@ -155,7 +155,17 @@ class FirestoreService implements FirestoreBase {
       var result =
           await FirebaseFirestore.instance.collection('requests').doc(id).get();
       if (result != null) {
-        Request request = Request.fromSnapshot(result);
+        var requestedProduct =
+            await readProduct(result.data()['requestedProduct']);
+        var requesting = await readUser(result.data()['requesting']);
+        var requested = await readUser(result.data()['requested']);
+        Request request = Request.reference(
+            result.reference,
+            result.id,
+            requestedProduct,
+            requesting,
+            requested,
+            result.data()['statusList']);
         return request;
       } else {
         return null;
@@ -173,8 +183,19 @@ class FirestoreService implements FirestoreBase {
           await FirebaseFirestore.instance.collection('requests').get();
       if (result != null) {
         List<Request> requests = [];
-        result.docs.forEach((element) {
-          requests.add(Request.fromSnapshot(element));
+        result.docs.forEach((element) async{
+          var requestedProduct =
+              await readProduct(element.data()['requestedProduct']);
+          var requesting = await readUser(element.data()['requesting']);
+          var requested = await readUser(element.data()['requested']);
+          Request request = Request.reference(
+              element.reference,
+              element.id,
+              requestedProduct,
+              requesting,
+              requested,
+              element.data()['statusList']);
+          requests.add(request);
         });
         return requests;
       } else {
@@ -191,12 +212,23 @@ class FirestoreService implements FirestoreBase {
     try {
       var result = await FirebaseFirestore.instance
           .collection('requests')
-          .where('reqesting', isEqualTo: requesting)
+          .where('requesting', isEqualTo: requesting)
           .get();
       if (result != null) {
         List<Request> requests = [];
-        result.docs.forEach((element) {
-          requests.add(Request.fromSnapshot(element));
+        result.docs.forEach((element)async {
+          var requestedProduct =
+              await readProduct(element.data()['requestedProduct']);
+          var requesting = await readUser(element.data()['requesting']);
+          var requested = await readUser(element.data()['requested']);
+          Request request = Request.reference(
+              element.reference,
+              element.id,
+              requestedProduct,
+              requesting,
+              requested,
+              element.data()['statusList']);
+          requests.add(request);
         });
         return requests;
       } else {
@@ -228,7 +260,7 @@ class FirestoreService implements FirestoreBase {
   }
 
   @override
-  Future<List<Comment>> readCommentForUser(String id) async{
+  Future<List<Comment>> readCommentForUser(String id) async {
     try {
       var result = await FirebaseFirestore.instance
           .collection('comments')
@@ -248,6 +280,4 @@ class FirestoreService implements FirestoreBase {
       return e;
     }
   }
-
-
 }
