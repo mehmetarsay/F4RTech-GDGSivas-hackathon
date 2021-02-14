@@ -7,7 +7,6 @@ import 'package:f4rtech_gdgsivas_hackathon/common_widget/AppBarWidget.dart';
 import 'package:f4rtech_gdgsivas_hackathon/common_widget/TextWidget1.dart';
 import 'package:f4rtech_gdgsivas_hackathon/common_widget/accept_button.dart';
 import 'package:f4rtech_gdgsivas_hackathon/common_widget/dropdown_button.dart';
-import 'package:f4rtech_gdgsivas_hackathon/common_widget/my_text_field.dart';
 import 'package:f4rtech_gdgsivas_hackathon/view/SelectLocation.dart';
 import 'package:f4rtech_gdgsivas_hackathon/view/home_page.dart';
 import 'package:f4rtech_gdgsivas_hackathon/view/sharer_page.dart';
@@ -72,7 +71,7 @@ class _ProductAddPageState extends State<ProductAddPage> {
                           ),
                         ),
                       ),
-                      PhotoWidget(),
+                      photoWidget(),
                       DropdownButtonWidget(
                         list: ['Yemek-Yiyecek', 'Giysi-Giyecek'],
                         select: select,
@@ -98,7 +97,7 @@ class _ProductAddPageState extends State<ProductAddPage> {
                                       Constants.getHeightValue(context, 14),
                                 ),
                               ),
-                              TextFieldCont()
+                              textFieldCont()
                             ],
                           ),
                         ),
@@ -193,7 +192,7 @@ class _ProductAddPageState extends State<ProductAddPage> {
     }*/
   }
 
-  TextFieldCont() {
+  textFieldCont() {
     return Container(
       height: Constants.getHeightValue(context, 45),
       decoration: BoxDecoration(
@@ -241,7 +240,7 @@ class _ProductAddPageState extends State<ProductAddPage> {
     );
   }
 
-  Widget GetButton(String text, IconData iconData,Color color) {
+  Widget textButton(String text, IconData iconData,Color color) {
     return Container(
       height: Constants.getHeightValue(context, 48),
       width: Constants.getWidthValue(context, 96),
@@ -311,7 +310,7 @@ class _ProductAddPageState extends State<ProductAddPage> {
     });
   }
 
-  PhotoWidget() {
+  photoWidget() {
     return Container(
       height: Constants.getHeightValue(context, 206),
       width: Constants.getWidthValue(context, 327),
@@ -371,21 +370,21 @@ class _ProductAddPageState extends State<ProductAddPage> {
                   onTap: () {
                     _imgFromGallery();
                   },
-                  child: GetButton('Fotoğraf Çek', Icons.camera_alt,'#E2E2E2'.toColor()),
+                  child: textButton('Fotoğraf Çek', Icons.camera_alt,'#E2E2E2'.toColor()),
                 ),
                 InkWell(
                   splashColor: Colors.red,
                   onTap: () {
                     loadAssets();
                   },
-                  child: GetButton('Fotoğraf Seç', Icons.photo,'#E2E2E2'.toColor()),
+                  child: textButton('Fotoğraf Seç', Icons.photo,'#E2E2E2'.toColor()),
                 ),
                 InkWell(
                   splashColor: Colors.red,
                   onTap: () {
                     showDialog(context: context, child: SelectLocation());//konum seç
                   },
-                  child: GetButton('Konum Seç', Icons.edit_location,ColorTable.blueT[5]),
+                  child: textButton('Konum Seç', Icons.edit_location,ColorTable.blueT[5]),
                 ),
                 /*Container(
                   height: Constants.getHeightValue(context, 56),

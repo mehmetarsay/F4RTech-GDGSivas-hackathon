@@ -22,8 +22,10 @@ class CommentModel with ChangeNotifier implements CommentBase{
     notifyListeners();
   }
 
+  // ignore: unnecessary_getters_setters
   List<Comment> get commentList => _commentList;
 
+  // ignore: unnecessary_getters_setters
   set commentList(List<Comment> value) {
     _commentList = value;
   }

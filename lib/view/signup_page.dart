@@ -1,6 +1,7 @@
 import 'package:f4rtech_gdgsivas_hackathon/app/colors.dart';
 import 'package:f4rtech_gdgsivas_hackathon/app/constants.dart';
 import 'package:f4rtech_gdgsivas_hackathon/app/enums.dart';
+import 'package:f4rtech_gdgsivas_hackathon/app/validators.dart';
 import 'package:f4rtech_gdgsivas_hackathon/common_widget/accept_button.dart';
 import 'package:f4rtech_gdgsivas_hackathon/common_widget/my_text_field.dart';
 import 'package:f4rtech_gdgsivas_hackathon/viewmodel/user_model.dart';
@@ -43,7 +44,7 @@ class _SignUpPageState extends State<SignUpPage> {
                     return Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        UsageTips( index),
+                        usageTips( index),
                       ],
                     );
                   },
@@ -79,12 +80,14 @@ class _SignUpPageState extends State<SignUpPage> {
                         boxShadow: false,
                       ),
                       MyTextField(
+                        validator:emailValidator,
                         label: 'Email',
                         controller: email,
                         userType: widget.userType,
                         boxShadow: false,
                       ),
                       MyTextField(
+                        validator:phoneValidator,
                         label: 'Telefon Numarası',
                         controller: phoneNumber,
                         userType: widget.userType,
@@ -98,6 +101,7 @@ class _SignUpPageState extends State<SignUpPage> {
                         boxShadow: false,
                       ),
                       MyTextField(
+                        validator: passwordValidator,
                         label: 'Şifre',
                         controller: password,
                         userType: widget.userType,
@@ -130,15 +134,6 @@ class _SignUpPageState extends State<SignUpPage> {
                               ColorTable.blue,
                               onTap: () async {
                                 try {
-                                  var user = await context.read<UserModel>()
-                                      .createUserWithEmailAndPassword(
-                                          userType: UserType.SHARER,
-                                          email: email.text,
-                                          password: password.text,
-                                          fullName: fullname.text,
-                                          phoneNumber: phoneNumber.text,
-                                          companyOrInstitution:
-                                              institution.text);
                                   Navigator.pop(context);
 
                                 } catch (e) {}
@@ -154,7 +149,7 @@ class _SignUpPageState extends State<SignUpPage> {
       ),
     );
   }
-  Widget UsageTips(int index) {
+  Widget usageTips(int index) {
     return Container(
       height: Constants.getHeightValue(context, 63),
       width: Constants.getWidthValue(context, 343),

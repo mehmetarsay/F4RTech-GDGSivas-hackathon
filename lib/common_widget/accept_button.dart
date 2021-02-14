@@ -1,4 +1,4 @@
-import 'package:f4rtech_gdgsivas_hackathon/app/colors.dart';
+
 import 'package:f4rtech_gdgsivas_hackathon/app/constants.dart';
 import 'package:flutter/material.dart';
 class AcceptButton extends StatelessWidget {

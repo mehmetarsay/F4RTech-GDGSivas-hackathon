@@ -1,5 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:f4rtech_gdgsivas_hackathon/app/enums.dart';
 
 abstract class User {
   DocumentReference reference;

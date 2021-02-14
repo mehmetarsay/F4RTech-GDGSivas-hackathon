@@ -6,10 +6,7 @@ import 'package:f4rtech_gdgsivas_hackathon/models/request.dart';
 import 'package:f4rtech_gdgsivas_hackathon/models/sharer_user.dart';
 import 'package:f4rtech_gdgsivas_hackathon/models/volunteer_user.dart';
 import 'package:f4rtech_gdgsivas_hackathon/services/FirestoreBase.dart';
-import 'package:f4rtech_gdgsivas_hackathon/models/user.dart' as usr;
-import 'package:f4rtech_gdgsivas_hackathon/viewmodel/user_model.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:provider/provider.dart';
 
 class FirestoreService implements FirestoreBase {
   @override

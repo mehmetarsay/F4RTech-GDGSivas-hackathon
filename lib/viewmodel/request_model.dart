@@ -92,7 +92,6 @@ class RequestModel with ChangeNotifier implements RequestBase {
     } finally {
       state = RequestViewState.Idle;
     }
-    state = RequestViewState.Idle;
   }
 
   @override

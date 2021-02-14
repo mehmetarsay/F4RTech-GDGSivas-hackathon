@@ -87,7 +87,7 @@ class ProfilWidget extends StatelessWidget {
 
   Text userInfo(String text, detail, size, weight) {
     return Text(
-      '$text ${detail}',
+      '$text $detail',
       style: TextStyle(
           color: colors[0].withOpacity(1), fontSize: size, fontWeight: weight),
     );
