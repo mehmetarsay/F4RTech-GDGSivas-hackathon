@@ -23,4 +23,4 @@ UYGULAMA İÇERİĞİ
      -Hayırsever ürün ekleme ile kolay bir şekilde ürünün fotoğrafını, ismini, açıklamasını, türünü ve konumunu paylaşarak gönüllülerin daha kolay ürünü bulmasına yardmcı olur.
      -Kendisine gelen istekleri görebilir, kabul edebilir ve durumunu değiştirebilir.
      
-
+![Alex](https://drive.google.com/file/d/1M16Rj9BhkkA3c0vX1RQBrqBIwyyB8Jzt/view?usp=sharing)
