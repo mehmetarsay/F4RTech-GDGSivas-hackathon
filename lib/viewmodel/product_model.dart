@@ -1,3 +1,4 @@
+// ignore: implementation_imports
 import 'package:cloud_firestore_platform_interface/src/geo_point.dart';
 import 'package:f4rtech_gdgsivas_hackathon/models/product.dart';
 import 'package:f4rtech_gdgsivas_hackathon/services/ProductBase.dart';
@@ -30,15 +31,19 @@ class ProductModel with ChangeNotifier implements ProductBase {
     notifyListeners();
   }
 
+  // ignore: unnecessary_getters_setters
   Product get product => _product;
 
+  // ignore: unnecessary_getters_setters
   set product(Product value) {
     _product = value;
   }
 
 
+  // ignore: unnecessary_getters_setters
   List<Product> get productList => _productList;
 
+  // ignore: unnecessary_getters_setters
   set productList(List<Product> value) {
     _productList = value;
     //notifyListeners();
@@ -93,7 +98,7 @@ class ProductModel with ChangeNotifier implements ProductBase {
           .now()
           .microsecondsSinceEpoch
           .toString();
-      String url = await _storageService.uploadPhoto(publisher, file);
+      String url = await _storageService.uploadPhoto(_id, file);
       Product product = Product(
             _id, name, productType.toString(), explanation, publisher, geoPoint,url);
       if (product != null) {

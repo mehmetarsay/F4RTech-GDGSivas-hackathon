@@ -1,6 +1,4 @@
-import 'package:f4rtech_gdgsivas_hackathon/app/enums.dart';
 import 'package:f4rtech_gdgsivas_hackathon/locator.dart';
-import 'package:f4rtech_gdgsivas_hackathon/view/home_page.dart';
 import 'package:f4rtech_gdgsivas_hackathon/view/loading_page.dart';
 import 'package:f4rtech_gdgsivas_hackathon/viewmodel/comment_model.dart';
 import 'package:f4rtech_gdgsivas_hackathon/viewmodel/product_model.dart';
@@ -26,6 +24,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (context) => ProductModel()),
         ChangeNotifierProvider(create: (context) => RequestModel()),
         ChangeNotifierProvider(create: (context) => CommentModel()),
+        //ChangeNotifierProvider(create: (context) => HomeScreen()),
       ],
       child: MaterialApp(
         title: 'F4RTech',
@@ -41,32 +40,3 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-/*
-class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
-
-  final String title;
-
-  @override
-  _MyHomePageState createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      theme: ThemeData(
-        fontFamily: 'Gilroy',
-      ),
-      home: LogInPage(false),
-    );
-  }
-}*/

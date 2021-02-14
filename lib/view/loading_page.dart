@@ -14,13 +14,12 @@ class LoadingPage extends StatefulWidget {
 class _LoadingPageState extends State<LoadingPage> {
   @override
   Widget build(BuildContext context) {
-    final _userModel = Provider.of<UserModel>(context);
-    if (_userModel.state == ViewState.Idle) {
-      if (_userModel.user == null) {
+    if (context.watch<UserModel>().state == ViewState.Idle) {
+      if (context.watch<UserModel>().user == null) {
         return LandingPage();
       } else {
-        return HomeScreenPage(
-            _userModel.user.userType == UserType.VOLUNTEER.toString()
+        return HomePage(
+            context.watch<UserModel>().user.userType == UserType.VOLUNTEER.toString()
                 ? UserType.VOLUNTEER
                 : UserType.SHARER);
       }

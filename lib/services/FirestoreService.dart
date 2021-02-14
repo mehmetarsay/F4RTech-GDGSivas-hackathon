@@ -180,10 +180,11 @@ class FirestoreService implements FirestoreBase {
     }
   }
 
+  @override
   Future<List<Request>> readRequestFromQDSList2(List<QueryDocumentSnapshot> docs)async{
     List<Request> list = [];
     await Future.forEach(docs, (element) async{
-      Request res = await readRequstFromQDS(element);
+      Request res = await readRequestFromQDS(element);
       if(res != null){
         list.add(res);
       }
@@ -192,6 +193,7 @@ class FirestoreService implements FirestoreBase {
 
   }
 
+  @override
   Future<List<Request>> readRequestsFromQDSList(List<QueryDocumentSnapshot> docs) async {
     try{
       List<Request> list = [];
@@ -207,7 +209,8 @@ class FirestoreService implements FirestoreBase {
     }
   }
 
-  Future<Request> readRequstFromQDS(QueryDocumentSnapshot element) async{
+  @override
+  Future<Request> readRequestFromQDS(QueryDocumentSnapshot element) async{
     try{
       var requestedProduct = await readProduct(element.data()['requestedProduct']);
       var requesting = await readUser(element.data()['requesting']);

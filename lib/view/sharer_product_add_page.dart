@@ -7,9 +7,7 @@ import 'package:f4rtech_gdgsivas_hackathon/common_widget/AppBarWidget.dart';
 import 'package:f4rtech_gdgsivas_hackathon/common_widget/TextWidget1.dart';
 import 'package:f4rtech_gdgsivas_hackathon/common_widget/accept_button.dart';
 import 'package:f4rtech_gdgsivas_hackathon/common_widget/dropdown_button.dart';
-import 'package:f4rtech_gdgsivas_hackathon/view/SelectLocation.dart';
-import 'package:f4rtech_gdgsivas_hackathon/view/home_page.dart';
-import 'package:f4rtech_gdgsivas_hackathon/view/sharer_page.dart';
+import 'package:f4rtech_gdgsivas_hackathon/view/select_location.dart';
 import 'package:f4rtech_gdgsivas_hackathon/viewmodel/product_model.dart';
 import 'package:f4rtech_gdgsivas_hackathon/viewmodel/user_model.dart';
 import 'package:flutter/material.dart';
@@ -24,19 +22,22 @@ class ProductAddPage extends StatefulWidget {
 }
 
 class _ProductAddPageState extends State<ProductAddPage> {
-  TextEditingController controller = TextEditingController();
-  TextEditingController text = TextEditingController();
-  List<Asset> images = <Asset>[];
+  TextEditingController controller;
+  TextEditingController text;
+  List<Asset> images;
   File imageFile;
   String select;
-  HomeScreen homeScreen;
+
+  @override
+  void initState() {
+    super.initState();
+    images = <Asset>[];
+    controller = TextEditingController();
+    text = TextEditingController();
+  }
 
   @override
   Widget build(BuildContext context) {
-    final _userModel = context.watch<UserModel>();
-    final _productModel = context.watch<ProductModel>();
-    //if (_productModel.state == ProductViewState.Idle) {
-
     return Container(
       color: Colors.white,
       child: SafeArea(
@@ -156,17 +157,26 @@ class _ProductAddPageState extends State<ProductAddPage> {
                         onTap: () async {
                           try {
                             debugPrint('degerrr' +
-                                _userModel.currentLocation.toString());
-                            await _productModel.saveProduct(
+                                context
+                                    .read<UserModel>()
+                                    .currentLocation
+                                    .toString());
+                            await context.read<ProductModel>().saveProduct(
                                 name: controller.text,
                                 productType: select == 'Yemek-Yiyecek' ? ProductType.FOOD : ProductType.CLOTHES,
                                 explanation: text.text,
-                                publisher: _userModel.user.uid,
+                                publisher: context.read<UserModel>().user.uid,
                                 file: images.first,
                                 geoPoint: GeoPoint(
-                                    _userModel.currentLocation.latitude,
-                                    _userModel.currentLocation.longitude));
-
+                                    context
+                                        .read<UserModel>()
+                                        .currentLocation
+                                        .latitude,
+                                    context
+                                        .read<UserModel>()
+                                        .currentLocation
+                                        .longitude));
+                            //homeScreen.bodyPage = SharerPage();
                           } catch (e) {
                             print('ERROR: $e');
                           }
@@ -368,27 +378,26 @@ class _ProductAddPageState extends State<ProductAddPage> {
                   onTap: () {
                     _imgFromGallery();
                   },
-                  child: textButton('Fotoğraf Çek', Icons.camera_alt,'#E2E2E2'.toColor()),
+                  child: textButton(
+                      'Fotoğraf Çek', Icons.camera_alt, '#E2E2E2'.toColor()),
                 ),
                 InkWell(
                   splashColor: Colors.red,
                   onTap: () {
                     loadAssets();
                   },
-                  child: textButton('Fotoğraf Seç', Icons.photo,'#E2E2E2'.toColor()),
+                  child: textButton(
+                      'Fotoğraf Seç', Icons.photo, '#E2E2E2'.toColor()),
                 ),
                 InkWell(
                   splashColor: Colors.red,
                   onTap: () {
-                    showDialog(context: context, child: SelectLocation());//konum seç
+                    showDialog(
+                        context: context, child: SelectLocation()); //konum seç
                   },
-                  child: textButton('Konum Seç', Icons.edit_location,ColorTable.blueT[5]),
+                  child: textButton(
+                      'Konum Seç', Icons.edit_location, ColorTable.blueT[5]),
                 ),
-                /*Container(
-                  height: Constants.getHeightValue(context, 56),
-                  width: Constants.getWidthValue(context, 96),
-                  child: Text('Ürün Eklerken Dikkat Ediniz!!!'),
-                )*/
               ],
             ),
           )

@@ -1,12 +1,7 @@
-
-import 'dart:math';
 import 'package:f4rtech_gdgsivas_hackathon/app/colors.dart';
-
 import 'package:f4rtech_gdgsivas_hackathon/app/constants.dart';
 import 'package:f4rtech_gdgsivas_hackathon/app/enums.dart';
-import 'package:f4rtech_gdgsivas_hackathon/common_widget/CircularWidget.dart';
 import 'package:f4rtech_gdgsivas_hackathon/common_widget/SharerApprovedWidget.dart';
-import 'package:f4rtech_gdgsivas_hackathon/common_widget/ShowDialog.dart';
 import 'package:f4rtech_gdgsivas_hackathon/common_widget/TextWidget1.dart';
 import 'package:f4rtech_gdgsivas_hackathon/common_widget/profil_widget.dart';
 import 'package:f4rtech_gdgsivas_hackathon/common_widget/progressbarWidget.dart';
@@ -15,20 +10,16 @@ import 'package:f4rtech_gdgsivas_hackathon/viewmodel/request_model.dart';
 import 'package:f4rtech_gdgsivas_hackathon/viewmodel/user_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:shimmer/shimmer.dart';
 
-class SharerPage extends StatefulWidget {
+class SharerProfilePage extends StatefulWidget {
   @override
-  _SharerPageState createState() => _SharerPageState();
+  _SharerProfilePageState createState() => _SharerProfilePageState();
 }
 
-class _SharerPageState extends State<SharerPage> {
-  UserModel _userModel;
-
+class _SharerProfilePageState extends State<SharerProfilePage> {
   @override
   void initState() {
     super.initState();
-    _userModel = context.read<UserModel>();
   }
 
   @override
@@ -60,7 +51,7 @@ class _SharerPageState extends State<SharerPage> {
                                   .watch<RequestModel>()
                                   .requestList
                                   .map((e) {
-                                if (e.requested.uid == _userModel.user.uid) {
+                                if (e.requested.uid == context.read<UserModel>().user.uid) {
                                   return InkWell(
                                     child: SharerApproved(
                                       text1: e.requested.fullName,

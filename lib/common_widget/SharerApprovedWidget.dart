@@ -2,6 +2,7 @@ import 'package:f4rtech_gdgsivas_hackathon/app/colors.dart';
 import 'package:f4rtech_gdgsivas_hackathon/app/constants.dart';
 import 'package:f4rtech_gdgsivas_hackathon/app/enums.dart';
 import 'package:flutter/material.dart';
+// ignore: must_be_immutable
 class SharerApproved extends StatelessWidget {
   String text1;
   String text2;

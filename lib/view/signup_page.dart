@@ -7,10 +7,11 @@ import 'package:f4rtech_gdgsivas_hackathon/common_widget/my_text_field.dart';
 import 'package:f4rtech_gdgsivas_hackathon/viewmodel/user_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
 
 class SignUpPage extends StatefulWidget {
-  UserType userType; //false: gönüllü / true: hayırsever
+  final UserType userType; //false: gönüllü / true: hayırsever
   @override
   _SignUpPageState createState() => _SignUpPageState();
 
@@ -18,12 +19,23 @@ class SignUpPage extends StatefulWidget {
 }
 
 class _SignUpPageState extends State<SignUpPage> {
-  TextEditingController fullname = TextEditingController();
-  TextEditingController email = TextEditingController();
-  TextEditingController phoneNumber = TextEditingController();
-  TextEditingController institution = TextEditingController();
-  TextEditingController password = TextEditingController();
+  TextEditingController fullname;
+  TextEditingController email;
+  TextEditingController phoneNumber;
+  TextEditingController institution;
+  TextEditingController password;
+  GlobalKey<FormState> formkey;
 
+  @override
+  void initState() {
+    super.initState();
+    fullname = TextEditingController();
+    email = TextEditingController();
+    phoneNumber = TextEditingController();
+    institution = TextEditingController();
+    password = TextEditingController();
+    formkey = GlobalKey<FormState>();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +56,7 @@ class _SignUpPageState extends State<SignUpPage> {
                     return Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        usageTips( index),
+                        usageTips(index),
                       ],
                     );
                   },
@@ -52,15 +64,14 @@ class _SignUpPageState extends State<SignUpPage> {
                   pagination: new SwiperPagination(
                     alignment: Alignment(0, 0.8),
                     builder: new DotSwiperPaginationBuilder(
-                      color: widget.userType == UserType.VOLUNTEER ?ColorTable.greenT[2] : ColorTable.blueT[2],
-                      activeColor: widget.userType == UserType.VOLUNTEER ?ColorTable.greenT[2] : ColorTable.blueT[2],
-
+                      color: widget.userType == UserType.VOLUNTEER
+                          ? ColorTable.greenT[2]
+                          : ColorTable.blueT[2],
+                      activeColor: widget.userType == UserType.VOLUNTEER
+                          ? ColorTable.greenT[2]
+                          : ColorTable.blueT[2],
                     ),
                   ),
-                  /* pagination: new SwiperPagination(
-                      builder: SwiperPagination.dots,
-                      alignment: Alignment(0,0.7),
-                    ),*/
                 ),
               ),
               Positioned(
@@ -70,76 +81,55 @@ class _SignUpPageState extends State<SignUpPage> {
                 child: Container(
                   height: Constants.getHeightValue(context, 400),
                   width: Constants.getWidthValue(context, 304),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      MyTextField(
-                        label: 'İsim-Soyisim',
-                        controller: fullname,
-                        userType: widget.userType,
-                        boxShadow: false,
-                      ),
-                      MyTextField(
-                        validator:emailValidator,
-                        label: 'Email',
-                        controller: email,
-                        userType: widget.userType,
-                        boxShadow: false,
-                      ),
-                      MyTextField(
-                        validator:phoneValidator,
-                        label: 'Telefon Numarası',
-                        controller: phoneNumber,
-                        userType: widget.userType,
-                        textInputType: TextInputType.number,
-                        boxShadow: false,
-                      ),
-                      MyTextField(
-                        label: 'Bağlı Kurum*',
-                        controller: institution,
-                        userType: widget.userType,
-                        boxShadow: false,
-                      ),
-                      MyTextField(
-                        validator: passwordValidator,
-                        label: 'Şifre',
-                        controller: password,
-                        userType: widget.userType,
-                        boxShadow: false,
-                      ),
-                      widget.userType == UserType.VOLUNTEER
-                          ? AcceptButton(
-                        'Kayıt Ol',
-                        ColorTable.green,
-                        onTap: () async {
-                          final _userModel =
-                          Provider.of<UserModel>(context, listen: false);
-                          try {
-                            var user = await _userModel
-                                .createUserWithEmailAndPassword(
-                                userType: UserType.VOLUNTEER,
-                                email: email.text,
-                                password: password.text,
-                                fullName: fullname.text,
-                                phoneNumber: phoneNumber.text,
-                                companyOrInstitution:
-                                institution.text);
-                            if(user != null){
-                              Navigator.pop(context);
-                            }
-                          } catch (e) {}
-                        },
-                      ):AcceptButton(
-                              'Kayıt Ol',
-                              ColorTable.blue,
-                              onTap: () async {
-                                try {
-                                  Navigator.pop(context);
-
-                                } catch (e) {}
-                              },
-                            ),
-                    ],
+                  child: Form(
+                    key: formkey,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        MyTextField(
+                          label: 'İsim-Soyisim',
+                          controller: fullname,
+                          userType: widget.userType,
+                          boxShadow: false,
+                        ),
+                        MyTextField(
+                          validator: emailValidator,
+                          label: 'Email',
+                          controller: email,
+                          userType: widget.userType,
+                          boxShadow: false,
+                        ),
+                        MyTextField(
+                          validator: phoneValidator,
+                          label: 'Telefon Numarası',
+                          controller: phoneNumber,
+                          userType: widget.userType,
+                          textInputType: TextInputType.number,
+                          boxShadow: false,
+                        ),
+                        MyTextField(
+                          label: 'Bağlı Kurum*',
+                          controller: institution,
+                          userType: widget.userType,
+                          boxShadow: false,
+                        ),
+                        MyTextField(
+                          validator: passwordValidator,
+                          label: 'Şifre',
+                          controller: password,
+                          userType: widget.userType,
+                          boxShadow: false,
+                        ),
+                        widget.userType == UserType.VOLUNTEER
+                            ? AcceptButton('Kayıt Ol', ColorTable.green,
+                                onTap: signUpOnTap)
+                            : AcceptButton(
+                                'Kayıt Ol',
+                                ColorTable.blue,
+                                onTap: signUpOnTap,
+                              ),
+                      ],
+                    ),
                   ),
                 ),
               )
@@ -149,12 +139,37 @@ class _SignUpPageState extends State<SignUpPage> {
       ),
     );
   }
+
+  void signUpOnTap() async {
+    try {
+      if (formkey.currentState.validate()) {
+        formkey.currentState.save();
+        var user = await context
+            .read<UserModel>()
+            .createUserWithEmailAndPassword(
+                userType: UserType.VOLUNTEER,
+                email: email.text,
+                password: password.text,
+                fullName: fullname.text,
+                phoneNumber: phoneNumber.text,
+                companyOrInstitution: institution.text);
+        if (user != null) {
+          Navigator.pop(context);
+        }
+      }else {
+        Fluttertoast.showToast(msg: 'Lütfen Tüm Alanları Doğru Doldurunuz', toastLength: Toast.LENGTH_LONG);
+      }
+    } catch (e) {}
+  }
+
   Widget usageTips(int index) {
     return Container(
       height: Constants.getHeightValue(context, 63),
       width: Constants.getWidthValue(context, 343),
       child: Text(
-        widget.userType == UserType.VOLUNTEER ? volunterTips[index]:hyrTips[index],
+        widget.userType == UserType.VOLUNTEER
+            ? volunterTips[index]
+            : hyrTips[index],
         maxLines: 3,
         textAlign: TextAlign.center,
         style: TextStyle(
@@ -165,8 +180,13 @@ class _SignUpPageState extends State<SignUpPage> {
       ),
     );
   }
-  List<String> hyrTips = ['Bir Hayırsever Olup Yoksullara Umut Olmaya Çok Yakınsınız.',
-    'Hayırsever Olarak Oturduğunuz yerden Gönüllüler aracılığı ile ürünlerinizi paylaşabilirsiniz'];
-  List<String> volunterTips = ['Bir Gönüllü Olup Yoksullara Umut Olmaya Çok Yakınsınız.',
-    'Gönüllü Olarak Hayırsever insanlardan aldığınız ürünleri ihtiyaç sahiplerine ulaştırabilirsiniz.'];
+
+  List<String> hyrTips = [
+    'Bir Hayırsever Olup Yoksullara Umut Olmaya Çok Yakınsınız.',
+    'Hayırsever Olarak Oturduğunuz yerden Gönüllüler aracılığı ile ürünlerinizi paylaşabilirsiniz'
+  ];
+  List<String> volunterTips = [
+    'Bir Gönüllü Olup Yoksullara Umut Olmaya Çok Yakınsınız.',
+    'Gönüllü Olarak Hayırsever insanlardan aldığınız ürünleri ihtiyaç sahiplerine ulaştırabilirsiniz.'
+  ];
 }

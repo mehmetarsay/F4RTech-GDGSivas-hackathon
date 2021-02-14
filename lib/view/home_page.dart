@@ -1,10 +1,10 @@
 import 'package:f4rtech_gdgsivas_hackathon/app/constants.dart';
 import 'package:f4rtech_gdgsivas_hackathon/app/enums.dart';
 import 'package:f4rtech_gdgsivas_hackathon/view/sharer_product_add_page.dart';
-import 'package:f4rtech_gdgsivas_hackathon/view/sharer_page.dart';
+import 'package:f4rtech_gdgsivas_hackathon/view/sharer_profile_page.dart';
 import 'package:f4rtech_gdgsivas_hackathon/view/sharer_request_page.dart';
 import 'package:f4rtech_gdgsivas_hackathon/view/volunteer_leader_board_page.dart';
-import 'package:f4rtech_gdgsivas_hackathon/view/volunteer_profil_page.dart';
+import 'package:f4rtech_gdgsivas_hackathon/view/volunteer_profile_page.dart';
 import 'package:f4rtech_gdgsivas_hackathon/view/volunteer_request_page.dart';
 import 'package:f4rtech_gdgsivas_hackathon/viewmodel/user_model.dart';
 import 'package:flutter/material.dart';
@@ -12,13 +12,14 @@ import 'package:provider/provider.dart';
 
 import '../app/colors.dart';
 
-class HomeScreenPage extends StatefulWidget with ChangeNotifier {
-  UserType userType;
+// ignore: must_be_immutable
+class HomePage extends StatefulWidget {
+  final UserType userType;
   List<Color> backColor;
   @override
-  HomeScreen createState() => HomeScreen();
+  _HomePageState createState() => _HomePageState();
 
-  HomeScreenPage(this.userType){
+  HomePage(this.userType){
     if(userType == UserType.VOLUNTEER){
       backColor = ColorTable.greenT;
     }
@@ -28,13 +29,17 @@ class HomeScreenPage extends StatefulWidget with ChangeNotifier {
   }
 }
 
-class HomeScreen extends State<HomeScreenPage>
+class _HomePageState extends State<HomePage>
     with SingleTickerProviderStateMixin {
-  Widget bodyPage = null;
+  Widget _bodyPage ;
   bool isCollapsed = true;
   double screenWidth, screenHeight;
 
   final Duration duration = const Duration(milliseconds: 400);
+
+  set bodyPage(Widget value) {
+    _bodyPage = value;
+  }
 
   AnimationController _controller;
   Animation<double> _scaleAnimation;
@@ -144,7 +149,7 @@ class HomeScreen extends State<HomeScreenPage>
                 }
               }
 
-            },child: bodyPage != null ? bodyPage : widget.userType == UserType.VOLUNTEER ? VolunteerProfilPage():SharerPage(),
+            },child: _bodyPage != null ? _bodyPage : widget.userType == UserType.VOLUNTEER ? VolunteerProfilPage():SharerProfilePage(),
               //child: SharerPage(),
             ),
       ),
@@ -161,6 +166,7 @@ class HomeScreen extends State<HomeScreenPage>
   void openDrawer() {
     setState(() {
       _controller.forward();
+
       isCollapsed = false;
     });
   }
@@ -201,7 +207,7 @@ class HomeScreen extends State<HomeScreenPage>
             onTap: () {
               setState(() {
                 closeDrawer();
-                bodyPage = widget.userType == UserType.VOLUNTEER ? VolunteerProfilPage():SharerPage();
+                _bodyPage = widget.userType == UserType.VOLUNTEER ? VolunteerProfilPage():SharerProfilePage();
               });
 
             }),
@@ -210,7 +216,7 @@ class HomeScreen extends State<HomeScreenPage>
             onTap: (){
               setState(() {
                 closeDrawer();
-                bodyPage = widget.userType == UserType.VOLUNTEER ? VolunteerRequestPage(): ProductAddPage();
+                _bodyPage = widget.userType == UserType.VOLUNTEER ? VolunteerRequestPage(): ProductAddPage();
               });
 
             }),
@@ -220,7 +226,7 @@ class HomeScreen extends State<HomeScreenPage>
               onTap: (){
                 setState(() {
                   closeDrawer();
-                  bodyPage = VolunteerLeaderBoardPage();
+                  _bodyPage = VolunteerLeaderBoardPage();
                 });
               }),
         if(widget.userType == UserType.SHARER)
@@ -229,14 +235,14 @@ class HomeScreen extends State<HomeScreenPage>
             onTap: (){
               setState(() {
                 closeDrawer();
-                bodyPage = SharerRequestPage();
+                _bodyPage = SharerRequestPage();
               });
             }),
         options(
             text: 'Çıkış Yap',
             onTap: () async {
-              final _userModel = Provider.of<UserModel>(context, listen: false);
-              await _userModel.signOut();
+              //final _userModel = Provider.of<UserModel>(context, listen: false);
+              await context.read<UserModel>().signOut();
               //Navigator.pop(context);
             }),
 

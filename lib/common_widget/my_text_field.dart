@@ -6,10 +6,10 @@ class MyTextField extends StatelessWidget {
   final FocusNode focusNode;
   final TextEditingController controller;
   final Function onSubmit;
-  TextInputType textInputType;
+  final TextInputType textInputType;
   final UserType userType;//false: gönüllü / true: hayırsever
   final Function validator;
-  bool boxShadow;
+  final bool boxShadow;
 
    MyTextField({this.label, this.focusNode, this.controller, this.onSubmit,this.userType,this.textInputType=TextInputType.text,this.validator,this.boxShadow =true});
   @override

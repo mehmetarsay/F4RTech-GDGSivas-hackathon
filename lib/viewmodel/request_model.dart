@@ -25,20 +25,24 @@ class RequestModel with ChangeNotifier implements RequestBase {
     notifyListeners();
   }
 
+  // ignore: unnecessary_getters_setters
   Request get request => _request;
 
+  // ignore: unnecessary_getters_setters
   set request(Request value) {
     _request = value;
   }
 
+  // ignore: unnecessary_getters_setters
   List<Request> get requestList => _requestList;
 
+  // ignore: unnecessary_getters_setters
   set requestList(List<Request> value) {
     _requestList = value;
-    //notifyListeners();
   }
 
   @override
+  // ignore: missing_return
   Future<bool> saveRequest({Product requestedProduct, SharerUser requested, VolunteerUser requesting}) async {
     try {
       state = RequestViewState.Busy;

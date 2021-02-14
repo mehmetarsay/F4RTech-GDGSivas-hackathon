@@ -15,12 +15,6 @@ class SharerRequestPage extends StatefulWidget {
 }
 
 class _SharerRequestPageState extends State<SharerRequestPage> {
-  UserModel _userModel;
-  @override
-  void initState() {
-    super.initState();
-    _userModel = context.read<UserModel>();
-  }
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -30,31 +24,38 @@ class _SharerRequestPageState extends State<SharerRequestPage> {
           children: [
             AppBarWidget('HAYIRSEVER', ColorTable.blueT[1]),
             Expanded(
-              child: context.watch<RequestModel>().requestList.isNotEmpty ? Column(
-                children: context.watch<RequestModel>().requestList.map((e) {
-                  if (e.requested.uid == _userModel.user.uid) {
-                    return RequestWidget(
-                      volunteer: false,
-                      photo: e.requestedProduct.imageUrl,
-                      degree: e.requesting.degree,
-                      text: e.requesting.fullName,
-                      subText: e.requestedProduct.name,
-                      onTap: () async{
-                        e.statusList.add(RequestStatus.COMPLETED.toString());
-                        await e.reference.update({'statusList' : e.statusList});
-                        print('İstek atıldı');
-                      },
-                    );
-                  } else {
-                    return SizedBox();
-                  }
-                }).toList(),
-              ) : ProgressBar(),
+              child: context.watch<RequestModel>().requestList.isNotEmpty
+                  ? SingleChildScrollView(
+                      child: Column(
+                        children:
+                            context.watch<RequestModel>().requestList.map((e) {
+                          if (e.requested.uid ==
+                              context.watch<UserModel>().user.uid) {
+                            return RequestWidget(
+                              volunteer: false,
+                              photo: e.requestedProduct.imageUrl,
+                              degree: e.requesting.degree,
+                              text: e.requesting.fullName,
+                              subText: e.requestedProduct.name,
+                              onTap: () async {
+                                e.statusList
+                                    .add(RequestStatus.COMPLETED.toString());
+                                await e.reference
+                                    .update({'statusList': e.statusList});
+                                print('İstek atıldı');
+                              },
+                            );
+                          } else {
+                            return SizedBox();
+                          }
+                        }).toList(),
+                      ),
+                    )
+                  : ProgressBar(),
             )
           ],
         ),
       ),
     );
-
   }
 }
