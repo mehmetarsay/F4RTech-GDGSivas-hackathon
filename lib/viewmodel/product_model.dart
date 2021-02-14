@@ -96,23 +96,10 @@ class ProductModel with ChangeNotifier implements ProductBase {
           .microsecondsSinceEpoch
           .toString();
       String url = await _storageService.uploadPhoto(publisher, file);
-      Product product;
-      if (productType == ProductType.FOOD) {
-        product = Product(
-            _id, name, 'FOOD', explanation, publisher, geoPoint,url);
-      } else if (productType == ProductType.CLOTHES) {
-        product = Product(
-            _id, name, 'CLOTHES', explanation, publisher, geoPoint,url);
-      } else {
-        return null;
-      }
+      Product product = Product(
+            _id, name, productType.toString(), explanation, publisher, geoPoint,url);
       if (product != null) {
         return await _firestoreService.saveProduct(product);
-        /*if (result) {
-          return true;
-        } else {
-          return false;
-        }*/
       } else {
         return null;
       }

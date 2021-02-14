@@ -9,6 +9,8 @@ import 'package:f4rtech_gdgsivas_hackathon/common_widget/accept_button.dart';
 import 'package:f4rtech_gdgsivas_hackathon/common_widget/dropdown_button.dart';
 import 'package:f4rtech_gdgsivas_hackathon/common_widget/my_text_field.dart';
 import 'package:f4rtech_gdgsivas_hackathon/view/SelectLocation.dart';
+import 'package:f4rtech_gdgsivas_hackathon/view/home_page.dart';
+import 'package:f4rtech_gdgsivas_hackathon/view/sharer_page.dart';
 import 'package:f4rtech_gdgsivas_hackathon/viewmodel/product_model.dart';
 import 'package:f4rtech_gdgsivas_hackathon/viewmodel/user_model.dart';
 import 'package:flutter/material.dart';
@@ -28,12 +30,14 @@ class _ProductAddPageState extends State<ProductAddPage> {
   List<Asset> images = <Asset>[];
   File imageFile;
   String select;
+  HomeScreen homeScreen;
 
   @override
   Widget build(BuildContext context) {
     final _userModel = context.watch<UserModel>();
     final _productModel = context.watch<ProductModel>();
     //if (_productModel.state == ProductViewState.Idle) {
+    homeScreen = Provider.of<HomeScreen>(context);
 
     return Container(
       color: Colors.white,
@@ -156,14 +160,16 @@ class _ProductAddPageState extends State<ProductAddPage> {
                             debugPrint('degerrr' +
                                 _userModel.currentLocation.toString());
                             await _productModel.saveProduct(
-                                name: 'Corba',
-                                productType: ProductType.FOOD,
-                                explanation: controller.text,
+                                name: controller.text,
+                                productType: select == 'Yemek-Yiyecek' ? ProductType.FOOD : ProductType.CLOTHES,
+                                explanation: text.text,
                                 publisher: _userModel.user.uid,
                                 file: images.first,
                                 geoPoint: GeoPoint(
                                     _userModel.currentLocation.latitude,
                                     _userModel.currentLocation.longitude));
+                            homeScreen.bodyPage = SharerPage();
+
                           } catch (e) {
                             print('ERROR: $e');
                           }

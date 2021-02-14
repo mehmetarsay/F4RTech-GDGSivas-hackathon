@@ -30,12 +30,17 @@ class HomeScreenPage extends StatefulWidget {
 }
 
 class HomeScreen extends State<HomeScreenPage>
-    with SingleTickerProviderStateMixin {
-  Widget bodyPage = null;
+    with SingleTickerProviderStateMixin, ChangeNotifier {
+  Widget _bodyPage = null;
   bool isCollapsed = true;
   double screenWidth, screenHeight;
 
   final Duration duration = const Duration(milliseconds: 400);
+
+  set bodyPage(Widget value) {
+    _bodyPage = value;
+    notifyListeners();
+  }
 
   AnimationController _controller;
   Animation<double> _scaleAnimation;
@@ -145,7 +150,7 @@ class HomeScreen extends State<HomeScreenPage>
                 }
               }
 
-            },child: bodyPage != null ? bodyPage : widget.userType == UserType.VOLUNTEER ? VolunteerProfilPage():SharerPage(),
+            },child: _bodyPage != null ? _bodyPage : widget.userType == UserType.VOLUNTEER ? VolunteerProfilPage():SharerPage(),
               //child: SharerPage(),
             ),
       ),
@@ -203,7 +208,7 @@ class HomeScreen extends State<HomeScreenPage>
             onTap: () {
               setState(() {
                 closeDrawer();
-                bodyPage = widget.userType == UserType.VOLUNTEER ? VolunteerProfilPage():SharerPage();
+                _bodyPage = widget.userType == UserType.VOLUNTEER ? VolunteerProfilPage():SharerPage();
               });
 
             }),
@@ -212,7 +217,7 @@ class HomeScreen extends State<HomeScreenPage>
             onTap: (){
               setState(() {
                 closeDrawer();
-                bodyPage = widget.userType == UserType.VOLUNTEER ? VolunteerRequestPage(): ProductAddPage();
+                _bodyPage = widget.userType == UserType.VOLUNTEER ? VolunteerRequestPage(): ProductAddPage();
               });
 
             }),
@@ -222,7 +227,7 @@ class HomeScreen extends State<HomeScreenPage>
               onTap: (){
                 setState(() {
                   closeDrawer();
-                  bodyPage = VolunteerLeaderBoardPage();
+                  _bodyPage = VolunteerLeaderBoardPage();
                 });
               }),
         if(widget.userType == UserType.SHARER)
@@ -231,7 +236,7 @@ class HomeScreen extends State<HomeScreenPage>
             onTap: (){
               setState(() {
                 closeDrawer();
-                bodyPage = SharerRequestPage();
+                _bodyPage = SharerRequestPage();
               });
             }),
         options(
