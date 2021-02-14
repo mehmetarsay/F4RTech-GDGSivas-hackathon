@@ -45,7 +45,7 @@ class _VolunteerLeaderBoardPageState extends State<VolunteerLeaderBoardPage> {
     );
   }
 
-  LeaderFirsThree() {
+  Widget LeaderFirsThree() {
     return Container(
       width: Constants.getWidth(context),
       height: Constants.getHeightValue(context, 270),
@@ -77,7 +77,7 @@ class _VolunteerLeaderBoardPageState extends State<VolunteerLeaderBoardPage> {
     );
   }
 
-  CircularContainer(double w, double h, String text, String photo) {
+  Widget CircularContainer(double w, double h, String text, String photo) {
     return Column(
       children: [
         Container(
@@ -105,7 +105,7 @@ class _VolunteerLeaderBoardPageState extends State<VolunteerLeaderBoardPage> {
     );
   }
 
-  UserList(String name,int index) {
+  Widget UserList(String name,int index) {
     return Padding(
       padding: const EdgeInsets.only(top:12.0),
       child: Container(

@@ -239,7 +239,7 @@ class _ProductAddPageState extends State<ProductAddPage> {
     }*/
   }
 
-  GetCamera(String text, IconData iconData) {
+  Widget GetCamera(String text, IconData iconData) {
     return Container(
       height: Constants.getHeightValue(context, 48),
       width: Constants.getWidthValue(context, 96),

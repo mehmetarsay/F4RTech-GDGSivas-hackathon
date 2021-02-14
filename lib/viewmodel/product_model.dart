@@ -107,12 +107,12 @@ class ProductModel with ChangeNotifier implements ProductBase {
         return null;
       }
       if (product != null) {
-        var result = await _firestoreService.saveProduct(product);
-        if (result) {
+        return await _firestoreService.saveProduct(product);
+        /*if (result) {
           return true;
         } else {
           return false;
-        }
+        }*/
       } else {
         return null;
       }
@@ -145,8 +145,7 @@ class ProductModel with ChangeNotifier implements ProductBase {
   Future<String> getAdress(latitude,longitude) async {
     var coordinates =
     Coordinates(latitude,longitude);
-    var _address =
-    await Geocoder.local.findAddressesFromCoordinates(coordinates);
+    var _address = await Geocoder.local.findAddressesFromCoordinates(coordinates);
     if (_address != null) {
         address = _address.first.addressLine;
     }

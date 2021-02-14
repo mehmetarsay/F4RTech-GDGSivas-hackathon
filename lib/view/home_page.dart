@@ -184,7 +184,7 @@ class HomeScreen extends State<HomeScreenPage>
       ),
     );
   }
-  UserTypeFunc(){
+  Widget UserTypeFunc(){
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisAlignment: MainAxisAlignment.center,

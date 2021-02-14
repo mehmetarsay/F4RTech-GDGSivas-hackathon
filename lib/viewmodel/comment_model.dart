@@ -38,12 +38,12 @@ class CommentModel with ChangeNotifier implements CommentBase{
           .toString();
       Comment comment = Comment(_id, publisher, receiver, text);
       if(comment != null){
-        var result = await _firestoreService.saveComment(comment);
-        if(result){
+        return await _firestoreService.saveComment(comment);
+        /*if(result){
           return true;
         }else{
           return false;
-        }
+        }*/
       }else{
         return null;
       }
