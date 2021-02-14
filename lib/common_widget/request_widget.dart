@@ -118,7 +118,12 @@ class RequestWidget extends StatelessWidget {
                     child: InkWell(
                     borderRadius: BorderRadius.only(topRight: Radius.circular(10),bottomRight: Radius.circular(10)) ,
                     splashColor: backcolor,
-                    onTap: (){},
+                    onTap: (){
+                      if(volunteer==true)
+                        {
+
+                        }
+                    },
                     child: Container(
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.only(topRight: Radius.circular(10),bottomRight: Radius.circular(10)),
