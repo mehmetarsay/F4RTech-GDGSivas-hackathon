@@ -23,6 +23,7 @@ class ProductAddPage extends StatefulWidget {
 
 class _ProductAddPageState extends State<ProductAddPage> {
   TextEditingController controller = TextEditingController();
+  TextEditingController text = TextEditingController();
   List<Asset> images = <Asset>[];
   File imageFile;
 
@@ -39,11 +40,16 @@ class _ProductAddPageState extends State<ProductAddPage> {
             Positioned(
                 top: 0, child: AppBarWidget('HAYIRSEVER', ColorTable.blueT[1])),
             Positioned(
-                left: 30, right: 30, top: 60, child: TextWidget('Ürün Ekle')),
+              left: Constants.getWidthValue(context, 30),
+              right: Constants.getWidthValue(context, 30),
+              top: Constants.getHeightValue(context, 60),
+              child: TextWidget('Ürün Ekle'),
+            ),
             Positioned(
-              top: 100,
+              top: Constants.getHeightValue(context, 100),
               bottom: 0,
               child: SingleChildScrollView(
+                physics: BouncingScrollPhysics(),
                 child: Container(
                   height: Constants.getHeightValue(context, 500),
                   width: Constants.getWidth(context),
@@ -143,6 +149,31 @@ class _ProductAddPageState extends State<ProductAddPage> {
                       Padding(
                         padding: const EdgeInsets.only(top: 8.0),
                         child: Container(
+                          height: Constants.getHeightValue(context, 77),
+                          width: Constants.getWidthValue(context, 327),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                'Ürün Adı',
+                                style: TextStyle(
+                                  color: ColorTable.blueT[5],
+                                  fontSize:
+                                  Constants.getHeightValue(context, 14),
+                                ),
+                              ),
+                              TextFormField(
+                                controller: controller,
+                                keyboardType: TextInputType.multiline,
+                                maxLines: 1,
+                              )
+                            ],
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 8.0),
+                        child: Container(
                           height: Constants.getHeightValue(context, 150),
                           width: Constants.getWidthValue(context, 327),
                           child: Column(
@@ -157,9 +188,13 @@ class _ProductAddPageState extends State<ProductAddPage> {
                                 ),
                               ),
                               TextFormField(
-                                controller: controller,
+                                controller: text,
                                 keyboardType: TextInputType.multiline,
-                                maxLines: 5,
+                                maxLines: 3,
+                                maxLength: 70,
+                                decoration: InputDecoration(
+                                  border: InputBorder.none
+                                ),
                               )
                             ],
                           ),

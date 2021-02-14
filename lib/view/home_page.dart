@@ -177,7 +177,7 @@ class HomeScreen extends State<HomeScreenPage>
             style: TextStyle(
               fontWeight: FontWeight.bold,
               color: widget.backColor[0],
-              fontSize: 20.0,
+              fontSize: Constants.getHeightValue(context, 20),
             ),
           ),
         ),

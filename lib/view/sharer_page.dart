@@ -21,6 +21,7 @@ class _SharerPageState extends State<SharerPage> {
       if (_userModel.user != null) {
         return Container(
           color: Colors.white,
+          height: Constants.getHeight(context),
           child: SafeArea(
             child: Column(
               children: [
@@ -34,7 +35,7 @@ class _SharerPageState extends State<SharerPage> {
                   children: [
                     TextWidget('SON İŞLEMLER'),
                     Container(
-                      height: Constants.getHeightValue(context, 320),
+                      height: Constants.getHeightValue(context, 310),
                       child: SingleChildScrollView(
                         physics: BouncingScrollPhysics(),
                         child: Column(

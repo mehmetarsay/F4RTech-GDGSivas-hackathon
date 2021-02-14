@@ -1,16 +1,13 @@
 import 'dart:async';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:f4rtech_gdgsivas_hackathon/app/colors.dart';
 import 'package:f4rtech_gdgsivas_hackathon/app/constants.dart';
 import 'package:f4rtech_gdgsivas_hackathon/models/product.dart';
 import 'package:f4rtech_gdgsivas_hackathon/viewmodel/product_model.dart';
 import 'package:f4rtech_gdgsivas_hackathon/viewmodel/user_model.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:geocoder/geocoder.dart';
-import 'package:geocoder/model.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:geolocator/geolocator.dart';
-import 'dart:math';
 
 import 'package:provider/provider.dart';
 
@@ -99,23 +96,19 @@ class _MapViewState extends State<MapView> {
           markers.add(Marker(markerId: MarkerId('$i'),
               position: LatLng(
                   latitude, longitude),onTap: (){
-            return showModalBottomSheet(context: context, builder: (context){
-              if(address!=null)
-                {
-                  address=null;
-                }
-              for(int j=0;j<i;++i)
-                {
-                  if(latitude==widget.filteredProducts[j].location.latitude &&  longitude==widget.filteredProducts[j].location.longitude )
-                    {
-                      print('Bu iki adres aynı he ');
-                    }
-                }
-              final productModel=Provider.of<ProductModel>(context);
+            return showModalBottomSheet(context: context,
+              backgroundColor: Colors.blue.withOpacity(0),
+              builder: (context){
+              if(address!=null) address=null;
               return FutureBuilder(future:productModel.getAdress(latitude, longitude),builder: (context,snapshot)
                 {
                   if(snapshot.hasData)
-                    return Center(child: Column(
+                    return Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.only(topRight: Radius.circular(30),topLeft: Radius.circular(30)),
+                          color: ColorTable.blue,
+                        ),
+                        child: Column(
                       children: [
                         Text(snapshot.data.toString()),
                         Text(widget.filteredProducts[i].name),
