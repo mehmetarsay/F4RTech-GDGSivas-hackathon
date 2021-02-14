@@ -75,6 +75,7 @@ class _VolunteerRequestPageState extends State<VolunteerRequestPage> {
                               volunteer: true,
                               text: '${snapshot.data[index].name}',
                               subText: '${sp.data}',
+                              photo: snapshot.data[index].imageUrl,
                             ),
                           );
                         } else {

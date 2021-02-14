@@ -122,11 +122,15 @@ class _SignUpPageState extends State<SignUpPage> {
                         ),
                         widget.userType == UserType.VOLUNTEER
                             ? AcceptButton('Kayıt Ol', ColorTable.green,
-                                onTap: signUpOnTap)
+                                onTap: (){
+                                  signUpOnTap(UserType.SHARER);
+                                })
                             : AcceptButton(
                                 'Kayıt Ol',
                                 ColorTable.blue,
-                                onTap: signUpOnTap,
+                                onTap: (){
+                                  signUpOnTap(UserType.SHARER);
+                                },
                               ),
                       ],
                     ),
@@ -140,14 +144,14 @@ class _SignUpPageState extends State<SignUpPage> {
     );
   }
 
-  void signUpOnTap() async {
+  void signUpOnTap(UserType userType) async {
     try {
       if (formkey.currentState.validate()) {
         formkey.currentState.save();
         var user = await context
             .read<UserModel>()
             .createUserWithEmailAndPassword(
-                userType: UserType.VOLUNTEER,
+                userType: userType,
                 email: email.text,
                 password: password.text,
                 fullName: fullname.text,
