@@ -36,7 +36,6 @@ class _ProductAddPageState extends State<ProductAddPage> {
     final _userModel = context.watch<UserModel>();
     final _productModel = context.watch<ProductModel>();
     //if (_productModel.state == ProductViewState.Idle) {
-    homeScreen = Provider.of<HomeScreen>(context);
 
     return Container(
       color: Colors.white,
@@ -167,7 +166,6 @@ class _ProductAddPageState extends State<ProductAddPage> {
                                 geoPoint: GeoPoint(
                                     _userModel.currentLocation.latitude,
                                     _userModel.currentLocation.longitude));
-                            homeScreen.bodyPage = SharerPage();
 
                           } catch (e) {
                             print('ERROR: $e');

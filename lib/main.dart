@@ -1,3 +1,4 @@
+import 'package:f4rtech_gdgsivas_hackathon/app/enums.dart';
 import 'package:f4rtech_gdgsivas_hackathon/locator.dart';
 import 'package:f4rtech_gdgsivas_hackathon/view/home_page.dart';
 import 'package:f4rtech_gdgsivas_hackathon/view/loading_page.dart';
@@ -25,7 +26,6 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (context) => ProductModel()),
         ChangeNotifierProvider(create: (context) => RequestModel()),
         ChangeNotifierProvider(create: (context) => CommentModel()),
-        ChangeNotifierProvider(create: (context) => HomeScreen()),
       ],
       child: MaterialApp(
         title: 'F4RTech',

@@ -10,6 +10,8 @@ class SharerApproved extends StatelessWidget {
   Color color2;
   String requestStatus;
   Color iconColor = Colors.white;
+  String photo1;
+  String photo2;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -54,6 +56,9 @@ class SharerApproved extends StatelessWidget {
                           decoration: BoxDecoration(
                             color: Colors.white,
                             borderRadius: BorderRadius.all(Radius.circular(50))
+                          ),
+                          child: Image.asset(
+                            this.photo1
                           ),
                         ),
                       ),
@@ -103,6 +108,9 @@ class SharerApproved extends StatelessWidget {
                             color: Colors.white,
                             borderRadius: BorderRadius.all(Radius.circular(50))
                         ),
+                        child: Image.asset(
+                            this.photo2
+                        ),
                       ),
                     ),
                   ],
@@ -122,10 +130,14 @@ class SharerApproved extends StatelessWidget {
     if(voluntter == false){
       color1 = ColorTable.blue;
       color2 = ColorTable.green;
+      photo1 = 'assets/sprofile.png';
+      photo2 = 'assets/vprofile.png';
     }
     else{
       color1 = ColorTable.green;
       color2 = ColorTable.blue;
+      photo1 = 'assets/vprofile.png';
+      photo2 = 'assets/sprofile.png';
     }
   }
 }
