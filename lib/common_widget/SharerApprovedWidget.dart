@@ -1,5 +1,6 @@
 import 'package:f4rtech_gdgsivas_hackathon/app/colors.dart';
 import 'package:f4rtech_gdgsivas_hackathon/app/constants.dart';
+import 'package:f4rtech_gdgsivas_hackathon/app/enums.dart';
 import 'package:flutter/material.dart';
 class SharerApproved extends StatelessWidget {
   String text1;
@@ -7,6 +8,8 @@ class SharerApproved extends StatelessWidget {
   bool voluntter=false;
   Color color1;
   Color color2;
+  String requestStatus;
+  Color iconColor = Colors.white;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -34,7 +37,7 @@ class SharerApproved extends StatelessWidget {
               child: Icon(
                   Icons.compare_arrows,
                 size: Constants.getHeightValue(context, 130),
-                color: Colors.white.withOpacity(0.5),
+                color: iconColor.withOpacity(0.3),
               ),
             ),
             Row(
@@ -112,7 +115,10 @@ class SharerApproved extends StatelessWidget {
     );
   }
 
-  SharerApproved({this.text1='text1', this.text2='text2',this.voluntter =false}){
+  SharerApproved({this.text1='text1', this.text2='text2',this.voluntter =false,this.requestStatus}){
+    if(requestStatus ==RequestStatus.COMPLETED.toString()) iconColor =ColorTable.green;
+    else if(requestStatus ==RequestStatus.WAITING.toString()) iconColor =ColorTable.yellow;
+    else if(requestStatus ==RequestStatus.DENIED.toString()) iconColor =Colors.red;
     if(voluntter == false){
       color1 = ColorTable.blue;
       color2 = ColorTable.green;
