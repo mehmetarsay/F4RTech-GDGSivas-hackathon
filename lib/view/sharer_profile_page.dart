@@ -44,9 +44,7 @@ class _SharerProfilePageState extends State<SharerProfilePage> {
                     height: Constants.getHeightValue(context, 310),
                     child: SingleChildScrollView(
                       physics: BouncingScrollPhysics(),
-                      child: context.watch<RequestModel>().requestList.length !=
-                              0
-                          ? Column(
+                      child: context.watch<RequestModel>().requestList.isNotEmpty ? Column(
                               children: context
                                   .watch<RequestModel>()
                                   .requestList
@@ -79,7 +77,7 @@ class _SharerProfilePageState extends State<SharerProfilePage> {
                                 }
                               }).toList(),
                             )
-                          : ProgressBar(),
+                          : context.watch<RequestModel>().requestList.length == 0 ? Center(child: Text('Buralar Temiz ')):ProgressBar(),
                     ),
                   ),
                 ],
