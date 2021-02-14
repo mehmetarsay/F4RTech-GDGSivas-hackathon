@@ -34,6 +34,7 @@ class MyApp extends StatelessWidget {
       ],
       child: MaterialApp(
         title: 'F4RTech',
+        debugShowCheckedModeBanner: false,
         theme: ThemeData(
           primarySwatch: Colors.blue,
           visualDensity: VisualDensity.adaptivePlatformDensity,

@@ -31,8 +31,8 @@ class _ProductAddPageState extends State<ProductAddPage> {
 
   @override
   Widget build(BuildContext context) {
-    final _userModel = Provider.of<UserModel>(context);
-    final _productModel = Provider.of<ProductModel>(context);
+    final _userModel = context.watch<UserModel>();
+    final _productModel = context.watch<ProductModel>();
     //if (_productModel.state == ProductViewState.Idle) {
 
     return Container(
@@ -299,11 +299,6 @@ class _ProductAddPageState extends State<ProductAddPage> {
     setState(() {
       if (pickedFile != null) {
         imageFile = File(pickedFile.path);
-        /*Navigator.push(context,
-            MaterialPageRoute(builder: (context) => AddPhotoPage(imageFile)));*/
-        //_uploadImageToFirebase(imageFile);
-        //_image = imageFile;
-        //addUser(_image);
       } else {
         print('No image selected.');
       }

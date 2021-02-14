@@ -11,10 +11,10 @@ import 'package:flutter/material.dart';
 class RequestModel with ChangeNotifier implements RequestBase {
   RequestViewState _state = RequestViewState.Idle;
   FirestoreService _firestoreService = locator<FirestoreService>();
-  List<Request> _requestList = [];
+  List<Request> _requestList;
   Request _request;
   RequestModel() {
-    _requestList = [];
+    requestList = [];
     readAllRequest();
   }
 
@@ -35,6 +35,7 @@ class RequestModel with ChangeNotifier implements RequestBase {
 
   set requestList(List<Request> value) {
     _requestList = value;
+    //notifyListeners();
   }
 
   @override
@@ -44,12 +45,7 @@ class RequestModel with ChangeNotifier implements RequestBase {
       String _id = DateTime.now().microsecondsSinceEpoch.toString();
       Request request = Request(_id, requestedProduct, requesting, requested, [RequestStatus.WAITING.toString()]);
       if (request != null) {
-        return await _firestoreService.saveRequest(request);
-        /*if (result) {
-          return true;
-        } else {
-          return false;
-        }*/
+         return await _firestoreService.saveRequest(request);
       }
     } catch (e) {
       print('RequestModel-saveRequest Error: $e');
@@ -85,6 +81,7 @@ class RequestModel with ChangeNotifier implements RequestBase {
       var _requestList = await _firestoreService.readAllRequest();
       if (_requestList != null) {
         requestList = _requestList;
+
         return requestList;
       } else {
         return null;
@@ -95,6 +92,7 @@ class RequestModel with ChangeNotifier implements RequestBase {
     } finally {
       state = RequestViewState.Idle;
     }
+    state = RequestViewState.Idle;
   }
 
   @override
