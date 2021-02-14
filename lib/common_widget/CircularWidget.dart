@@ -21,5 +21,5 @@ class CircularWidget extends StatelessWidget {
 
   }
 
-  CircularWidget({this.height=100, this.width=100, this.photo=null});
+  CircularWidget({this.height=100, this.width=100, this.photo});
 }

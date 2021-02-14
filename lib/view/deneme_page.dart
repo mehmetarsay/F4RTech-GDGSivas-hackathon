@@ -1,11 +1,10 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
+
 import 'package:f4rtech_gdgsivas_hackathon/app/enums.dart';
+import 'package:f4rtech_gdgsivas_hackathon/common_widget/progressbarWidget.dart';
 import 'package:f4rtech_gdgsivas_hackathon/models/product.dart';
 import 'package:f4rtech_gdgsivas_hackathon/view/SelectLocation.dart';
-import 'package:f4rtech_gdgsivas_hackathon/view/map_view.dart';
 import 'package:f4rtech_gdgsivas_hackathon/view/volunteer_request_page.dart';
 import 'package:f4rtech_gdgsivas_hackathon/viewmodel/product_model.dart';
-import 'package:f4rtech_gdgsivas_hackathon/viewmodel/user_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -27,7 +26,6 @@ class _DenemepageState extends State<Denemepage> {
               RaisedButton(
                 child: Text('Kaydet'),
                 onPressed: () async {
-                  final _userModel = Provider.of<UserModel>(context, listen: false);
                   try {
                     var result = await _productModel.readAllProducts();
                     if (result != null) {
@@ -35,12 +33,6 @@ class _DenemepageState extends State<Denemepage> {
                         print(element);
                       });
                     }
-                    var result2 = await _productModel.saveProduct(
-                  name: 'pilav',
-                  productType: ProductType.FOOD,
-                  explanation:
-                      'Fazla pilay kaldı çöpe gitmeden ihtiyaç sahibi alsın',
-                  publisher: _userModel.user.uid);
                   } catch (e) {
                     print('ERROR: $e');
                   }
@@ -106,65 +98,9 @@ class _DenemepageState extends State<Denemepage> {
     } else {
       return Scaffold(
         body: Center(
-          child: CircularProgressIndicator(),
+          child: ProgressBar(),
         ),
       );
     }
-    return Scaffold(
-        appBar: AppBar(
-          title: Text('Deneme'),
-          actions: [
-            RaisedButton(
-              child: Text('Kaydet'),
-              onPressed: () async {
-                //final _userModel = Provider.of<UserModel>(context, listen: false);
-                try {
-                  var result = await _productModel.readAllProducts();
-                  if (result != null) {
-                    _productModel.productList.forEach((element) {
-                      print(element);
-                    });
-                  }
-                  /*var result2 = await _productModel.saveProduct(
-                  name: 'pilav',
-                  productType: ProductType.FOOD,
-                  explanation:
-                      'Fazla pilay kaldı çöpe gitmeden ihtiyaç sahibi alsın',
-                  publisher: _userModel.user.uid);*/
-                } catch (e) {
-                  print('ERROR: $e');
-                }
-              },
-            ),
-          ],
-        ),
-        body: FutureBuilder<List<Product>>(
-          future: _productModel.readAllProducts(),
-          builder:
-              (BuildContext context, AsyncSnapshot<List<Product>> products) {
-            if (products.hasData) {
-              if (products.data.length == 0) {
-                return Center(
-                  child: Text('Ürün Yok'),
-                );
-              } else {
-                return ListView.builder(
-                  itemCount: products.data.length,
-                  itemBuilder: (context, index) {
-                    Product product = products.data[index];
-                    return ListTile(
-                      title: Text(product.name),
-                      subtitle: Text(product.explanation),
-                    );
-                  },
-                );
-              }
-            } else {
-              return Center(
-                child: CircularProgressIndicator(),
-              );
-            }
-          },
-        ));
   }
 }

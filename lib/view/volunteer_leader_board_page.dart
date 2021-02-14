@@ -19,7 +19,7 @@ class _VolunteerLeaderBoardPageState extends State<VolunteerLeaderBoardPage> {
       child: SafeArea(
         child: Column(
           children: [
-            LeaderFirsThree(),
+            leaderFirsThree(),
             Container(
               width: Constants.getWidthValue(context, 327),
               child: Column(
@@ -32,7 +32,7 @@ class _VolunteerLeaderBoardPageState extends State<VolunteerLeaderBoardPage> {
                       physics: BouncingScrollPhysics(),
                       itemCount: 10,
                       itemBuilder: (context, index) {
-                        return UserList('bilal',index);
+                        return userList('bilal',index);
                       },
                     ),
                   ),
@@ -45,7 +45,7 @@ class _VolunteerLeaderBoardPageState extends State<VolunteerLeaderBoardPage> {
     );
   }
 
-  Widget LeaderFirsThree() {
+  Widget leaderFirsThree() {
     return Container(
       width: Constants.getWidth(context),
       height: Constants.getHeightValue(context, 270),
@@ -60,24 +60,24 @@ class _VolunteerLeaderBoardPageState extends State<VolunteerLeaderBoardPage> {
             bottom: 20,
             right: 100,
             left: 100,
-            child: CircularContainer(150, 150, 'Lider 1', 'assets/crown1.png'),
+            child: circularContainer(150, 150, 'Lider 1', 'assets/crown1.png'),
           ),
           Positioned(
             bottom: 20,
             left: 10,
-            child: CircularContainer(100, 100, 'Lider 2', 'assets/crown2.png'),
+            child: circularContainer(100, 100, 'Lider 2', 'assets/crown2.png'),
           ),
           Positioned(
             bottom: 20,
             right: 10,
-            child: CircularContainer(100, 100, 'Lider 3', 'assets/crown3.png'),
+            child: circularContainer(100, 100, 'Lider 3', 'assets/crown3.png'),
           ),
         ],
       ),
     );
   }
 
-  Widget CircularContainer(double w, double h, String text, String photo) {
+  Widget circularContainer(double w, double h, String text, String photo) {
     return Column(
       children: [
         Container(
@@ -105,7 +105,7 @@ class _VolunteerLeaderBoardPageState extends State<VolunteerLeaderBoardPage> {
     );
   }
 
-  Widget UserList(String name,int index) {
+  Widget userList(String name,int index) {
     return Padding(
       padding: const EdgeInsets.only(top:12.0),
       child: Container(

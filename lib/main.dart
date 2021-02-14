@@ -1,12 +1,6 @@
 import 'package:f4rtech_gdgsivas_hackathon/locator.dart';
-import 'package:f4rtech_gdgsivas_hackathon/view/deneme_page.dart';
 import 'package:f4rtech_gdgsivas_hackathon/view/home_page.dart';
-import 'package:f4rtech_gdgsivas_hackathon/view/landing_page.dart';
 import 'package:f4rtech_gdgsivas_hackathon/view/loading_page.dart';
-import 'package:f4rtech_gdgsivas_hackathon/view/login_page.dart';
-import 'package:f4rtech_gdgsivas_hackathon/view/map_view.dart';
-import 'package:f4rtech_gdgsivas_hackathon/view/signup_page.dart';
-import 'package:f4rtech_gdgsivas_hackathon/view/volunteer_request_page.dart';
 import 'package:f4rtech_gdgsivas_hackathon/viewmodel/comment_model.dart';
 import 'package:f4rtech_gdgsivas_hackathon/viewmodel/product_model.dart';
 import 'package:f4rtech_gdgsivas_hackathon/viewmodel/request_model.dart';
