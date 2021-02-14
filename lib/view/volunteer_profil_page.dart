@@ -50,7 +50,7 @@ class _VolunteerProfilPageState extends State<VolunteerProfilPage> {
                     physics: BouncingScrollPhysics(),
                     child: Column(
                       children: _requestModel.requestList.map((e) {
-                        if(e.requesting.uid == _userModel.user.uid)
+                        if(e.requesting.uid == _userModel.user.uid){
                           print(e.statusList.last.toString());
                           print(RequestStatus.COMPLETED.toString());
                           return SharerApproved(
@@ -61,7 +61,9 @@ class _VolunteerProfilPageState extends State<VolunteerProfilPage> {
                                 ? false
                                 : true,
                           );
-
+                        }else {
+                          return SizedBox();
+                        }
                         /*FutureBuilder(
                                     future: getDifUser(e.requested), builder: (context, sp) {
                                   if (sp.hasData) {
