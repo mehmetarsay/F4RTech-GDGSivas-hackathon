@@ -17,7 +17,7 @@ class TextWidget extends StatelessWidget {
             Text(
               text,
               style: TextStyle(
-                  fontSize: Constants.getHeightValue(context, 20),
+                  fontSize: Constants.getHeightValue(context, 15),
                   fontWeight: FontWeight.bold),
             ),
             Divider(

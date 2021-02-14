@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:f4rtech_gdgsivas_hackathon/app/colors.dart';
 import 'package:f4rtech_gdgsivas_hackathon/app/constants.dart';
 import 'package:f4rtech_gdgsivas_hackathon/app/enums.dart';
@@ -6,6 +7,7 @@ import 'package:f4rtech_gdgsivas_hackathon/common_widget/AppBarWidget.dart';
 import 'package:f4rtech_gdgsivas_hackathon/common_widget/TextWidget1.dart';
 import 'package:f4rtech_gdgsivas_hackathon/common_widget/accept_button.dart';
 import 'package:f4rtech_gdgsivas_hackathon/common_widget/my_text_field.dart';
+import 'package:f4rtech_gdgsivas_hackathon/view/SelectLocation.dart';
 import 'package:f4rtech_gdgsivas_hackathon/viewmodel/product_model.dart';
 import 'package:f4rtech_gdgsivas_hackathon/viewmodel/user_model.dart';
 import 'package:flutter/material.dart';
@@ -21,6 +23,7 @@ class ProductAddPage extends StatefulWidget {
 
 class _ProductAddPageState extends State<ProductAddPage> {
   TextEditingController controller = TextEditingController();
+  TextEditingController text = TextEditingController();
   List<Asset> images = <Asset>[];
   File imageFile;
 
@@ -37,11 +40,16 @@ class _ProductAddPageState extends State<ProductAddPage> {
             Positioned(
                 top: 0, child: AppBarWidget('HAYIRSEVER', ColorTable.blueT[1])),
             Positioned(
-                left: 30, right: 30, top: 60, child: TextWidget('Ürün Ekle')),
+              left: Constants.getWidthValue(context, 30),
+              right: Constants.getWidthValue(context, 30),
+              top: Constants.getHeightValue(context, 60),
+              child: TextWidget('Ürün Ekle'),
+            ),
             Positioned(
-              top: 100,
+              top: Constants.getHeightValue(context, 100),
               bottom: 0,
               child: SingleChildScrollView(
+                physics: BouncingScrollPhysics(),
                 child: Container(
                   height: Constants.getHeightValue(context, 500),
                   width: Constants.getWidth(context),
@@ -141,6 +149,31 @@ class _ProductAddPageState extends State<ProductAddPage> {
                       Padding(
                         padding: const EdgeInsets.only(top: 8.0),
                         child: Container(
+                          height: Constants.getHeightValue(context, 77),
+                          width: Constants.getWidthValue(context, 327),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                'Ürün Adı',
+                                style: TextStyle(
+                                  color: ColorTable.blueT[5],
+                                  fontSize:
+                                  Constants.getHeightValue(context, 14),
+                                ),
+                              ),
+                              TextFormField(
+                                controller: controller,
+                                keyboardType: TextInputType.multiline,
+                                maxLines: 1,
+                              )
+                            ],
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 8.0),
+                        child: Container(
                           height: Constants.getHeightValue(context, 150),
                           width: Constants.getWidthValue(context, 327),
                           child: Column(
@@ -155,25 +188,34 @@ class _ProductAddPageState extends State<ProductAddPage> {
                                 ),
                               ),
                               TextFormField(
-                                controller: controller,
+                                controller: text,
                                 keyboardType: TextInputType.multiline,
-                                maxLines: 5,
+                                maxLines: 3,
+                                maxLength: 70,
+                                decoration: InputDecoration(
+                                  border: InputBorder.none
+                                ),
                               )
                             ],
                           ),
                         ),
                       ),
+                      InkWell(child: Text('Konumu seç'),onTap: ()
+                        {
+                          showDialog(context: context,child: SelectLocation());
+                        },),
                       AcceptButton(
                         'Gönder',
                         ColorTable.blue,
                         onTap: () async {
                           try {
+                            debugPrint('degerrr'+_userModel.currentLocation.toString());
                             await _productModel.saveProduct(
                                 name: 'Corba',
                                 productType: ProductType.FOOD,
                                 explanation: controller.text,
                                 publisher: _userModel.user.uid,
-                                file: images.first);
+                                file: images.first,geoPoint:GeoPoint(_userModel.currentLocation.latitude,_userModel.currentLocation.longitude));
                           } catch (e) {
                             print('ERROR: $e');
                           }
@@ -197,7 +239,7 @@ class _ProductAddPageState extends State<ProductAddPage> {
     }*/
   }
 
-  GetCamera(String text, IconData iconData) {
+  Widget GetCamera(String text, IconData iconData) {
     return Container(
       height: Constants.getHeightValue(context, 48),
       width: Constants.getWidthValue(context, 96),

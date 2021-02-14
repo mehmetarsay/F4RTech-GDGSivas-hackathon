@@ -10,7 +10,7 @@ abstract class FirestoreBase {
   Future<bool> saveProduct(Product product);
   Future<Product> readProduct(String uid);
   Future<List<Product>> readAllProducts();
-  Future<List<Product>> readFilteredProducts(GeoPoint location);
+  Future<List<Product>> readFilteredProducts(double radius);
   Future<bool> saveRequest(Request request);
   Future<Request> readRequest(String id);
   Future<List<Request>> readAllRequest();

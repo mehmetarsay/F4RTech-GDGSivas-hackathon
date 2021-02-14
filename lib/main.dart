@@ -6,6 +6,7 @@ import 'package:f4rtech_gdgsivas_hackathon/view/loading_page.dart';
 import 'package:f4rtech_gdgsivas_hackathon/view/login_page.dart';
 import 'package:f4rtech_gdgsivas_hackathon/view/map_view.dart';
 import 'package:f4rtech_gdgsivas_hackathon/view/signup_page.dart';
+import 'package:f4rtech_gdgsivas_hackathon/view/volunteer_request_page.dart';
 import 'package:f4rtech_gdgsivas_hackathon/viewmodel/comment_model.dart';
 import 'package:f4rtech_gdgsivas_hackathon/viewmodel/product_model.dart';
 import 'package:f4rtech_gdgsivas_hackathon/viewmodel/request_model.dart';

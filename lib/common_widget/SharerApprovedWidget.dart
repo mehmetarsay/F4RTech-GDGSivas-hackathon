@@ -22,7 +22,8 @@ class SharerApproved extends StatelessWidget {
               color1.withOpacity(0.3),color2.withOpacity(0.3)
             ]
           ),
-          borderRadius: BorderRadius.all(Radius.circular(10))
+          borderRadius: BorderRadius.all(Radius.circular(10)),
+
         ),
         child: Stack(
           children: [

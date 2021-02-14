@@ -17,7 +17,7 @@ class RequestWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 20),
+      padding:  EdgeInsets.symmetric(vertical: 10.0, horizontal: Constants.getWidthValue(context, 20)),
       child: Container(
         height: Constants.getHeightValue(context, 74),
         width: Constants.getWidthValue(context, 328),
@@ -33,7 +33,7 @@ class RequestWidget extends StatelessWidget {
             Container(
               width: Constants.getWidthValue(context, 250),
               child: Padding(
-                padding: const EdgeInsets.only(left: 8.0),
+                padding:  EdgeInsets.only(left:Constants.getWidthValue(context, 8)),
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
@@ -45,7 +45,7 @@ class RequestWidget extends StatelessWidget {
                           color: Colors.white),
                     ),
                     Padding(
-                      padding: const EdgeInsets.only(left: 8.0),
+                      padding:  EdgeInsets.only(left: Constants.getWidthValue(context, 8)),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -82,12 +82,15 @@ class RequestWidget extends StatelessWidget {
                                 fontSize: Constants.getHeightValue(context, 18),
                                 fontWeight: FontWeight.w600),
                           ),
-                          Text(
-                            subText,
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontSize: Constants.getHeightValue(context, 12),
-                                fontWeight: FontWeight.w600),
+                          Container(
+                            width: Constants.getWidthValue(context, 160),
+                            child: Text(
+                              subText,
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: Constants.getHeightValue(context, 9),
+                                  fontWeight: FontWeight.w600),
+                            ),
                           ),
                         ],
                       ),
@@ -98,7 +101,7 @@ class RequestWidget extends StatelessWidget {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.only(right:15.0),
+              padding:  EdgeInsets.only(right:Constants.getWidthValue(context, 15)),
               child: Material(
                 borderRadius: BorderRadius.only(topRight: Radius.circular(10),bottomRight: Radius.circular(10)),
                 child: Ink(
@@ -112,10 +115,9 @@ class RequestWidget extends StatelessWidget {
                           colors: [backcolor.withOpacity(0.9),backcolor.withOpacity(0.01)]
                       )
                   ),
-                  child: InkWell(
+                    child: InkWell(
                     borderRadius: BorderRadius.only(topRight: Radius.circular(10),bottomRight: Radius.circular(10)) ,
                     splashColor: backcolor,
-
                     onTap: (){},
                     child: Container(
                       decoration: BoxDecoration(
@@ -133,16 +135,18 @@ class RequestWidget extends StatelessWidget {
                             ),
                             shadowColor: Colors.black.withOpacity(0.5),
                           ),
-                          Text(
-                            rightIconText,style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.w900,
-                              fontSize: Constants.getHeightValue(context, 10),
-                              shadows: [
-                                BoxShadow(
-                                    color: Colors.black, blurRadius: 2)
-                              ]),
-                            textAlign: TextAlign.center,
+                          Expanded(
+                            child: Text(
+                              rightIconText,style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.w900,
+                                fontSize: Constants.getHeightValue(context, 10),
+                                shadows: [
+                                  BoxShadow(
+                                      color: Colors.black, blurRadius: 2)
+                                ]),
+                              textAlign: TextAlign.center,
+                            ),
                           )
                         ],
                       ),

@@ -115,11 +115,15 @@ class _LandingPageState extends State<LandingPage> {
                           fontSize: 38,
                           fontWeight: FontWeight.bold,
                           color: Colors.white)),
-                  Text('Paylaştığın senindir, biriktirdiğin değil.',
-                  style: TextStyle(
-                    fontStyle: FontStyle.italic,
-                    fontWeight: FontWeight.bold
-                  ),)
+                  Container(
+                    width: Constants.getWidthValue(context, 250),
+                    child: Text('Paylaştığın senindir, biriktirdiğin değil.',
+                    style: TextStyle(
+                        color: Colors.black.withOpacity(0.8),
+                      fontStyle: FontStyle.italic,
+                      fontWeight: FontWeight.bold
+                    ),),
+                  )
                 ],
               ),
 
@@ -138,9 +142,6 @@ class _LandingPageState extends State<LandingPage> {
                 size: 48,
                 color: backgroundColor,
               ),
-              //Başkasına yararı dokunan insan en
-              // kusursuz insandır.
-              // Sophokles
               Column(
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
@@ -149,13 +150,18 @@ class _LandingPageState extends State<LandingPage> {
                           fontSize: 38,
                           fontWeight: FontWeight.bold,
                           color: Colors.white)),
-                  Text('Başkasına Yardımı Dokunan İnsan\n Kusursuz İnsandır.',
-                  style: TextStyle(
-                    fontStyle: FontStyle.italic,
-                      fontWeight: FontWeight.bold,
-                  ),
-                  maxLines: 2,
+                  Container(
+                    alignment: Alignment.centerRight,
+                    width: Constants.getWidthValue(context, 250),
+                    child: Text('Başkasına Yardımı Dokunan İnsan Kusursuz İnsandır.',
+                    style: TextStyle(
+                      color: Colors.black.withOpacity(0.5),
+                      fontStyle: FontStyle.italic,
+                        fontWeight: FontWeight.bold,
+                    ),
+                    maxLines: 2,
 
+                    ),
                   )
 
                 ],
