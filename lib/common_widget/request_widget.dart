@@ -20,7 +20,7 @@ class RequestWidget extends StatelessWidget {
       padding:  EdgeInsets.symmetric(vertical: 10.0, horizontal: Constants.getWidthValue(context, 20)),
       child: Container(
         height: Constants.getHeightValue(context, 74),
-        width: Constants.getWidthValue(context, 328),
+        width: Constants.getWidthValue(context, 330),
         decoration: BoxDecoration(
             borderRadius: BorderRadius.all(Radius.circular(10)),
             gradient: LinearGradient(

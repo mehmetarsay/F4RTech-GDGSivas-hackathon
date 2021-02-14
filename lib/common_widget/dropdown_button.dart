@@ -20,7 +20,7 @@ class _DropdownButtonWidgetState extends State<DropdownButtonWidget> {
     return Padding(
       padding: const EdgeInsets.only(top:6.0),
       child: Container(
-        height: Constants.getHeightValue(context, 75),
+        height: Constants.getHeightValue(context, 80),
         width: Constants.getWidthValue(context, 327),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,

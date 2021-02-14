@@ -104,7 +104,7 @@ class _ProductAddPageState extends State<ProductAddPage> {
                         ),
                       ),
                       Container(
-                        height: Constants.getHeightValue(context, 150),
+                        height: Constants.getHeightValue(context, 170),
                         width: Constants.getWidthValue(context, 327),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
