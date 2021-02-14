@@ -11,13 +11,15 @@ class LandingPage extends StatefulWidget {
 }
 
 class _LandingPageState extends State<LandingPage> {
-  PageController _pageController = PageController();
+  PageController pageController = PageController(initialPage: 1);
   @override
   Widget build(BuildContext context) {
+
     return ScrollConfiguration(
       behavior: MyBehavior(),
       child: PageView(
-        controller: _pageController,
+        physics: BouncingScrollPhysics(),
+        controller: pageController,
         scrollDirection: Axis.horizontal,
         children: [
           LogInPage(UserType.VOLUNTEER),
@@ -77,98 +79,115 @@ class _LandingPageState extends State<LandingPage> {
   Widget landingText(
       {@required String title,
         @required Color backgroundColor,int scroolPage}) {
-    return InkWell(
-      onTap: (){
-        _pageController.animateToPage(
-          scroolPage,
-          duration: const Duration(milliseconds: 1200),
-          curve: Curves.easeIn,
-        );
-      },
-      child: Container(
-          padding: EdgeInsets.all(16),
-          decoration: BoxDecoration(
-            gradient: scroolPage == 2 ?LinearGradient(
-              begin: Alignment.centerLeft,
-              end: Alignment.centerRight,
-              colors: [
-                backgroundColor,backgroundColor.withOpacity(0.1)
-              ]
-            ):
-            LinearGradient(
-                begin: Alignment.centerRight,
-                end: Alignment.centerLeft,
-                colors: [
-                  backgroundColor,backgroundColor.withOpacity(0.1)
-                ]
+    return Stack(
+      children: [
+        InkWell(
+          onTap: (){
+            pageController.animateToPage(
+              scroolPage,
+              duration: const Duration(milliseconds: 1200),
+              curve: Curves.easeIn,
+            );
+          },
+          child: Container(
+              padding: EdgeInsets.all(16),
+              decoration: BoxDecoration(
+                gradient: scroolPage == 2 ?LinearGradient(
+                  begin: Alignment.centerLeft,
+                  end: Alignment.centerRight,
+                  colors: [
+                    backgroundColor,backgroundColor.withOpacity(0.1)
+                  ]
+                ):
+                LinearGradient(
+                    begin: Alignment.centerRight,
+                    end: Alignment.centerLeft,
+                    colors: [
+                      backgroundColor,backgroundColor.withOpacity(0.1)
+                    ]
+                ),
+              ),
+              width: MediaQuery.of(context).size.width,
+              child:scroolPage == 2 ? Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(title,
+                          style: TextStyle(
+                              fontSize: 38,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white)),
+                      Container(
+                        width: Constants.getWidthValue(context, 250),
+                        child: Text('Paylaştığın senindir, biriktirdiğin değil. Hemen Hayırsever ol.',
+                        style: TextStyle(
+                            color: Colors.black.withOpacity(0.5),
+                          fontStyle: FontStyle.italic,
+                          fontWeight: FontWeight.bold
+                        ),),
+                      )
+                    ],
+                  ),
+
+                  Icon(
+                    Icons.arrow_forward,
+                    size: 48,
+                    color: backgroundColor,
+                  ),
+                ],
+              ):
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Icon(
+                    Icons.arrow_back,
+                    size: 48,
+                    color: backgroundColor,
+                  ),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
+                      Text(title,
+                          style: TextStyle(
+                              fontSize: 38,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white)),
+                      Container(
+                        alignment: Alignment.topRight,
+                        width: Constants.getWidthValue(context, 275),
+                        child: Text('Başkasına Yardımı Dokunan İnsan Kusursuz İnsandır.Şimdi Gönüllü ol.',
+                        style: TextStyle(
+                          color: Colors.black.withOpacity(0.5),
+                          fontStyle: FontStyle.italic,
+                            fontWeight: FontWeight.bold,
+                        ),
+                        textAlign: TextAlign.right,
+                        maxLines: 2,
+
+                        ),
+                      )
+
+                    ],
+                  ),
+                ],
+              )
+          ),
+        ),
+        Positioned(
+          bottom: 5,
+          right: scroolPage == 2 ?10:Constants.getWidth(context)-40,
+          child: Container(
+            height: 30,
+            width: 30,
+            child: Icon(
+              Icons.info,
+              color: backgroundColor,
             ),
           ),
-          width: MediaQuery.of(context).size.width,
-          child:scroolPage == 2 ? Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(title,
-                      style: TextStyle(
-                          fontSize: 38,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white)),
-                  Container(
-                    width: Constants.getWidthValue(context, 250),
-                    child: Text('Paylaştığın senindir, biriktirdiğin değil.',
-                    style: TextStyle(
-                        color: Colors.black.withOpacity(0.8),
-                      fontStyle: FontStyle.italic,
-                      fontWeight: FontWeight.bold
-                    ),),
-                  )
-                ],
-              ),
-
-              Icon(
-                Icons.arrow_forward,
-                size: 48,
-                color: backgroundColor,
-              ),
-            ],
-          ):
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Icon(
-                Icons.arrow_back,
-                size: 48,
-                color: backgroundColor,
-              ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: [
-                  Text(title,
-                      style: TextStyle(
-                          fontSize: 38,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white)),
-                  Container(
-                    alignment: Alignment.centerRight,
-                    width: Constants.getWidthValue(context, 250),
-                    child: Text('Başkasına Yardımı Dokunan İnsan Kusursuz İnsandır.',
-                    style: TextStyle(
-                      color: Colors.black.withOpacity(0.5),
-                      fontStyle: FontStyle.italic,
-                        fontWeight: FontWeight.bold,
-                    ),
-                    maxLines: 2,
-
-                    ),
-                  )
-
-                ],
-              ),
-            ],
-          )
-      ),
+        ),
+      ],
     );
   }
 }

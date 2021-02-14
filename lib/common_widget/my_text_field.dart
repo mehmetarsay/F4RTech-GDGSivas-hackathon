@@ -29,7 +29,7 @@ class MyTextField extends StatelessWidget {
         onSubmitted: this.onSubmit,
         focusNode: focusNode,
         style: TextStyle(
-          color: userType == UserType.VOLUNTEER ?ColorTable.greenT[2] : ColorTable.blueT[2],
+          color: userType == UserType.VOLUNTEER ?ColorTable.greenT[0] : ColorTable.blueT[0],
           fontWeight: FontWeight.w400
         ),
         decoration: InputDecoration(
@@ -41,7 +41,7 @@ class MyTextField extends StatelessWidget {
           labelText: this.label,
           labelStyle: TextStyle(
               fontWeight: FontWeight.w500,
-              color: userType == UserType.VOLUNTEER ?ColorTable.greenT[2] : ColorTable.blueT[2],
+              color: userType == UserType.VOLUNTEER ?ColorTable.greenT[3] : ColorTable.blueT[4],
           ),
           enabledBorder: UnderlineInputBorder(
             borderSide: BorderSide(color: userType == UserType.VOLUNTEER ?ColorTable.greenT[2] : ColorTable.blueT[2],),
