@@ -207,7 +207,15 @@ class HomeScreen extends State<HomeScreenPage>
               });
 
             }),
-
+        if(widget.userType == UserType.VOLUNTEER)
+          options(
+              text: 'Liderlik',
+              onTap: (){
+                setState(() {
+                  closeDrawer();
+                  bodyPage = VolunteerLeaderBoardPage();
+                });
+              }),
         if(widget.userType == UserType.SHARER)
           options(
             text: 'Gelen İstekler',
