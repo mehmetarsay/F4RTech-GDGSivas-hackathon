@@ -6,7 +6,7 @@ import 'package:f4rtech_gdgsivas_hackathon/common_widget/CircularWidget.dart';
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
 
-productInfo(String photo,String publisherName,String volunterName,String explanation,
+productInfo(String productName,String photo,String publisherName,String volunterName,String explanation,
     String status,BuildContext context,Color backColor){
   Color Statuscolor;
   String StatusString;
@@ -139,7 +139,7 @@ productInfo(String photo,String publisherName,String volunterName,String explana
                       padding: EdgeInsets.only(left: 20),
                       width: Constants.getWidth(context),
                       child: Text(
-                        'Ekmek',
+                        productName,
                         style: TextStyle(
                             color: Colors.white,
                             fontWeight: FontWeight.w900,
