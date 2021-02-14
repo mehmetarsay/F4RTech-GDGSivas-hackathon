@@ -15,7 +15,7 @@ class StorageService implements StorageBase {
       Reference reference = FirebaseStorage.instance.ref().child('images').child(uid);
       var uploadTask = await reference.putData((await file.getByteData()).buffer.asUint8List(),metadata);
       TaskState result = uploadTask.state;
-      if(result != TaskState.success){
+      if(result == TaskState.success){
         String url = await uploadTask.ref.getDownloadURL();
         if(url != null){
           return url;

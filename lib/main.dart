@@ -31,6 +31,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (context) => ProductModel()),
         ChangeNotifierProvider(create: (context) => RequestModel()),
         ChangeNotifierProvider(create: (context) => CommentModel()),
+        ChangeNotifierProvider(create: (context) => HomeScreen()),
       ],
       child: MaterialApp(
         title: 'F4RTech',
