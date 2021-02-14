@@ -13,7 +13,7 @@ import 'package:provider/provider.dart';
 
 import '../app/colors.dart';
 
-class HomeScreenPage extends StatefulWidget {
+class HomeScreenPage extends StatefulWidget with ChangeNotifier {
   UserType userType;
   List<Color> backColor;
   @override
@@ -30,17 +30,12 @@ class HomeScreenPage extends StatefulWidget {
 }
 
 class HomeScreen extends State<HomeScreenPage>
-    with SingleTickerProviderStateMixin, ChangeNotifier {
-  Widget _bodyPage = null;
+    with SingleTickerProviderStateMixin {
+  Widget bodyPage = null;
   bool isCollapsed = true;
   double screenWidth, screenHeight;
 
   final Duration duration = const Duration(milliseconds: 400);
-
-  set bodyPage(Widget value) {
-    _bodyPage = value;
-    notifyListeners();
-  }
 
   AnimationController _controller;
   Animation<double> _scaleAnimation;
@@ -88,7 +83,7 @@ class HomeScreen extends State<HomeScreenPage>
             ),
             customDrawer(context),
             screenBack(context),
-            homeScreen(context,SharerPage()),
+            homeScreen(context),
           ],
         ),
       ),
@@ -131,7 +126,7 @@ class HomeScreen extends State<HomeScreenPage>
     );
   }
 
-  Widget homeScreen(context,Widget page) {
+  Widget homeScreen(context) {
     return AnimatedPositioned(
       duration: duration,
       top: 0,
@@ -150,7 +145,7 @@ class HomeScreen extends State<HomeScreenPage>
                 }
               }
 
-            },child: _bodyPage != null ? _bodyPage : widget.userType == UserType.VOLUNTEER ? VolunteerProfilPage():SharerPage(),
+            },child: bodyPage != null ? bodyPage : widget.userType == UserType.VOLUNTEER ? VolunteerProfilPage():SharerPage(),
               //child: SharerPage(),
             ),
       ),
@@ -167,7 +162,6 @@ class HomeScreen extends State<HomeScreenPage>
   void openDrawer() {
     setState(() {
       _controller.forward();
-
       isCollapsed = false;
     });
   }
@@ -208,7 +202,7 @@ class HomeScreen extends State<HomeScreenPage>
             onTap: () {
               setState(() {
                 closeDrawer();
-                _bodyPage = widget.userType == UserType.VOLUNTEER ? VolunteerProfilPage():SharerPage();
+                bodyPage = widget.userType == UserType.VOLUNTEER ? VolunteerProfilPage():SharerPage();
               });
 
             }),
@@ -217,7 +211,7 @@ class HomeScreen extends State<HomeScreenPage>
             onTap: (){
               setState(() {
                 closeDrawer();
-                _bodyPage = widget.userType == UserType.VOLUNTEER ? VolunteerRequestPage(): ProductAddPage();
+                bodyPage = widget.userType == UserType.VOLUNTEER ? VolunteerRequestPage(): ProductAddPage();
               });
 
             }),
@@ -227,7 +221,7 @@ class HomeScreen extends State<HomeScreenPage>
               onTap: (){
                 setState(() {
                   closeDrawer();
-                  _bodyPage = VolunteerLeaderBoardPage();
+                  bodyPage = VolunteerLeaderBoardPage();
                 });
               }),
         if(widget.userType == UserType.SHARER)
@@ -236,7 +230,7 @@ class HomeScreen extends State<HomeScreenPage>
             onTap: (){
               setState(() {
                 closeDrawer();
-                _bodyPage = SharerRequestPage();
+                bodyPage = SharerRequestPage();
               });
             }),
         options(

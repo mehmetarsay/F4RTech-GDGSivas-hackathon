@@ -5,7 +5,7 @@ import 'package:f4rtech_gdgsivas_hackathon/common_widget/SharerApprovedWidget.da
 import 'package:f4rtech_gdgsivas_hackathon/common_widget/TextWidget1.dart';
 import 'package:f4rtech_gdgsivas_hackathon/common_widget/profil_widget.dart';
 import 'package:f4rtech_gdgsivas_hackathon/common_widget/progressbarWidget.dart';
-import 'package:f4rtech_gdgsivas_hackathon/viewmodel/product_model.dart';
+import 'package:f4rtech_gdgsivas_hackathon/common_widget/showBottomWidget.dart';
 import 'package:f4rtech_gdgsivas_hackathon/viewmodel/request_model.dart';
 import 'package:f4rtech_gdgsivas_hackathon/viewmodel/user_model.dart';
 import 'package:flutter/cupertino.dart';
@@ -86,14 +86,26 @@ class _VolunteerProfilPageState extends State<VolunteerProfilPage> {
                     child: context.watch<RequestModel>().requestList.isNotEmpty ? Column(
                       children:  context.watch<RequestModel>().requestList.map((e) {
                         if(e.requesting.uid == _userModel.user.uid){
-                          return SharerApproved(
-                            text1: e.requested.fullName,
-                            text2: e.requesting.fullName,
-                            requestStatus:e.statusList.last.toString(),
-                            voluntter: e.statusList.last.toString() ==
-                                RequestStatus.WAITING.toString()
-                                ? false
-                                : true,
+                          return InkWell(
+                            child: SharerApproved(
+                              text1: e.requested.fullName,
+                              text2: e.requesting.fullName,
+                              requestStatus:e.statusList.last.toString(),
+                              voluntter: e.statusList.last.toString() ==
+                                  RequestStatus.WAITING.toString()
+                                  ? false
+                                  : true,
+                            ),
+                            onTap: (){
+                              productInfo(e.requestedProduct.imageUrl,
+                                  e.requested.fullName,
+                                  e.requesting.fullName,
+                                  e.requestedProduct.explanation,
+                                  e.statusList.last.toString(),
+                                  context,
+                                ColorTable.greenT[4]
+                              );
+                            },
                           );
                         }else {
                           return SizedBox();
