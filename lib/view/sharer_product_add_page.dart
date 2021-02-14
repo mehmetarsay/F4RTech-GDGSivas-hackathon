@@ -6,6 +6,7 @@ import 'package:f4rtech_gdgsivas_hackathon/app/enums.dart';
 import 'package:f4rtech_gdgsivas_hackathon/common_widget/AppBarWidget.dart';
 import 'package:f4rtech_gdgsivas_hackathon/common_widget/TextWidget1.dart';
 import 'package:f4rtech_gdgsivas_hackathon/common_widget/accept_button.dart';
+import 'package:f4rtech_gdgsivas_hackathon/common_widget/dropdown_button.dart';
 import 'package:f4rtech_gdgsivas_hackathon/common_widget/my_text_field.dart';
 import 'package:f4rtech_gdgsivas_hackathon/view/SelectLocation.dart';
 import 'package:f4rtech_gdgsivas_hackathon/viewmodel/product_model.dart';
@@ -26,12 +27,14 @@ class _ProductAddPageState extends State<ProductAddPage> {
   TextEditingController text = TextEditingController();
   List<Asset> images = <Asset>[];
   File imageFile;
+  String select;
 
   @override
   Widget build(BuildContext context) {
     final _userModel = Provider.of<UserModel>(context);
     final _productModel = Provider.of<ProductModel>(context);
     //if (_productModel.state == ProductViewState.Idle) {
+
     return Container(
       color: Colors.white,
       child: SafeArea(
@@ -51,100 +54,29 @@ class _ProductAddPageState extends State<ProductAddPage> {
               child: SingleChildScrollView(
                 physics: BouncingScrollPhysics(),
                 child: Container(
-                  height: Constants.getHeightValue(context, 500),
                   width: Constants.getWidth(context),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Container(
-                        height: Constants.getHeightValue(context, 206),
                         width: Constants.getWidthValue(context, 327),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.all(Radius.circular(10)),
-                          color: '#F2F2F2'.toColor(),
+                        child: Text(
+                          'Ürün Fotoğrafı',
+                          style: TextStyle(
+                            color: ColorTable.blueT[5],
+                            fontSize: Constants.getHeightValue(context, 14),
+                          ),
                         ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children: [
-                            Stack(
-                              children: [
-                                Container(
-                                  width: Constants.getWidthValue(context, 200),
-                                  height:
-                                      Constants.getHeightValue(context, 176),
-                                  decoration: BoxDecoration(
-                                      borderRadius:
-                                          BorderRadius.all(Radius.circular(10)),
-                                      color: Colors.white),
-                                  child: images.isNotEmpty
-                                      ? ClipRRect(
-                                          borderRadius:
-                                              BorderRadius.circular(20),
-                                          child: AssetThumb(
-                                            asset: images.first,
-                                            width: 200,
-                                            height: 200,
-                                          ),
-                                        )
-                                      : SizedBox(),
-                                ),
-                                GestureDetector(
-                                  onTap: () {
-                                    setState(() {
-                                      images.clear();
-                                    });
-                                  },
-                                  child: Container(
-                                    decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.all(
-                                            Radius.circular(50)),
-                                        border: Border.all(
-                                            width: 1, color: Colors.grey)),
-                                    child: Icon(
-                                      Icons.close,
-                                      color: '#BE0000'.toColor(),
-                                      size:
-                                          Constants.getWidthValue(context, 15),
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                            Container(
-                              height: Constants.getHeightValue(context, 176),
-                              child: Column(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  InkWell(
-                                    splashColor: Colors.red,
-                                    onTap: () {
-                                      _imgFromGallery();
-                                    },
-                                    child: GetCamera(
-                                        'Fotoğraf Çek', Icons.camera_alt),
-                                  ),
-                                  InkWell(
-                                    splashColor: Colors.red,
-                                    onTap: () {
-                                      loadAssets();
-                                    },
-                                    child:
-                                        GetCamera('Fotoğraf Seç', Icons.photo),
-                                  ),
-                                  Container(
-                                    height:
-                                        Constants.getHeightValue(context, 56),
-                                    width: Constants.getWidthValue(context, 96),
-                                    child:
-                                        Text('Ürün Eklerken Dikkat Ediniz!!!'),
-                                  )
-                                ],
-                              ),
-                            )
-                          ],
-                        ),
+                      ),
+                      PhotoWidget(),
+                      DropdownButtonWidget(
+                        list: ['Yemek-Yiyecek', 'Giysi-Giyecek'],
+                        select: select,
+                        function: (value) {
+                          setState(() {
+                            select = value;
+                          });
+                        },
                       ),
                       Padding(
                         padding: const EdgeInsets.only(top: 8.0),
@@ -159,63 +91,79 @@ class _ProductAddPageState extends State<ProductAddPage> {
                                 style: TextStyle(
                                   color: ColorTable.blueT[5],
                                   fontSize:
-                                  Constants.getHeightValue(context, 14),
+                                      Constants.getHeightValue(context, 14),
                                 ),
                               ),
-                              TextFormField(
-                                controller: controller,
-                                keyboardType: TextInputType.multiline,
-                                maxLines: 1,
-                              )
+                              TextFieldCont()
                             ],
                           ),
                         ),
                       ),
-                      Padding(
-                        padding: const EdgeInsets.only(top: 8.0),
-                        child: Container(
-                          height: Constants.getHeightValue(context, 150),
-                          width: Constants.getWidthValue(context, 327),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                'Ürün Açıklaması',
-                                style: TextStyle(
-                                  color: ColorTable.blueT[5],
-                                  fontSize:
-                                      Constants.getHeightValue(context, 14),
-                                ),
+                      Container(
+                        height: Constants.getHeightValue(context, 150),
+                        width: Constants.getWidthValue(context, 327),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'Ürün Açıklaması',
+                              style: TextStyle(
+                                color: ColorTable.blueT[5],
+                                fontSize: Constants.getHeightValue(context, 14),
                               ),
-                              TextFormField(
+                            ),
+                            Container(
+                              decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  boxShadow: [
+                                    BoxShadow(
+                                        color: Colors.black.withOpacity(0.06),
+                                        blurRadius: 6)
+                                  ]),
+                              child: TextFormField(
                                 controller: text,
                                 keyboardType: TextInputType.multiline,
                                 maxLines: 3,
                                 maxLength: 70,
                                 decoration: InputDecoration(
-                                  border: InputBorder.none
+                                  border: OutlineInputBorder(),
+                                  disabledBorder: OutlineInputBorder(
+                                      borderSide:
+                                          BorderSide(color: Colors.white)),
+                                  errorBorder: OutlineInputBorder(
+                                      borderSide:
+                                          BorderSide(color: Colors.white)),
+                                  enabledBorder: OutlineInputBorder(
+                                      borderSide:
+                                          BorderSide(color: Colors.white)),
+                                  focusedErrorBorder: OutlineInputBorder(
+                                      borderSide:
+                                          BorderSide(color: Colors.white)),
+                                  focusedBorder: OutlineInputBorder(
+                                      borderSide:
+                                          BorderSide(color: Colors.blue[900])),
                                 ),
-                              )
-                            ],
-                          ),
+                              ),
+                            )
+                          ],
                         ),
                       ),
-                      InkWell(child: Text('Konumu seç'),onTap: ()
-                        {
-                          showDialog(context: context,child: SelectLocation());
-                        },),
                       AcceptButton(
                         'Gönder',
                         ColorTable.blue,
                         onTap: () async {
                           try {
-                            debugPrint('degerrr'+_userModel.currentLocation.toString());
+                            debugPrint('degerrr' +
+                                _userModel.currentLocation.toString());
                             await _productModel.saveProduct(
                                 name: 'Corba',
                                 productType: ProductType.FOOD,
                                 explanation: controller.text,
                                 publisher: _userModel.user.uid,
-                                file: images.first,geoPoint:GeoPoint(_userModel.currentLocation.latitude,_userModel.currentLocation.longitude));
+                                file: images.first,
+                                geoPoint: GeoPoint(
+                                    _userModel.currentLocation.latitude,
+                                    _userModel.currentLocation.longitude));
                           } catch (e) {
                             print('ERROR: $e');
                           }
@@ -239,13 +187,61 @@ class _ProductAddPageState extends State<ProductAddPage> {
     }*/
   }
 
-  Widget GetCamera(String text, IconData iconData) {
+  TextFieldCont() {
+    return Container(
+      height: Constants.getHeightValue(context, 45),
+      decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.all(Radius.circular(10)),
+          boxShadow: [
+            BoxShadow(
+              blurRadius: 8,
+              color: Colors.black.withOpacity(0.06),
+            )
+          ]),
+      child: TextFormField(
+        cursorColor: Colors.blue[900],
+        autovalidateMode: AutovalidateMode.onUserInteraction,
+        style: TextStyle(
+          fontWeight: FontWeight.w400,
+          color: '333333'.toColor().withOpacity(0.8),
+          fontSize: Constants.getHeightValue(context, 14),
+        ),
+        controller: controller,
+        keyboardType: TextInputType.text,
+        decoration: InputDecoration(
+            contentPadding: EdgeInsets.all(10),
+            border: OutlineInputBorder(),
+            disabledBorder:
+                OutlineInputBorder(borderSide: BorderSide(color: Colors.white)),
+            errorBorder:
+                OutlineInputBorder(borderSide: BorderSide(color: Colors.white)),
+            enabledBorder:
+                OutlineInputBorder(borderSide: BorderSide(color: Colors.white)),
+            focusedErrorBorder:
+                OutlineInputBorder(borderSide: BorderSide(color: Colors.white)),
+            focusedBorder: OutlineInputBorder(
+                borderSide: BorderSide(color: Colors.blue[900])),
+            hintText: 'Sıcak Çorba',
+            hintStyle: TextStyle(
+              fontWeight: FontWeight.w400,
+              color: '333333'.toColor().withOpacity(0.2),
+            )),
+        autofocus: false,
+        onTap: () {
+          this.controller = controller;
+        },
+      ),
+    );
+  }
+
+  Widget GetButton(String text, IconData iconData,Color color) {
     return Container(
       height: Constants.getHeightValue(context, 48),
       width: Constants.getWidthValue(context, 96),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.all(Radius.circular(10)),
-        color: '#E2E2E2'.toColor(),
+        color: color,
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -312,5 +308,94 @@ class _ProductAddPageState extends State<ProductAddPage> {
         print('No image selected.');
       }
     });
+  }
+
+  PhotoWidget() {
+    return Container(
+      height: Constants.getHeightValue(context, 206),
+      width: Constants.getWidthValue(context, 327),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.all(Radius.circular(10)),
+        color: '#F2F2F2'.toColor(),
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: [
+          Stack(
+            children: [
+              Container(
+                width: Constants.getWidthValue(context, 200),
+                height: Constants.getHeightValue(context, 176),
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.all(Radius.circular(10)),
+                    color: Colors.white),
+                child: images.isNotEmpty
+                    ? ClipRRect(
+                        borderRadius: BorderRadius.circular(20),
+                        child: AssetThumb(
+                          asset: images.first,
+                          width: 200,
+                          height: 200,
+                        ),
+                      )
+                    : SizedBox(),
+              ),
+              GestureDetector(
+                onTap: () {
+                  setState(() {
+                    images.clear();
+                  });
+                },
+                child: Container(
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.all(Radius.circular(50)),
+                      border: Border.all(width: 1, color: Colors.grey)),
+                  child: Icon(
+                    Icons.close,
+                    color: '#BE0000'.toColor(),
+                    size: Constants.getWidthValue(context, 15),
+                  ),
+                ),
+              ),
+            ],
+          ),
+          Container(
+            height: Constants.getHeightValue(context, 176),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                InkWell(
+                  splashColor: Colors.red,
+                  onTap: () {
+                    _imgFromGallery();
+                  },
+                  child: GetButton('Fotoğraf Çek', Icons.camera_alt,'#E2E2E2'.toColor()),
+                ),
+                InkWell(
+                  splashColor: Colors.red,
+                  onTap: () {
+                    loadAssets();
+                  },
+                  child: GetButton('Fotoğraf Seç', Icons.photo,'#E2E2E2'.toColor()),
+                ),
+                InkWell(
+                  splashColor: Colors.red,
+                  onTap: () {
+                    showDialog(context: context, child: SelectLocation());//konum seç
+                  },
+                  child: GetButton('Konum Seç', Icons.edit_location,ColorTable.blueT[5]),
+                ),
+                /*Container(
+                  height: Constants.getHeightValue(context, 56),
+                  width: Constants.getWidthValue(context, 96),
+                  child: Text('Ürün Eklerken Dikkat Ediniz!!!'),
+                )*/
+              ],
+            ),
+          )
+        ],
+      ),
+    );
   }
 }

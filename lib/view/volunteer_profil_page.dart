@@ -1,14 +1,13 @@
+import 'package:f4rtech_gdgsivas_hackathon/app/colors.dart';
 import 'package:f4rtech_gdgsivas_hackathon/app/constants.dart';
 import 'package:f4rtech_gdgsivas_hackathon/app/enums.dart';
 import 'package:f4rtech_gdgsivas_hackathon/common_widget/SharerApprovedWidget.dart';
 import 'package:f4rtech_gdgsivas_hackathon/common_widget/TextWidget1.dart';
 import 'package:f4rtech_gdgsivas_hackathon/common_widget/profil_widget.dart';
-import 'package:f4rtech_gdgsivas_hackathon/models/product.dart';
-import 'package:f4rtech_gdgsivas_hackathon/models/request.dart';
-import 'package:f4rtech_gdgsivas_hackathon/models/sharer_user.dart';
 import 'package:f4rtech_gdgsivas_hackathon/viewmodel/product_model.dart';
 import 'package:f4rtech_gdgsivas_hackathon/viewmodel/request_model.dart';
 import 'package:f4rtech_gdgsivas_hackathon/viewmodel/user_model.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -43,7 +42,43 @@ class _VolunteerProfilPageState extends State<VolunteerProfilPage> {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                TextWidget('SON İŞLEMLER'),
+                Container(
+                  width: Constants.getWidthValue(context, 327),
+                  child: Stack(
+                    children: [
+                      TextWidget('SON İŞLEMLER'),
+                      Positioned(
+                        right: 0,
+                        bottom: 10,
+                        top: 10,
+                        child: Container(
+                          width: 200,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              Text('Bekliyor ',style: TextStyle(
+                                color: ColorTable.yellow,
+                                  fontWeight: FontWeight.w900,
+                                fontSize: Constants.getHeightValue(context, 9)
+                              ),),
+                              Text('Onaylandı ',style: TextStyle(
+                                  color: ColorTable.green,
+                                  fontWeight: FontWeight.w900,
+                                  fontSize: Constants.getHeightValue(context, 9)
+                              ),),
+                              Text('Onaylanmadı ',style: TextStyle(
+                                  color: Colors.red,
+                                fontWeight: FontWeight.w900,
+                                  fontSize: Constants.getHeightValue(context, 9)
+                              ),)
+                            ],
+                          ),
+                        ),
+                      ),
+
+                    ],
+                  ),
+                ),
                 Container(
                   height: Constants.getHeightValue(context, 320),
                   child: SingleChildScrollView(
@@ -56,6 +91,7 @@ class _VolunteerProfilPageState extends State<VolunteerProfilPage> {
                           return SharerApproved(
                             text1: e.requested.fullName,
                             text2: e.requesting.fullName,
+                            requestStatus:e.statusList.last.toString(),
                             voluntter: e.statusList.last.toString() ==
                                 RequestStatus.WAITING.toString()
                                 ? false
