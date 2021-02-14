@@ -2,6 +2,7 @@ import 'package:f4rtech_gdgsivas_hackathon/app/colors.dart';
 import 'package:f4rtech_gdgsivas_hackathon/app/constants.dart';
 import 'package:f4rtech_gdgsivas_hackathon/app/enums.dart';
 import 'package:f4rtech_gdgsivas_hackathon/common_widget/AppBarWidget.dart';
+import 'package:f4rtech_gdgsivas_hackathon/common_widget/progressbarWidget.dart';
 import 'package:f4rtech_gdgsivas_hackathon/common_widget/request_widget.dart';
 import 'package:f4rtech_gdgsivas_hackathon/viewmodel/request_model.dart';
 import 'package:f4rtech_gdgsivas_hackathon/viewmodel/user_model.dart';
@@ -20,7 +21,6 @@ class _SharerRequestPageState extends State<SharerRequestPage> {
   UserModel _userModel;
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     _userModel = context.read<UserModel>();
     _requestModel = context.read<RequestModel>();
@@ -44,13 +44,17 @@ class _SharerRequestPageState extends State<SharerRequestPage> {
                       text: e.requesting.fullName,
                       subText: e.requesting.completedProductList.length
                           .toString(),
-                      onTap: () {},
+                      onTap: () async{
+                        e.statusList.add(RequestStatus.COMPLETED.toString());
+                        await e.reference.update({'statusList' : e.statusList});
+                        print('İstek atıldı');
+                      },
                     );
                   } else {
                     return SizedBox();
                   }
                 }).toList(),
-              ) : Center(child: CircularProgressIndicator(),), /*ListView(
+              ) : ProgressBar(), /*ListView(
                 physics: BouncingScrollPhysics(),
                 children:
                 /*[

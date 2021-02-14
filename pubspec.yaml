@@ -46,6 +46,8 @@ dependencies:
   flutter_custom_clippers: ^1.1.2
   multi_image_picker: ^4.6.9
   image_picker: ^0.6.7+17
+  loading_animations: "^2.1.0"
+
 
 dev_dependencies:
   flutter_test:
