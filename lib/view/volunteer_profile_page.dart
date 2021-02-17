@@ -6,6 +6,7 @@ import 'package:f4rtech_gdgsivas_hackathon/common_widget/TextWidget1.dart';
 import 'package:f4rtech_gdgsivas_hackathon/common_widget/profil_widget.dart';
 import 'package:f4rtech_gdgsivas_hackathon/common_widget/progressbarWidget.dart';
 import 'package:f4rtech_gdgsivas_hackathon/common_widget/showBottomWidget.dart';
+import 'package:f4rtech_gdgsivas_hackathon/viewmodel/product_model.dart';
 import 'package:f4rtech_gdgsivas_hackathon/viewmodel/request_model.dart';
 import 'package:f4rtech_gdgsivas_hackathon/viewmodel/user_model.dart';
 import 'package:flutter/cupertino.dart';
@@ -23,6 +24,7 @@ class _VolunteerProfilPageState extends State<VolunteerProfilPage> {
   void initState() {
     super.initState();
     _userModel = context.read<UserModel>();
+    context.read<RequestModel>().readAllRequest();
   }
   @override
   Widget build(BuildContext context) {
@@ -94,11 +96,17 @@ class _VolunteerProfilPageState extends State<VolunteerProfilPage> {
                                   ? false
                                   : true,
                             ),
-                            onTap: (){
-                              productInfo(e.requestedProduct.name,e.requestedProduct.imageUrl,
+                            onTap: ()async {
+                              String a =  await context.read<ProductModel>().getAdress(e.requestedProduct.location.latitude,
+                                  e.requestedProduct.location.longitude);
+
+                              productInfo(e.requestedProduct.imageUrl,
+
                                   e.requested.fullName,
                                   e.requesting.fullName,
                                   e.requestedProduct.explanation,
+                                  e.requestedProduct.name,
+                                  a,
                                   e.statusList.last.toString(),
                                   context,
                                 ColorTable.greenT[4]

@@ -7,6 +7,7 @@ import 'package:f4rtech_gdgsivas_hackathon/viewmodel/request_model.dart';
 import 'package:f4rtech_gdgsivas_hackathon/viewmodel/user_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
 
 class SharerRequestPage extends StatefulWidget {
@@ -42,6 +43,7 @@ class _SharerRequestPageState extends State<SharerRequestPage> {
                                     .add(RequestStatus.COMPLETED.toString());
                                 await e.reference
                                     .update({'statusList': e.statusList});
+                                Fluttertoast.showToast(msg: 'Onay Verildi', toastLength: Toast.LENGTH_LONG);
                                 print('İstek atıldı');
                               },
                             );

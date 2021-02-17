@@ -12,6 +12,7 @@ import 'package:f4rtech_gdgsivas_hackathon/view/select_location.dart';
 import 'package:f4rtech_gdgsivas_hackathon/viewmodel/product_model.dart';
 import 'package:f4rtech_gdgsivas_hackathon/viewmodel/user_model.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:multi_image_picker/multi_image_picker.dart';
 import 'package:provider/provider.dart';
@@ -168,7 +169,8 @@ class _ProductAddPageState extends State<ProductAddPage> {
                                     .read<UserModel>()
                                     .currentLocation
                                     .toString());
-                            await context.read<ProductModel>().saveProduct(
+                            Fluttertoast.showToast(msg: 'Ürün paylaşılıyor...', toastLength: Toast.LENGTH_LONG);
+                            bool result = await context.read<ProductModel>().saveProduct(
                                 name: controller.text,
                                 productType: select == 'Yemek-Yiyecek' ? ProductType.FOOD : ProductType.CLOTHES,
                                 explanation: text.text,
@@ -183,6 +185,19 @@ class _ProductAddPageState extends State<ProductAddPage> {
                                         .read<UserModel>()
                                         .currentLocation
                                         .longitude));
+                            if(result){
+                              Fluttertoast.showToast(msg: 'Ürün başarıyla paylaşılmıştır', toastLength: Toast.LENGTH_LONG);
+                              setState(() {
+                                controller.text = '';
+                                text.text = '';
+                                select = null;
+                                images = [];
+                              });
+
+                            }else{
+                              Fluttertoast.showToast(msg: 'HATA', toastLength: Toast.LENGTH_LONG);
+                            }
+
                             //homeScreen.bodyPage = SharerPage();
                           } catch (e) {
                             print('ERROR: $e');
