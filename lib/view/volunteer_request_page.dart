@@ -7,6 +7,7 @@ import 'package:f4rtech_gdgsivas_hackathon/viewmodel/product_model.dart';
 import 'package:f4rtech_gdgsivas_hackathon/viewmodel/request_model.dart';
 import 'package:f4rtech_gdgsivas_hackathon/viewmodel/user_model.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
 
 class VolunteerRequestPage extends StatefulWidget {
@@ -60,18 +61,30 @@ class _VolunteerRequestPageState extends State<VolunteerRequestPage> {
                           return InkWell(
                             child: RequestWidget(
                               onTap: () async {
-                            final requestModel = Provider.of<RequestModel>(
-                                context,
-                                listen: false);
-                            var product = await productModel
-                                .readProduct(snapshot.data[index].id);
-                            var differentUser = await userModel
-                                .differentUserFunc(product.publisher);
-                            await requestModel.saveRequest(
-                                requestedProduct: product,
-                                requested: differentUser,
-                                requesting: userModel.user);
-                          },
+                                Fluttertoast.showToast(
+                                    msg: 'Talep Gönderiliyor',
+                                    toastLength: Toast.LENGTH_LONG);
+                                final requestModel = Provider.of<RequestModel>(
+                                    context,
+                                    listen: false);
+
+                                var product = await productModel
+                                    .readProduct(snapshot.data[index].id);
+                                var differentUser = await userModel
+                                    .differentUserFunc(product.publisher);
+                                bool result = await requestModel.saveRequest(
+                                    requestedProduct: product,
+                                    requested: differentUser,
+                                    requesting: userModel.user);
+                                if (result) {
+                                  Fluttertoast.showToast(
+                                      msg:
+                                          'Talep Başarıyla gönderilmiştir, profil sayfanızdan talep durumunu görüntüleyebilirsiniz',
+                                      toastLength: Toast.LENGTH_LONG);
+                                }else {
+                                  Fluttertoast.showToast(msg: 'Hata', toastLength: Toast.LENGTH_LONG);
+                                }
+                              },
                               volunteer: true,
                               text: '${snapshot.data[index].name}',
                               subText: '${sp.data}',

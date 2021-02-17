@@ -82,6 +82,7 @@ class RequestModel with ChangeNotifier implements RequestBase {
   Future<List<Request>> readAllRequest() async {
     try {
       state = RequestViewState.Busy;
+      requestList = [];
       var _requestList = await _firestoreService.readAllRequest();
       if (_requestList != null) {
         requestList = _requestList;

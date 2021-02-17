@@ -118,6 +118,7 @@ class ProductModel with ChangeNotifier implements ProductBase {
   Future<List<Product>> readAllProducts() async {
     try {
       state = ProductViewState.Busy;
+      productList = [];
       List<Product> _productList = await _firestoreService.readAllProducts();
       if (_productList != null) {
         productList = _productList;

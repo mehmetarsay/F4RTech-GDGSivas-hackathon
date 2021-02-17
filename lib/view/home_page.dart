@@ -6,6 +6,8 @@ import 'package:f4rtech_gdgsivas_hackathon/view/sharer_request_page.dart';
 import 'package:f4rtech_gdgsivas_hackathon/view/volunteer_leader_board_page.dart';
 import 'package:f4rtech_gdgsivas_hackathon/view/volunteer_profile_page.dart';
 import 'package:f4rtech_gdgsivas_hackathon/view/volunteer_request_page.dart';
+import 'package:f4rtech_gdgsivas_hackathon/viewmodel/product_model.dart';
+import 'package:f4rtech_gdgsivas_hackathon/viewmodel/request_model.dart';
 import 'package:f4rtech_gdgsivas_hackathon/viewmodel/user_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -207,6 +209,7 @@ class _HomePageState extends State<HomePage>
             onTap: () {
               setState(() {
                 closeDrawer();
+                // context.read<RequestModel>()
                 _bodyPage = widget.userType == UserType.VOLUNTEER ? VolunteerProfilPage():SharerProfilePage();
               });
 
