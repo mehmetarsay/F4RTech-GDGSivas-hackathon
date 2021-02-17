@@ -101,6 +101,7 @@ class _VolunteerProfilPageState extends State<VolunteerProfilPage> {
                                   e.requestedProduct.location.longitude);
 
                               productInfo(e.requestedProduct.imageUrl,
+
                                   e.requested.fullName,
                                   e.requesting.fullName,
                                   e.requestedProduct.explanation,

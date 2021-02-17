@@ -66,6 +66,7 @@ class _SharerProfilePageState extends State<SharerProfilePage> {
                                       String a =  await context.read<ProductModel>().getAdress(e.requestedProduct.location.latitude,
                                           e.requestedProduct.location.longitude);
                                       productInfo(e.requestedProduct.imageUrl,
+
                                       e.requested.fullName,
                                         e.requesting.fullName,
                                         e.requestedProduct.explanation,

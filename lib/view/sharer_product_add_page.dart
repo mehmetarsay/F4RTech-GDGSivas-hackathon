@@ -4,6 +4,7 @@ import 'package:f4rtech_gdgsivas_hackathon/app/colors.dart';
 import 'package:f4rtech_gdgsivas_hackathon/app/constants.dart';
 import 'package:f4rtech_gdgsivas_hackathon/app/enums.dart';
 import 'package:f4rtech_gdgsivas_hackathon/common_widget/AppBarWidget.dart';
+import 'package:f4rtech_gdgsivas_hackathon/common_widget/ShowDialog.dart';
 import 'package:f4rtech_gdgsivas_hackathon/common_widget/TextWidget1.dart';
 import 'package:f4rtech_gdgsivas_hackathon/common_widget/accept_button.dart';
 import 'package:f4rtech_gdgsivas_hackathon/common_widget/dropdown_button.dart';
@@ -155,7 +156,13 @@ class _ProductAddPageState extends State<ProductAddPage> {
                       AcceptButton(
                         'Gönder',
                         ColorTable.blue,
-                        onTap: () async {
+                        onTap: () {
+                          setState(() {
+                            _showDialog();
+                          });
+
+                        }
+                        /*async {
                           try {
                             debugPrint('degerrr' +
                                 context
@@ -196,6 +203,7 @@ class _ProductAddPageState extends State<ProductAddPage> {
                             print('ERROR: $e');
                           }
                         },
+                        * */
                       )
                     ],
                   ),
@@ -418,6 +426,60 @@ class _ProductAddPageState extends State<ProductAddPage> {
           )
         ],
       ),
+    );
+  }
+  void _showDialog() {
+    // flutter defined function
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        // return object of type Dialog
+        return Container(
+          height: 30,
+          child: AlertDialog(
+            title: new Text("Paylaşım",style: TextStyle(
+                color: Colors.red
+            ),),
+            content: new Text("Paylaşım yapılacak emin misiniz?"),
+            actions: <Widget>[
+              // usually buttons at the bottom of the dialog
+              new FlatButton(
+                child: new Text("Tamam",style:TextStyle(
+                    color: Colors.blueAccent,
+                    fontWeight: FontWeight.w700
+                ),),
+                onPressed: () async {
+                  try {
+                    debugPrint('degerrr' +
+                        context
+                            .read<UserModel>()
+                            .currentLocation
+                            .toString());
+                    await context.read<ProductModel>().saveProduct(
+                        name: controller.text,
+                        productType: select == 'Yemek-Yiyecek' ? ProductType.FOOD : ProductType.CLOTHES,
+                        explanation: text.text,
+                        publisher: context.read<UserModel>().user.uid,
+                        file: images.first,
+                        geoPoint: GeoPoint(
+                            context
+                                .read<UserModel>()
+                                .currentLocation
+                                .latitude,
+                            context
+                                .read<UserModel>()
+                                .currentLocation
+                                .longitude));
+                    Navigator.pop(context);
+                  } catch (e) {
+                    print('ERROR: $e');
+                  }
+                },
+              ),
+            ],
+          ),
+        );
+      },
     );
   }
 }

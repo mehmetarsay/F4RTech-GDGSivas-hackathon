@@ -1,16 +1,26 @@
-# f4rtech_gdgsivas_hackathon
+F4RTech takımı tarafından GDG Sivas & DSC Cumhuriyet'in düzenlediği Hackathon kapasmında geliştirilen mobil uygulamadır
 
-hackathon project
+  Google Flutter
+  Google Maps
+  Google Firebase kullanılmıştır
+  
+ UYGULAMA AMACI
+    Uygulamamız İhtiyaç sahibi insanlar ve onlara yardımcı olmak isteyen insanlar arasında bir bağ kurmaktadır. Bu bağ kurulurken gönüllüler aracılığı ile ihtiyaç sahiplerine ulaşılmaktadır. Elinde herhangi bir yiyecek veya giyecek gibi fazla  kullanmadığı bir ürün
+bulunan hayırsever uygulama aracılığı ile gönüllülere bu ürünlere ulaştırarak gönüllülerin bu ürünleri ihtiyaç sahiplerine ulaştırması sağlanır. 
 
-## Getting Started
+UYGULAMA İÇERİĞİ
 
-This project is a starting point for a Flutter application.
+    Uygulamada iki farklı kullanıcı tipi vardır.
+   
+1. Kullanıcı: Gönüllü
+2. Kullanıcı: Hayırsever
 
-A few resources to get you started if this is your first Flutter project:
+    -Gönüllü kullanıcı, ihtiyaç sahiplerinin gönderdiği ürünleri görerek bu ürünlere istek atar. Hayırseverin bu istekleri kabul etmesi ile gönüllü bu ürünü haritadan yerine gidip alabilmektedir.
+    -Gönüllü kullanıcı belirli mesafedeki ürünlere uygulamada haritadan erişebilir.
+    -Gönüllü kullanıcı diğer gönüllüler ile bir yarış halindedir ve liderlik tablosunda yerini bulabilir.
+    
+     
+     -Hayırsever ürün ekleme ile kolay bir şekilde ürünün fotoğrafını, ismini, açıklamasını, türünü ve konumunu paylaşarak gönüllülerin daha kolay ürünü bulmasına yardmcı olur.
+     -Kendisine gelen istekleri görebilir, kabul edebilir ve durumunu değiştirebilir.
+     
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.

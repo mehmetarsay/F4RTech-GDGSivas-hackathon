@@ -6,6 +6,7 @@ import 'package:f4rtech_gdgsivas_hackathon/common_widget/CircularWidget.dart';
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
 
+
 productInfo(
     String photo,
     String publisherName,
@@ -150,6 +151,7 @@ productInfo(
                           SizedBox(width: 20,),
                           Container(width: Constants.getWidth(context) / 1.5, child: Text(location, style: TextStyle(color: Colors.white),),)
                         ],
+
                       ),
                     ),
 
